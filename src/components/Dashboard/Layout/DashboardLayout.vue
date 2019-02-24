@@ -30,6 +30,26 @@
         <i class="nc-icon nc-bell-55"></i>
         <p>Notifications</p>
       </sidebar-link>
+      <sidebar-link to="/admin/personal">
+        <i class="nc-icon nc-single-02"></i>
+        <p>Personal</p>
+      </sidebar-link>
+      <sidebar-link to="/teams">
+        <i class="nc-icon nc-planet"></i>
+        <p>Equipos</p>
+      </sidebar-link>
+      <sidebar-link to="/leagues">
+        <i class="nc-icon nc-spaceship"></i>
+        <p>Ligas</p>
+      </sidebar-link>
+      <sidebar-link to="/documents">
+        <i class="nc-icon nc-badge"></i>
+        <p>Documentos</p>
+      </sidebar-link>
+      <sidebar-link to="/stats">
+        <i class="nc-icon nc-chart-bar-32"></i>
+        <p>Estadísticas</p>
+      </sidebar-link>
     </side-bar>
     <div class="main-panel">
       <top-navbar></top-navbar>

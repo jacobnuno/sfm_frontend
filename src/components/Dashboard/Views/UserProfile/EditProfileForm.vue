@@ -1,94 +1,78 @@
 <template>
   <card>
-    <h4 slot="header" class="card-title">Edit Profile</h4>
+    <h4 slot="header" class="card-title">Profile</h4>
     <form>
       <div class="row">
-        <div class="col-md-5">
-          <fg-input type="text"
-                    label="Company"
-                    :disabled="true"
-                    placeholder="Paper dashboard"
-                    v-model="user.company">
-          </fg-input>
-        </div>
         <div class="col-md-3">
           <fg-input type="text"
-                    label="Username"
-                    placeholder="Username"
-                    v-model="user.username">
+                    label="Nombre"
+                    :disabled="true"
+                    placeholder="Nombre"
+                    v-model="Usuario.Nombre">
+          </fg-input>
+        </div>
+        <div class="col-md-5">
+          <fg-input type="text"
+                    label="Apellido Paterno"
+                    :disabled="true"
+                    placeholder="Apellido Paterno"
+                    v-model="Usuario.ApellidoPaterno">
           </fg-input>
         </div>
         <div class="col-md-4">
           <fg-input type="email"
-                    label="Username"
+                    label="Apellido Materno"
+                    :disabled="true"
+                    placeholder="Apellido Materno"
+                    v-model="Usuario.ApellidoMaterno">
+          </fg-input>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <fg-input type="email"
+                    label="E-mail"
+                    :disabled="true"
                     placeholder="Email"
-                    v-model="user.email">
-          </fg-input>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <fg-input type="text"
-                    label="First Name"
-                    placeholder="First Name"
-                    v-model="user.firstName">
+                    v-model="Usuario.Correo">
           </fg-input>
         </div>
         <div class="col-md-6">
+          <fg-input type="password"
+                    label="Contraseña"
+                    :disabled="true"
+                    placeholder="Contraseña"
+                    v-model="Usuario.ClaveAcceso">
+          </fg-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5" v-if="Deportista">
           <fg-input type="text"
-                    label="Last Name"
-                    placeholder="Last Name"
-                    v-model="user.lastName">
+                    label="Equipo"
+                    :disabled="true"
+                    v-model="Deportista.Equipo">
+          </fg-input>
+        </div>
+
+        <div class="col-md-4">
+          <fg-input type="text"
+                    label="Rol"
+                    :disabled="true"
+                    v-model="Usuario.TipoUsuario">
+          </fg-input>
+        </div>
+
+        <div class="col-md-3" v-if="Deportista">
+          <fg-input type="text"
+                    label="Fecha de Nacimiento"
+                    :disabled="true"
+                    v-model="Deportista.FechaNacimiento">
           </fg-input>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <fg-input type="text"
-                    label="Address"
-                    placeholder="Home Address"
-                    v-model="user.address">
-          </fg-input>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-4">
-          <fg-input type="text"
-                    label="City"
-                    placeholder="City"
-                    v-model="user.city">
-          </fg-input>
-        </div>
-        <div class="col-md-4">
-          <fg-input type="text"
-                    label="Country"
-                    placeholder="Country"
-                    v-model="user.country">
-          </fg-input>
-        </div>
-        <div class="col-md-4">
-          <fg-input type="number"
-                    label="Postal Code"
-                    placeholder="ZIP Code"
-                    v-model="user.postalCode">
-          </fg-input>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>About Me</label>
-            <textarea rows="5" class="form-control border-input"
-                      placeholder="Here can be your description"
-                      v-model="user.aboutMe">
-              </textarea>
-          </div>
-        </div>
-      </div>
       <div class="text-center">
         <button type="submit" class="btn btn-info btn-fill float-right" @click.prevent="updateProfile">
           Update Profile
@@ -107,23 +91,28 @@
     },
     data () {
       return {
-        user: {
-          company: 'Paper Dashboard',
-          username: 'michael23',
-          email: '',
-          firstName: 'Mike',
-          lastName: 'Andrew',
-          address: 'Melbourne, Australia',
-          city: 'melbourne',
-          country: 'Australia',
-          postalCode: '',
-          aboutMe: `Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.`
+        Usuario: {
+          id: 0,
+          Equipo: 'Atlas',
+          Nombre: 'Juan',
+          Correo: 'juan@gmail.com',
+          ApellidoPaterno: 'Perez',
+          ApellidoMaterno: 'Mallorca',
+          ClaveAcceso: '',
+          TipoUsuario: 'Admin'
+        },
+        Deportista: {
+          Equipo: 'Atlas',
+          FechaNacimiento: '1995-02-11'
         }
       }
     },
+    created() {      
+      this.Usuario.id = this.$route.params.id;
+    },
     methods: {
       updateProfile () {
-        alert('Your data: ' + JSON.stringify(this.user))
+        alert('Your data: ' + JSON.stringify(this.Usuario))
       }
     }
   }

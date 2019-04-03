@@ -30,7 +30,7 @@
         <i class="nc-icon nc-bell-55"></i>
         <p>Notifications</p>
       </sidebar-link>
-      <sidebar-link to="/admin/personal">
+      <sidebar-link to="personal">
         <i class="nc-icon nc-single-02"></i>
         <p>Personal</p>
       </sidebar-link>
@@ -38,7 +38,7 @@
         <i class="nc-icon nc-planet"></i>
         <p>Equipos</p>
       </sidebar-link>
-      <sidebar-link to="/leagues">
+      <sidebar-link to="leagues">
         <i class="nc-icon nc-spaceship"></i>
         <p>Ligas</p>
       </sidebar-link>

@@ -2,25 +2,34 @@
   <div class="limiter">
 		<div class="container-login">
 			<div class="wrap-login">
-				<form class="login-form validate-form">
+				<form autocomplete="off" @submit.prevent="validateBeforeSubmit" class="login-form validate-form">
 					<div class="login-form-avatar">
 						<img src="@static/img/faces/face-4.jpg" alt="AVATAR">
 					</div>
 
 					<span class="login-form-title">
-						Felipe Rodriguez
+						Sign in to SMF
 					</span>
 
-					<div class="wrap-input">
+          <span class="alert alert-danger credentials-error" v-if="error">La contraseña o el usuario son incorrectos</span>
+
+					<!--<div class="wrap-input">
 						<input class="input" type="text" name="username" placeholder="Usuario" required>
 						<span class="focus-input"></span>
+						<span class="symbol-input">
+							<i class="fa fa-user"></i>
+						</span>
+					</div> -->
+
+          <div class="wrap-input">
+						<input autocomplete="off" v-model="email" class="input" type="email" name="email" placeholder="Email">
 						<span class="symbol-input">
 							<i class="fa fa-user"></i>
 						</span>
 					</div>
 
 					<div class="wrap-input">
-						<input class="input" type="password" name="pass" placeholder="Contraseña" required>
+						<input class="input" type="password" name="password" v-model="password" placeholder="Contraseña" required>
 						<span class="focus-input"></span>
 						<span class="symbol-input">
 							<i class="fa fa-lock"></i>
@@ -52,14 +61,41 @@
 </template>
 
 <script>
-  export default {}
+import authTypes from '@/types/auth';
+import { mapActions } from 'vuex';
 
+  export default {
+    data() {
+      return {
+        email: '',
+        password: '',
+        error: null
+      }
+    },
+    methods: {
+      ...mapActions({
+        login: authTypes.actions.login
+      }),
+      validateBeforeSubmit() {
+        this.login({
+          email: this.email,
+          password: this.password
+        })
+        .then(
+          user => {
+            this.$router.push('/');
+          },
+          error => {
+            console.log(error)
+            this.error = true;
+          }
+        )
+      }
+    }
+  }
 </script>
 
 <style>
-    /*//////////////////////////////////////////////////////////////////
-[ login ]*/
-
 .limiter {
   width: 100%;
   margin: 0 auto;
@@ -132,6 +168,14 @@
   width: 100%;
   display: block;
   font-weight: bold;
+}
+
+.credentials-error {
+  text-align: center;
+  margin-bottom: 2em;
+  width: 100%;
+  display: block;
+  border-radius: 4px;
 }
 
 /*---------------------------------------------*/

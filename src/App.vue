@@ -2,11 +2,30 @@
   <div :class="{'nav-open': $sidebar.showSidebar}">
     <notifications></notifications>
     <router-view></router-view>
+    <div v-if="processing">
+      <BlockUI :message="msg" :url="url"></BlockUI>
+    </div>
   </div>
 </template>
 
 <script>
-  export default {}
+import globalTypes from '@/types/global';
+import { mapGetters } from 'vuex';
+import loadingGif from '@static/img/loading-wedges.gif';
+
+  export default {
+    data () {
+      return {
+        msg: 'Procesando la petición',
+        url: loadingGif
+      }
+    },
+    computed: {
+      ...mapGetters({
+        processing: globalTypes.getters.processing
+      })
+    }
+  }
 </script>
 <style lang="scss">
   .vue-notifyjs.notifications{

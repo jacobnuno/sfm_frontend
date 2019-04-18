@@ -1,5 +1,5 @@
 {
 "plugins": [ 
-        "syntax-dynamic-import" 
+        "syntax-dynamic-import", "transform-es2015-destructuring", "transform-object-rest-spread"
     ]
 }

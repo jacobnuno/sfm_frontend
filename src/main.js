@@ -29,10 +29,20 @@ Vue.use(BlockUI);
 // types and modules
 import globalTypes from '@/types/global';
 import authModule from '@/modules/auth';
+import leagueModule from '@/modules/league';
 
 // vee-validate
+import es from 'vee-validate/dist/locale/es';
 import VeeValidate, { Validator } from 'vee-validate';
-Vue.use(VeeValidate);
+Validator.localize('es', es);
+Vue.use(VeeValidate, {
+  locale: 'es',
+  classes: true,
+  classNames: {
+    valid: "is-valid",
+    invalid: "is-invalid"
+  }
+});
 
 // global store of vuex
 export const store = new Vuex.Store({
@@ -54,7 +64,8 @@ export const store = new Vuex.Store({
     }
   },
   modules: {
-    authModule
+    authModule,
+    leagueModule
   }
 });
 

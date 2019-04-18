@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router);
 
+import leagueTypes from '@/types/league'
 import authTypes from '@/types/auth'
 import globalTypes from '@/types/global'
 import { store } from '@/main'

@@ -9,11 +9,11 @@
             </div>
             <div class="form-group col-sm-8">
                 <label for="StartDate">Día de Inicio</label>
-                <date-picker v-model="time1" lang="es" :width="'100%'" required></date-picker>
+                <date-picker v-model="time1" lang="es" :width="'100%'" :input-attr="{required: true}"></date-picker>
             </div>
             <div class="form-group col-sm-8">
                 <label for="EndDate">Día de Finalización</label>
-                <date-picker v-model="time2" lang="es" :width="'100%'"></date-picker>
+                <date-picker v-model="time2" lang="es" :width="'100%'" :input-attr="{required: true}"></date-picker>
             </div>
             
             <div class="form-group col-sm-8">
@@ -69,22 +69,21 @@ export default {
             create: leagueTypes.actions.create
         }),
         beforeCreateLeague() {
-            console.log(typeof(this.LeagueName))
             this.create({
                 
                 LeagueName: this.LeagueName,
-                StartDate: this.time1.getUTCFullYear() + "-" + this.time1.getUTCMonth() + "-" + this.time1.getUTCDate(),
-                EndDate: this.time2.getUTCFullYear() + "-" + this.time2.getUTCMonth() + "-" + this.time2.getUTCDate(),
+                StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
+                EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
                 Complex: this.Complex,
                 GameDay: this.GameDay
             })
             .then(
                 league => {
                     this.$router.push('/');
-            },
-            error => {
-                this.error = true;
-            }
+                },
+                error => {
+                    this.error = true;
+                }
             )
         }
     }
@@ -92,9 +91,7 @@ export default {
 </script>
 
 <style lang="scss">
-
     #smf-create-league {
-
         .buttons {
             margin-top: 3em;
         }
@@ -114,7 +111,6 @@ export default {
             border-radius: 4px;
         }
     }
-
 </style>
 
 

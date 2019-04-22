@@ -5,7 +5,8 @@ import { openHttp } from '@/utils/http';
 
 const state = {
     user: null,
-    logged: !!window.localStorage.getItem('_token')
+    logged: !!window.localStorage.getItem('_token'),
+    leagues: []
 };
 
 const actions = {
@@ -16,6 +17,24 @@ const actions = {
             openHttp.post('/league/create', createLeague)
                 .then(league => {
                     resolve(league);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                /*.finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                }) */
+        })
+    },
+
+    [types.actions.getLeagues]: ({ commit}, getLeagues) => {
+        //commit(globalTypes.mutations.starProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.get('/league/findall')
+                .then(leagues => {
+                    //commit('setLeagues', res.data.leagues)
+                    resolve(leagues);
                 })
                 .catch(err => {
                     console.log(err)
@@ -53,7 +72,9 @@ const getters = {
 };
 
 const mutations = {
-    
+    setLeagues(state, leagues) {
+        state.leagues = leagues
+    },
 };
 
 export default {

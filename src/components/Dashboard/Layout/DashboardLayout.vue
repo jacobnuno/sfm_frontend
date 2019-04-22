@@ -38,10 +38,31 @@
         <i class="nc-icon nc-planet"></i>
         <p>Equipos</p>
       </sidebar-link>
-      <sidebar-link to="leagues">
+      <ul>
+        <span>
+          <i class="nc-icon nc-notes"></i>
+          LIGAS
+        </span>
+        <li>
+          <sidebar-link to="leagues">
+            <p>Ligas</p>
+          </sidebar-link>
+        </li>
+        <li>
+          <sidebar-link to="create-league">
+            <p>Alta Ligas</p>
+          </sidebar-link>
+        </li>
+        <li>
+          <sidebar-link to="personal">
+            <p>Personal</p>
+          </sidebar-link>
+        </li>
+      </ul>
+      <!--<sidebar-link to="leagues">
         <i class="nc-icon nc-spaceship"></i>
         <p>Ligas</p>
-      </sidebar-link>
+      </sidebar-link> -->
       <sidebar-link to="/documents">
         <i class="nc-icon nc-badge"></i>
         <p>Documentos</p>
@@ -62,6 +83,7 @@
     </div>
   </div>
 </template>
+
 <style lang="scss">
 
 </style>

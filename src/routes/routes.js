@@ -28,6 +28,7 @@ import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
 
 // Leagues
 import CreateLeague from '@/components/Dashboard/Views/Leagues/CreateLeague.vue'
+import League from '@/components/Dashboard/Views/Leagues/League.vue'
 
 // Guards
 
@@ -101,13 +102,19 @@ const router = new Router({
         },
         {
           path: 'personal',
-          name: 'personal',
+          name: 'Personal',
           component: Personal,
           /*beforeEnter: registerGuard*/
         },
         {
           path: 'leagues',
-          name: 'leagues',
+          name: 'Leagues',
+          component: League,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-league',
+          name: 'createLeague',
           component: CreateLeague,
           /*beforeEnter: registerGuard*/
         }

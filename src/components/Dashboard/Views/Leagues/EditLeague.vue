@@ -54,7 +54,7 @@ export default {
     components: { DatePicker },
     data() {
         return {
-            id: 1,
+            id: null,
             LeagueName: '',
             Complex: '',
             GameDay: '',
@@ -66,7 +66,7 @@ export default {
         }
     },
     created() {      
-      //this.id = this.$route.params.id;
+      this.id = this.$route.params.id;
       this.getData();
     }, 
     methods: {

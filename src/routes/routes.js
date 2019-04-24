@@ -127,7 +127,7 @@ const router = new Router({
         },
         {
           path: 'edit-league',
-          name: 'editLeague',
+          name: 'EditLeague',
           component: EditLeague,
           /*beforeEnter: registerGuard*/
         }

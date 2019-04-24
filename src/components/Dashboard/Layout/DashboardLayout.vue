@@ -59,6 +59,11 @@
           </sidebar-link>
         </li>
         <li>
+          <sidebar-link to="edit-league">
+            <p>Editar Ligas</p>
+          </sidebar-link>
+        </li>
+        <li>
           <sidebar-link to="personal">
             <p>Personal</p>
           </sidebar-link>

@@ -6,7 +6,8 @@ export default namespace('league', {
     actions: [
         'create',
         'getLeagues',
-        'getLeague'
+        'getLeague',
+        'updateLeague'
     ],
     mutations: [
     ]

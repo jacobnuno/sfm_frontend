@@ -13,7 +13,7 @@
               <l-table class="table-hover"
                        :columns="table1.columns"
                        :data="table1.data"
-                       :redirect="'User'">
+                       :redirect="'ShowLeague'">
               </l-table>
             </div>
           </card>
@@ -29,7 +29,7 @@
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
   const tableColumns = ['ID', 'Nombre', 'Día de Inicio', 'Día de Finalización', 'Complejo', 'Día de Juego']
-  /*const tableData = [
+  const tableData = [
     {
         id: 1,
         nombre: 'Juan',
@@ -45,7 +45,7 @@
         nombre: 'Esteban Alatorre Ruíz',
         puesto: 'Arbitro'
     }
-  ] */
+  ] 
   export default {
     components: {
       LTable,
@@ -53,7 +53,8 @@
     },
     data () {
       return {
-        tableData: [],
+        //tableColumns: ['ID', 'Nombre', 'Día de Inicio', 'Día de Finalización', 'Complejo', 'Día de Juego'],
+        //tableData: this.gridData(),
         table1: {
           columns: [...tableColumns],
           data: [...tableData]
@@ -65,11 +66,27 @@
       ...mapActions({
         getLeagues: leagueTypes.actions.getLeagues
       }),
+      returnArray(obj) {
+        let myArr = [];
+        Object.keys(obj).map(function(key) {
+          myArr.push([Number(key), obj[key]]);
+        });
+        console.log('typeofmyArr: ', typeof(myArr))
+        return myArr;
+      },
       gridData() {
         this.getLeagues()
           .then(leagues => {
-            console.log('leagues:', leagues.data.leagues)
-            this.tableData = leagues.data.leagues
+            console.log('leagues: ', leagues.data.leagues)
+            //return le
+            //console.log('type: ', typeof(leagues.data.leagues))
+            //let ll = this.returnArray(leagues.data.leagues)
+            let a = [...leagues.data.leagues]
+            let b = [...a]
+            console.log('a', a)
+            console.log('b', b)
+            console.log('typeof: ', typeof(ll))
+            return a;
           })
       }
     },

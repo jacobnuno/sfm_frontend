@@ -54,6 +54,11 @@
           </sidebar-link>
         </li>
         <li>
+          <sidebar-link to="show-league">
+            <p>Ver Ligas</p>
+          </sidebar-link>
+        </li>
+        <li>
           <sidebar-link to="personal">
             <p>Personal</p>
           </sidebar-link>

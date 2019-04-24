@@ -13,7 +13,8 @@
               <l-table class="table-hover"
                        :columns="table1.columns"
                        :data="table1.data"
-                       :redirect="'ShowLeague'">
+                       :redirectShow="'ShowLeague'"
+                       :redirectEdit="'EditLeague'">
               </l-table>
             </div>
           </card>

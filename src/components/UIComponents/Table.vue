@@ -11,7 +11,8 @@
       <slot :row="item">
         <td v-for="column in columns" v-if="hasValue(item, column)">{{ itemValue(item, column) }}</td>
         <td>
-          <button class="btn btn-primary btn-simple" v-on:click="send(redirect, item.id)">Ver</button>
+          <button class="btn btn-primary btn-simple" v-on:click="send(redirectShow, item.id)">Ver</button>
+          <button class="btn btn-warning btn-simple" v-on:click="send(redirectEdit, item.id)">Editar</button>
         </td>
       </slot>
     </tr>
@@ -24,7 +25,8 @@
     props: {
       columns: Array,
       data: Array,
-      redirect: String
+      redirectShow: String,
+      redirectEdit: String
     },
     methods: {
       hasValue (item, column) {

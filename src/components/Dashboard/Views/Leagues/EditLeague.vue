@@ -1,6 +1,6 @@
 <template>
     <section id="smf-create-league">
-        <form @submit.prevent="beforeCreateLeague" class="col-sm-12 col-md-4 offset-md-4">
+        <form @submit.prevent="beforeUpdateLeague" class="col-sm-12 col-md-4 offset-md-4">
             <h2 class="create-title">Editar una Liga</h2>
             <div class="form-group col-sm-12">
                 <label for="LeagueName">Nombre de la Liga</label>
@@ -9,11 +9,11 @@
             </div>
             <div class="form-group col-sm-12">
                 <label for="StartDate">Día de Inicio</label>
-                <date-picker v-model="time1" lang="es" :width="'100%'" :input-attr="{required: true}" :value="new2"></date-picker>
+                <date-picker v-model="time1" lang="es" :width="'100%'" :input-attr="{required: true}"></date-picker>
             </div>
             <div class="form-group col-sm-12">
                 <label for="EndDate">Día de Finalización</label>
-                <date-picker v-model="time2" lang="es" :width="'100%'" :input-attr="{required: true}" :value="EndDate"></date-picker>
+                <date-picker v-model="time2" lang="es" :width="'100%'" :input-attr="{required: true}"></date-picker>
             </div>
             
             <div class="form-group col-sm-12">
@@ -62,8 +62,7 @@ export default {
             EndDate: new Date(),
             time1: null,
             time2: null,
-            error: null,
-            new2: new Date()
+            error: null
         }
     },
     created() {      
@@ -98,8 +97,8 @@ export default {
                 console.log('leagues: ', league.data.data)
                 let newLeague = league.data.data;
                 this.LeagueName = newLeague.LeagueName
-                this.time1 = this.date(newLeague.StartDate)
-                this.time2 = this.date(newLeague.EndDate)
+                this.time1 = new Date(newLeague.StartDate)
+                this.time2 = new Date(newLeague.EndDate)
                 this.GameDay = newLeague.Day.id
                 this.Complex = newLeague["Complex Detail"].id
             })
@@ -116,8 +115,8 @@ export default {
             })
             .then(
                 league => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'primary')
-                    this.$router.push('/');
+                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'primary')
+                    this.$router.push({ name: 'Leagues'});
                 },
                 error => {
                     console.log(error)

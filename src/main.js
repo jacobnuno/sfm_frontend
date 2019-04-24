@@ -56,7 +56,7 @@ export const store = new Vuex.Store({
     [globalTypes.getters.processing]: state => state.processing,
   }, 
   mutations: {
-    [globalTypes.mutations.starProcessing] (state) {
+    [globalTypes.mutations.startProcessing] (state) {
       state.processing = true;
     },
     [globalTypes.mutations.stopProcessing] (state) {

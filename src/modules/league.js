@@ -47,9 +47,26 @@ const actions = {
     },
 
     [types.actions.getLeague]: ({ commit}, idLeague) => {
-        commit(globalTypes.mutations.startProcessing);
+        //commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.get(`/league/${idLeague}`)
+                .then(league => {
+                    resolve(league);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                /*.finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })*/
+        })
+    },
+
+    [types.actions.update]: ({ commit}, updateLeague) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.post(`/league/${updateLeague.id}`, updateLeague)
                 .then(league => {
                     resolve(league);
                 })

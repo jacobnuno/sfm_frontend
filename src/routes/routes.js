@@ -30,7 +30,7 @@ import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
 import League from '@/components/Dashboard/Views/Leagues/League.vue'
 import CreateLeague from '@/components/Dashboard/Views/Leagues/CreateLeague.vue'
 import ShowLeague from '@/components/Dashboard/Views/Leagues/ShowLeague.vue'
-
+import EditLeague from '@/components/Dashboard/Views/Leagues/EditLeague.vue'
 // Guards
 
 // Guard to auth user
@@ -123,6 +123,12 @@ const router = new Router({
           path: 'show-league',
           name: 'ShowLeague',
           component: ShowLeague,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-league',
+          name: 'editLeague',
+          component: EditLeague,
           /*beforeEnter: registerGuard*/
         }
       ]

@@ -12,7 +12,7 @@ const state = {
 const actions = {
     
     [types.actions.create]: ({ commit}, createLeague) => {
-        //commit(globalTypes.mutations.starProcessing);
+        commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.post('/league/create', createLeague)
                 .then(league => {
@@ -22,14 +22,14 @@ const actions = {
                     console.log(err)
                     reject(err);
                 })
-                /*.finally(() => {
+                .finally(() => {
                     commit(globalTypes.mutations.stopProcessing);
-                }) */
+                })
         })
     },
 
     [types.actions.getLeagues]: ({ commit}, getLeagues) => {
-        //commit(globalTypes.mutations.starProcessing);
+        commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.get('/league/findall')
                 .then(leagues => {
@@ -40,9 +40,26 @@ const actions = {
                     console.log(err)
                     reject(err);
                 })
-                /*.finally(() => {
+                .finally(() => {
                     commit(globalTypes.mutations.stopProcessing);
-                }) */
+                })
+        })
+    },
+
+    [types.actions.getLeague]: ({ commit}, idLeague) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.get(`/league/${idLeague}`)
+                .then(league => {
+                    resolve(league);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
         })
     },
 

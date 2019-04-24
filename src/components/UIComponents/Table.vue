@@ -9,7 +9,7 @@
     <tbody>
     <tr v-for="item in data">
       <slot :row="item">
-        <td v-for="column in columns" v-if="hasValue(item, column)">{{itemValue(item, column)}}</td>
+        <td v-for="column in columns" v-if="hasValue(item, column)">{{ itemValue(item, column) }}</td>
         <td>
           <button class="btn btn-primary btn-simple" v-on:click="send(redirect, item.id)">Ver</button>
         </td>
@@ -33,8 +33,8 @@
       itemValue (item, column) {
         return item[column.toLowerCase()]
       },
-      send(route, userId) {
-        this.$router.push({ name: route, params: { id: userId } }) 
+      send(route, itemId) {
+        this.$router.push({ name: route, params: { id: itemId } }) 
       }
     }
   }

@@ -17,7 +17,7 @@
           <button class="btn btn-warning btn-simple" v-on:click="send(redirectEdit, item.id)">
             <fai :icon="['fas', 'pencil-alt']" class="icons" />
           </button>
-          <button class="btn btn-danger btn-simple" v-on:click="send(redirectEdit, item.id)">
+          <button class="btn btn-danger btn-simple" v-on:click="areYouSureAlert()">
             <fai :icon="['fas', 'trash-alt']" class="icons" />
           </button>
         </td>
@@ -52,6 +52,24 @@ library.add(faTrashAlt)
       },
       send(route, itemId) {
         this.$router.push({ name: route, params: { id: itemId } }) 
+      },
+      areYouSureAlert() {
+        this.$swal({
+          title: '¿Estás seguro?',
+          text: 'No podrás revertir esta acción',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: '¡Si, Elimínalo!',
+          cancelButtonText: '¡Cancelar!',
+          showCloseButton: true,
+          showLoaderOnConfirm: true
+        }).then((result) => {
+          if(result.value) {
+            this.$swal('Eliminado', 'Se ha eliminado satisfactoriamente', 'success')
+          } else {
+            this.$swal('Cancelado', 'Se ha cancelado', 'info')
+          }
+        })
       }
     }
   }

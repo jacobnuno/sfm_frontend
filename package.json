@@ -33,6 +33,7 @@
     "vue-clickaway": "^2.1.0",
     "vue-notifyjs": "^0.2.0",
     "vue-router": "^3.0.1",
+    "vue-sweetalert2": "^1.6.4",
     "vue2-datepicker": "^2.11.0",
     "vue2-google-maps": "^0.8.4",
     "vuejs-datepicker": "^1.5.4",

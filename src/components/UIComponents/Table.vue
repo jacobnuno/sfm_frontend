@@ -3,7 +3,7 @@
     <thead>
       <slot name="columns">
         <th v-for="column in columns">{{column}}</th>
-        <th>Detalles</th>
+        <th>Opciones</th>
       </slot>
     </thead>
     <tbody>

@@ -92,7 +92,7 @@ export default {
             })
             .then(
                 league => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'primary')
+                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
                     this.$router.push('/');
                 },
                 error => {

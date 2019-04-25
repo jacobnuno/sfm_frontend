@@ -57,7 +57,7 @@
             console.log('field: ', field.data.data)
             let newField = field.data.data;
             this.FieldName = newField.FieldName
-            this.Complex = newLeague["Complex Detail"].id
+            this.Complex = newField["Complex Detail"].id
           })
           .catch(err => console.log('err: ', err))
       }

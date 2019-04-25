@@ -69,8 +69,8 @@ export default {
             })
             .then(
                 field => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'primary')
-                    this.$router.push('/');
+                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                    this.$router.push({ name: 'Fields'});
                 },
                 error => {
                     console.log(error)

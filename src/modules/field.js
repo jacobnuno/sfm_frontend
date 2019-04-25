@@ -4,7 +4,7 @@ import Vue from 'vue';
 import { openHttp } from '@/utils/http';
 
 const state = {
-    
+
 };
 
 const actions = {
@@ -75,7 +75,25 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
-    },    
+    },
+
+    // delete field
+    [types.actions.deleteField]: ({ commit}, data) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.put(`/field/delete/${data.id}`)
+                .then(field => {
+                    resolve(field);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
+    }
 };
 
 const getters = {

@@ -14,7 +14,8 @@
                        :columns="table1.columns"
                        :data="table1.data"
                        :redirectShow="'ShowLeague'"
-                       :redirectEdit="'EditLeague'">
+                       :redirectEdit="'EditLeague'"
+                       :deleteAction="'deleteLeague'">
               </l-table>
             </div>
           </card>

@@ -14,7 +14,8 @@
                        :columns="table1.columns"
                        :data="table1.data"
                        :redirectShow="'ShowField'"
-                       :redirectEdit="'EditField'">
+                       :redirectEdit="'EditField'"
+                       :deleteAction="'deleteField'">
               </l-table>
             </div>
           </card>

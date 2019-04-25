@@ -17,7 +17,7 @@
           <button class="btn btn-warning btn-simple" v-on:click="send(redirectEdit, item.id)">
             <fai :icon="['fas', 'pencil-alt']" class="icons" />
           </button>
-          <button class="btn btn-danger btn-simple" v-on:click="areYouSureAlert()">
+          <button class="btn btn-danger btn-simple" v-on:click="areYouSureAlert(item.id)">
             <fai :icon="['fas', 'trash-alt']" class="icons" />
           </button>
         </td>
@@ -27,6 +27,10 @@
   </table>
 </template>
 <script>
+import { mapActions } from 'vuex';
+import fieldType from '@/types/field';
+import leagueType from '@/types/league';
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEye } from '@fortawesome/fontawesome-free-regular'
 import { faPencilAlt } from '@fortawesome/fontawesome-free-solid'
@@ -41,7 +45,8 @@ library.add(faTrashAlt)
       columns: Array,
       data: Array,
       redirectShow: String,
-      redirectEdit: String
+      redirectEdit: String,
+      deleteAction: String
     },
     methods: {
       hasValue (item, column) {
@@ -53,21 +58,49 @@ library.add(faTrashAlt)
       send(route, itemId) {
         this.$router.push({ name: route, params: { id: itemId } }) 
       },
-      areYouSureAlert() {
+      ...mapActions({
+        deleteLeague: leagueType.actions.deleteLeague,
+        deleteField: fieldType.actions.deleteField
+      }),
+      notifyVue (verticalAlign, horizontalAlign, msg, color) {
+            const notification = {
+            template: `<span>${ msg }.</span>`
+            }
+
+            this.$notifications.notify(
+            {
+                component: notification,
+                icon: 'nc-icon nc-app',
+                horizontalAlign: horizontalAlign,
+                verticalAlign: verticalAlign,
+                type: color
+            })
+        },
+      areYouSureAlert(itemId) {
         this.$swal({
           title: '¿Estás seguro?',
           text: 'No podrás revertir esta acción',
           type: 'warning',
           showCancelButton: true,
-          confirmButtonText: '¡Si, Elimínalo!',
-          cancelButtonText: '¡Cancelar!',
+          confirmButtonText: 'Elimimar',
+          cancelButtonText: 'Cancelar',
           showCloseButton: true,
           showLoaderOnConfirm: true
         }).then((result) => {
           if(result.value) {
-            this.$swal('Eliminado', 'Se ha eliminado satisfactoriamente', 'success')
-          } else {
-            this.$swal('Cancelado', 'Se ha cancelado', 'info')
+            console.log(typeof(this[`${this.deleteAction}`] ))
+            this[`${this.deleteAction}`]({
+                id: itemId
+            })
+            .then(
+                res => {
+                    this.notifyVue('top', 'right', 'Eliminado exitosamente!', 'success')
+                },
+                error => {
+                    console.log(error)
+                    this.notifyVue('top', 'right', error, 'danger')
+                }
+            )
           }
         })
       }

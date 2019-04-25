@@ -14,7 +14,7 @@ const actions = {
     [types.actions.create]: ({ commit}, createLeague) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/league/create', createLeague)
+            openHttp.post('/league/', createLeague)
                 .then(league => {
                     resolve(league);
                 })
@@ -33,7 +33,6 @@ const actions = {
         return new Promise((resolve, reject) =>  {
             openHttp.get('/league/findall')
                 .then(leagues => {
-                    //commit('setLeagues', res.data.leagues)
                     resolve(leagues);
                 })
                 .catch(err => {

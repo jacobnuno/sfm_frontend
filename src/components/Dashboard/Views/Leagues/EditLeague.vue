@@ -117,7 +117,7 @@ export default {
             })
             .then(
                 league => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'primary')
+                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
                     this.$router.push({ name: 'Leagues'});
                 },
                 error => {

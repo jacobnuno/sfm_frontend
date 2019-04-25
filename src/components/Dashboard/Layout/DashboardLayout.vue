@@ -38,6 +38,10 @@
         <i class="nc-icon nc-planet"></i>
         <p>Equipos</p>
       </sidebar-link>
+      <sidebar-link to="fields">
+        <i class="nc-icon nc-planet"></i>
+        <p>Canchas</p>
+      </sidebar-link>
       <ul>
         <span>
           <i class="nc-icon nc-notes"></i>

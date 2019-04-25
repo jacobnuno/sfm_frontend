@@ -31,6 +31,13 @@ import League from '@/components/Dashboard/Views/Leagues/League.vue'
 import CreateLeague from '@/components/Dashboard/Views/Leagues/CreateLeague.vue'
 import ShowLeague from '@/components/Dashboard/Views/Leagues/ShowLeague.vue'
 import EditLeague from '@/components/Dashboard/Views/Leagues/EditLeague.vue'
+
+// Fields
+import Fields from '@/components/Dashboard/Views/Fields/Fields.vue'
+import CreateField from '@/components/Dashboard/Views/Fields/CreateField.vue'
+import ShowField from '@/components/Dashboard/Views/Fields/ShowField.vue'
+import EditField from '@/components/Dashboard/Views/Fields/EditField.vue'
+
 // Guards
 
 // Guard to auth user
@@ -129,6 +136,30 @@ const router = new Router({
           path: 'edit-league',
           name: 'EditLeague',
           component: EditLeague,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'fields',
+          name: 'Fields',
+          component: Fields,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-field',
+          name: 'createField',
+          component: CreateField,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-field',
+          name: 'ShowField',
+          component: ShowField,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-field',
+          name: 'EditField',
+          component: EditField,
           /*beforeEnter: registerGuard*/
         }
       ]

@@ -70,12 +70,12 @@ export default {
             getField: fieldTypes.actions.getField
         }),
         getData() {
-            this.getLeague(this.id)
+            this.getField(this.id)
             .then(field => {
-                console.log('fields: ', field.data.data)
+                console.log('field: ', field.data.data)
                 let newField = field.data.data;
                 this.FieldName = newField.FieldName
-                this.Complex = newLeague["Complex Detail"].id
+                this.Complex = newField["Complex Detail"].id
             })
             .catch(err => console.log('err: ', err))
         },
@@ -87,8 +87,8 @@ export default {
             })
             .then(
                 field => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'primary')
-                    this.$router.push({ name: 'Leagues'});
+                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                    this.$router.push({ name: 'Fields'});
                 },
                 error => {
                     console.log(error)

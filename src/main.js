@@ -1,9 +1,9 @@
 import Vue from 'vue'
-//import VueRouter from 'vue-router'
 import App from './App.vue'
 
 // LightBootstrap plugin
 import LightBootstrap from './light-bootstrap-main'
+Vue.use(LightBootstrap)
 
 // Font Awesome
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -11,16 +11,6 @@ Vue.component('fai', FontAwesomeIcon);
 
 // router setup
 import router from './routes/routes'
-// plugin setup
-//Vue.use(VueRouter)
-Vue.use(LightBootstrap)
-
-// configure router
-/*
-const router = new VueRouter({
-  routes, // short for routes: routes
-  linkActiveClass: 'nav-item active'
-}) */
 
 // vuex
 import Vuex from 'vuex';

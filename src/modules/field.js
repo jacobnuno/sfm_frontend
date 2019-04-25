@@ -1,22 +1,20 @@
-import types from '@/types/league';
+import types from '@/types/field';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
 import { openHttp } from '@/utils/http';
 
 const state = {
-    user: null,
-    logged: !!window.localStorage.getItem('_token'),
-    leagues: []
+    
 };
 
 const actions = {
     
-    [types.actions.create]: ({ commit}, createLeague) => {
+    [types.actions.createField]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/league/create', createLeague)
-                .then(league => {
-                    resolve(league);
+            openHttp.post('/field/', data)
+                .then(field => {
+                    resolve(field);
                 })
                 .catch(err => {
                     console.log(err)
@@ -28,13 +26,12 @@ const actions = {
         })
     },
 
-    [types.actions.getLeagues]: ({ commit}, getLeagues) => {
+    [types.actions.getFields]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/league/findall')
-                .then(leagues => {
-                    //commit('setLeagues', res.data.leagues)
-                    resolve(leagues);
+            openHttp.get('/field/findall')
+                .then(fields => {
+                    resolve(fields);
                 })
                 .catch(err => {
                     console.log(err)
@@ -46,12 +43,12 @@ const actions = {
         })
     },
 
-    [types.actions.getLeague]: ({ commit}, idLeague) => {
+    [types.actions.getField]: ({ commit}, idField) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/league/${idLeague}`)
-                .then(league => {
-                    resolve(league);
+            openHttp.get(`/field/${idField}`)
+                .then(field => {
+                    resolve(field);
                 })
                 .catch(err => {
                     console.log(err)
@@ -63,12 +60,12 @@ const actions = {
         })
     },
 
-    [types.actions.updateLeague]: ({ commit}, data) => {
+    [types.actions.updateField]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/league/${data.id}`, data)
-                .then(league => {
-                    resolve(league);
+            openHttp.put(`/field/${data.id}`, data)
+                .then(field => {
+                    resolve(field);
                 })
                 .catch(err => {
                     console.log(err)
@@ -78,8 +75,7 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
-    },
-    
+    },    
 };
 
 const getters = {
@@ -87,7 +83,7 @@ const getters = {
 };
 
 const mutations = {
-    
+
 };
 
 export default {

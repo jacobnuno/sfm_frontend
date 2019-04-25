@@ -88,7 +88,6 @@ library.add(faTrashAlt)
           showLoaderOnConfirm: true
         }).then((result) => {
           if(result.value) {
-            console.log(typeof(this[`${this.deleteAction}`] ))
             this[`${this.deleteAction}`]({
                 id: itemId
             })

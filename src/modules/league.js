@@ -11,6 +11,7 @@ const state = {
 
 const actions = {
     
+    // create league
     [types.actions.create]: ({ commit}, createLeague) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
@@ -28,6 +29,7 @@ const actions = {
         })
     },
 
+    // get all leagues
     [types.actions.getLeagues]: ({ commit}, getLeagues) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
@@ -45,6 +47,7 @@ const actions = {
         })
     },
 
+    // get one league
     [types.actions.getLeague]: ({ commit}, idLeague) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
@@ -62,6 +65,7 @@ const actions = {
         })
     },
 
+    // update league
     [types.actions.updateLeague]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {

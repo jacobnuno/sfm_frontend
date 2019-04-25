@@ -26,6 +26,10 @@ const router = new VueRouter({
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
+// sweet alert
+import VueSweetalert2 from 'vue-sweetalert2';
+Vue.use(VueSweetalert2);
+
 // blockui
 import BlockUI from 'vue-blockui';
 Vue.use(BlockUI);

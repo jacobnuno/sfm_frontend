@@ -79,6 +79,24 @@ const actions = {
                 })
         })
     },
+
+    // delete league
+    [types.actions.deleteLeague]: ({ commit}, data) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.put(`/league/delete/${data.id}`)
+                .then(league => {
+                    resolve(league);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
+    }
     
 };
 

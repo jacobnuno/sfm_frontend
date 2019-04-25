@@ -8,7 +8,8 @@ export default namespace('field', {
         'createField',
         'getFields',
         'getField',
-        'updateField'
+        'updateField',
+        'deleteField'
     ],
     mutations: [
         

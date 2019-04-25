@@ -31,8 +31,8 @@
               </div>
             </div>
             
-            <router-link :to="{ name: 'Leagues' }">
-              <a class="btn btn-danger btn-close float-right">Cerrar</a>
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Leagues' }">
+              Cerrar
             </router-link>
           </card>
         </div>

@@ -5,6 +5,10 @@ import App from './App.vue'
 // LightBootstrap plugin
 import LightBootstrap from './light-bootstrap-main'
 
+// Font Awesome
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+Vue.component('fai', FontAwesomeIcon);
+
 // router setup
 import router from './routes/routes'
 // plugin setup

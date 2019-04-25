@@ -11,8 +11,15 @@
       <slot :row="item">
         <td v-for="column in columns" v-if="hasValue(item, column)">{{ itemValue(item, column) }}</td>
         <td>
-          <button class="btn btn-primary btn-simple" v-on:click="send(redirectShow, item.id)">Ver</button>
-          <button class="btn btn-warning btn-simple" v-on:click="send(redirectEdit, item.id)">Editar</button>
+          <button class="btn btn-primary btn-simple" v-on:click="send(redirectShow, item.id)">
+            <fai :icon="['far', 'eye']" class="icons" />
+          </button>
+          <button class="btn btn-warning btn-simple" v-on:click="send(redirectEdit, item.id)">
+            <fai :icon="['fas', 'pencil-alt']" class="icons" />
+          </button>
+          <button class="btn btn-danger btn-simple" v-on:click="send(redirectEdit, item.id)">
+            <fai :icon="['fas', 'trash-alt']" class="icons" />
+          </button>
         </td>
       </slot>
     </tr>
@@ -20,6 +27,14 @@
   </table>
 </template>
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEye } from '@fortawesome/fontawesome-free-regular'
+import { faPencilAlt } from '@fortawesome/fontawesome-free-solid'
+import { faTrashAlt } from '@fortawesome/fontawesome-free-solid'
+library.add(faEye)
+library.add(faPencilAlt)
+library.add(faTrashAlt)
+
   export default {
     name: 'l-table',
     props: {

@@ -20,7 +20,6 @@
             </div>
           </card>
         </div>
-
       </div>
     </div>
   </div>
@@ -31,23 +30,7 @@
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
   const tableColumns = ['ID', 'Nombre', 'Día de Inicio', 'Día de Finalización', 'Complejo', 'Día de Juego']
-  const tableData = [
-    {
-        id: 1,
-        nombre: 'Juan',
-        puesto: 'Gerente'
-    },
-    {
-        id: 2,
-        nombre: 'Felipe Ortega Díaz',
-        puesto: 'Arbitro'
-    },
-    {
-        id: 3,
-        nombre: 'Esteban Alatorre Ruíz',
-        puesto: 'Arbitro'
-    }
-  ] 
+
   export default {
     components: {
       LTable,
@@ -55,11 +38,9 @@
     },
     data () {
       return {
-        //tableColumns: ['ID', 'Nombre', 'Día de Inicio', 'Día de Finalización', 'Complejo', 'Día de Juego'],
-        //tableData: this.gridData(),
         table1: {
           columns: [...tableColumns],
-          data: [...tableData]
+          data: [],
         },
         error: null
       }
@@ -73,34 +54,46 @@
         Object.keys(obj).map(function(key) {
           myArr.push([Number(key), obj[key]]);
         });
-        console.log('typeofmyArr: ', typeof(myArr))
         return myArr;
+      },
+      date(value) {
+        return value.split('T')[0];
+      },
+      getData() {
+        this.getLeague(this.id)
+          .then(league => {
+            console.log('leagues: ', league.data.data)
+            let newLeague = league.data.data;
+            this.LeagueName = newLeague.LeagueName
+            this.StartDate = this.date(newLeague.StartDate)
+            this.EndDate = this.date(newLeague.EndDate)
+            this.GameDay = newLeague.Day.Days
+            this.Complex = newLeague["Complex Detail"].ComplexName
+          })
+          .catch(err => console.log('err: ', err))
       },
       gridData() {
         this.getLeagues()
           .then(leagues => {
-            console.log('leagues: ', leagues.data.leagues)
-            //return le
-            //console.log('type: ', typeof(leagues.data.leagues))
-            //let ll = this.returnArray(leagues.data.leagues)
-            let a = [...leagues.data.leagues]
-            let b = [...a]
-            console.log('a', a)
-            console.log('b', b)
-            console.log('typeof: ', typeof(ll))
-            return a;
+            leagues.data.data.forEach(e => {
+              let element = { 
+                'id': e.id, 
+                'nombre': e.LeagueName, 
+                'día de inicio': this.date(e.StartDate), 
+                'día de finalización': this.date(e.EndDate),
+                'complejo': e["Complex Detail"].ComplexName,
+                'día de juego': e.Day.Days
+              }
+              this.table1.data.push(element)
+            });
+            
+            //this.$set(this.table1, 'data', leagues.data.data);
           })
       }
     },
     mounted() {
-        console.log('mounted')
         this.gridData()
     },
-    computed: {
-      /*...mapState({
-        tableData: leagueTypes.state
-      }) */
-    }
   }
 </script>
 <style>

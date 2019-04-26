@@ -31,23 +31,7 @@
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
   const tableColumns = ['ID', 'Nombre', 'Complejo']
-  const tableData = [
-    {
-        id: 1,
-        nombre: 'Juan',
-        puesto: 'Gerente'
-    },
-    {
-        id: 2,
-        nombre: 'Felipe Ortega Díaz',
-        puesto: 'Arbitro'
-    },
-    {
-        id: 3,
-        nombre: 'Esteban Alatorre Ruíz',
-        puesto: 'Arbitro'
-    }
-  ] 
+   
   export default {
     components: {
       LTable,
@@ -55,10 +39,9 @@
     },
     data () {
       return {
-        //tableData: this.gridData(),
         table1: {
           columns: [...tableColumns],
-          data: [...tableData]
+          data: []
         },
         error: null
       }
@@ -70,18 +53,18 @@
       gridData() {
         this.getFields()
           .then(fields => {
-            console.log('fields: ', fields.data.fields)
-            let a = [...fields.data.fields]
-            let b = [...a]
-            console.log('a', a)
-            console.log('b', b)
-            console.log('typeof: ', typeof(ll))
-            return a;
+            fields.data.data.forEach(e => {
+              let element = { 
+                'id': e.id, 
+                'nombre': e.FieldName,
+                'complejo': e["Complex Detail"].ComplexName
+              }
+              this.table1.data.push(element)
+            });
           })
       }
     },
     mounted() {
-        console.log('mounted')
         this.gridData()
     },
   }

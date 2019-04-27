@@ -1,10 +1,10 @@
 <template>
-<div class="content" id="smf-show-field">
+<div class="content" id="smf-show-match-event">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12 col-md-6 offset-md-3">
           <card>
-            <h4 slot="header" class="card-title">Tipo de Usuario</h4>
+            <h4 slot="header" class="card-title">Evento Partido</h4>
 
             <div class="row">
               <div class="form-group col-sm-12 col-md-6">
@@ -13,7 +13,7 @@
               </div>
             </div>
                         
-            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'UserTypes' }">
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'MatchEvents' }">
               Cerrar
             </router-link>
           </card>
@@ -25,7 +25,7 @@
 </template>
 <script>
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  import userTypes from '@/types/userType';
+  import matchEventTypes from '@/types/matchEvent';
   import { mapActions } from 'vuex';
 
   export default {
@@ -44,12 +44,12 @@
     },
     methods: {
       ...mapActions({
-        getUserType: userTypes.actions.getUserType
+        getMatchEvent: matchEventTypes.actions.getMatchEvent
       }),
       getData() {
-       this.getUserType(this.id)
-            .then(userType => {
-                this.Description = userType.data.data.Description
+       this.getMatchEvent(this.id)
+            .then(matchEvent => {
+                this.Description = matchEvent.data.data.Description
             })
             .catch(err => console.log('err: ', err))
       }

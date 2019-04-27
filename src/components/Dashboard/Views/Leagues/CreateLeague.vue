@@ -37,8 +37,10 @@
             
             <div class="text-center buttons">
                 <div class="form-group">
-                    <button type="submit" tabindex=8 class="btn btn-primary">Guardar</button>
-                    <a class="btn btn-danger btn-close" tabindex=9 href="">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Leagues' }">
+                        Cerrar
+                    </router-link>
                 </div>
             </div>
         </form>

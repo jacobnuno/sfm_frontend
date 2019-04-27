@@ -23,7 +23,9 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" tabindex=8 class="btn btn-primary">Guardar</button>
-                    <a class="btn btn-danger btn-close" tabindex=9 href="">Cancelar</a>
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Fields' }">
+                        Cerrar
+                    </router-link>
                 </div>
             </div>
         </form>

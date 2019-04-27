@@ -2,22 +2,18 @@
 <div class="content" id="smf-show-field">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-sm-12 col-md-6 offset-md-3">
           <card>
-            <h4 slot="header" class="card-title">Cancha</h4>
+            <h4 slot="header" class="card-title">Tipo de Usuario</h4>
 
             <div class="row">
               <div class="form-group col-sm-12 col-md-6">
-                  <label for="FieldName">Nombre de la Cancha</label>
-                  <span class="span-input form-control">{{ FieldName }}</span>
-              </div>
-              <div class="form-group col-sm-12 col-md-6">
-                  <label for="Complex">Complejo</label>
-                  <span class="span-input">{{ Complex }}</span>
+                  <label for="Description">Descripción</label>
+                  <span class="span-input form-control">{{ Description }}</span>
               </div>
             </div>
                         
-            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Fields' }">
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'UserTypes' }">
               Cerrar
             </router-link>
           </card>
@@ -29,7 +25,7 @@
 </template>
 <script>
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  import fieldTypes from '@/types/field';
+  import userTypes from '@/types/userType';
   import { mapActions } from 'vuex';
 
   export default {
@@ -39,8 +35,7 @@
     data () {
       return {
         id: null,
-        FieldName: null,
-        Complex: null
+        Description: null
       }
     },
     created() {      
@@ -49,17 +44,14 @@
     },
     methods: {
       ...mapActions({
-        getField: fieldTypes.actions.getField
+        getUserType: userTypes.actions.getUserType
       }),
       getData() {
-        this.getField(this.id)
-          .then(field => {
-            console.log('field: ', field.data.data)
-            let newField = field.data.data;
-            this.FieldName = newField.FieldName
-            this.Complex = newField["Complex Detail"].id
-          })
-          .catch(err => console.log('err: ', err))
+       this.getUserType(this.id)
+            .then(userType => {
+                this.Description = userType.data.data.Description
+            })
+            .catch(err => console.log('err: ', err))
       }
     }
   }
@@ -67,7 +59,7 @@
 </script>
 
 <style lang="scss">
-  #smf-show-field {
+  #smf-show-user-type {
     .span-input {
       background-color: #F5F5F5;
       color: #888888;

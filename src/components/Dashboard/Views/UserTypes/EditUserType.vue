@@ -3,7 +3,7 @@
         <form @submit.prevent="beforeUpdateField" class="col-sm-12 col-md-4 offset-md-4">
             <h2 class="create-title">Editar un Tipo de Usuario</h2>
             <div class="form-group col-sm-12">
-                <label for="Description">Nombre de la Cancha</label>
+                <label for="Description">Descripción</label>
                 <input type="text" autocomplete="off" class="form-control" id="Description" v-model="Description" v-validate="'required|alpha_spaces'" data-vv-name="Description" placeholder="Ingresa la descripción" required>
                 <div class="invalid-feedback">{{ errors.first("Description") }}</div>
             </div>

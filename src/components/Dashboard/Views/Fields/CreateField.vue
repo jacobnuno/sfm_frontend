@@ -33,12 +33,10 @@
 </template>
 
 <script>
-import DatePicker from 'vue2-datepicker';
 import fieldTypes from '@/types/field';
 import { mapActions } from 'vuex';
 
 export default {
-    components: { DatePicker },
     data() {
         return {
             FieldName: '',

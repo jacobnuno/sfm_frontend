@@ -1,7 +1,7 @@
 <template>
-    <section id="smf-create-user-types">
-        <form @submit.prevent="beforeCreateUserType" class="col-sm-12 col-md-4 offset-md-4">
-            <h2 class="create-title">Crear un Tipo de Usuario</h2>
+    <section id="smf-create-match-event">
+        <form @submit.prevent="beforeCreateMatchEvent" class="col-sm-12 col-md-4 offset-md-4">
+            <h2 class="create-title">Crear un Evento Partido</h2>
             <div class="form-group col-sm-12">
                 <label for="Description">Descripción</label>
                 <input type="text" autocomplete="off" class="form-control" id="Description" v-model="Description" v-validate="'required|alpha_spaces'" data-vv-name="Description" placeholder="Ingresa la descripción" required>
@@ -13,7 +13,7 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" tabindex=8 class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'UserTypes' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'MatchEvents' }">
                         Cerrar
                     </router-link>
                 </div>
@@ -23,12 +23,10 @@
 </template>
 
 <script>
-import DatePicker from 'vue2-datepicker';
-import userTypes from '@/types/userType';
+import matchEventTypes from '@/types/matchEvent';
 import { mapActions } from 'vuex';
 
 export default {
-    components: { DatePicker },
     data() {
         return {
             Description: '',
@@ -51,16 +49,16 @@ export default {
             })
         },
          ...mapActions({
-            createUserType: userTypes.actions.createUserType
+            createMatchEvent: matchEventTypes.actions.createMatchEvent
         }),
-        beforeCreateUserType() {
-            this.createUserType({
+        beforeCreateMatchEvent() {
+            this.createMatchEvent({
                 Description: this.Description
             })
             .then(
                 field => {
                     this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'UserTypes'});
+                    this.$router.push({ name: 'MatchEvents'});
                 },
                 error => {
                     console.log(error)
@@ -73,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss">
-    #smf-create-user-types {
+    #smf-create-match-event {
         .buttons {
             margin-top: 3em;
         }

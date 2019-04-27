@@ -38,6 +38,12 @@ import CreateField from '@/components/Dashboard/Views/Fields/CreateField.vue'
 import ShowField from '@/components/Dashboard/Views/Fields/ShowField.vue'
 import EditField from '@/components/Dashboard/Views/Fields/EditField.vue'
 
+// User Types
+import UserTypes from '@/components/Dashboard/Views/UserTypes/UserTypes.vue'
+//import CreateField from '@/components/Dashboard/Views/Fields/CreateField.vue'
+//import ShowField from '@/components/Dashboard/Views/Fields/ShowField.vue'
+//import EditField from '@/components/Dashboard/Views/Fields/EditField.vue'
+
 // Guards
 
 // Guard to auth user
@@ -142,6 +148,30 @@ const router = new Router({
           path: 'fields',
           name: 'Fields',
           component: Fields,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-field',
+          name: 'CreateField',
+          component: CreateField,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-field',
+          name: 'ShowField',
+          component: ShowField,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-field',
+          name: 'EditField',
+          component: EditField,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'userTypes',
+          name: 'UserTYpes',
+          component: UserTypes,
           /*beforeEnter: registerGuard*/
         },
         {

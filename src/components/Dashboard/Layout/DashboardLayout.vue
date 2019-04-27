@@ -50,6 +50,10 @@
         <i class="nc-icon nc-badge"></i>
         <p>Tipos de Usuario</p>
       </sidebar-link>
+      <sidebar-link to="match-events">
+        <i class="nc-icon nc-atom"></i>
+        <p>Eventos Partidos</p>
+      </sidebar-link>
       <sidebar-link to="/documents">
         <i class="nc-icon nc-badge"></i>
         <p>Documentos</p>

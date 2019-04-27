@@ -9,6 +9,7 @@ const state = {
 
 const actions = {
     
+    // create field
     [types.actions.createField]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
@@ -26,6 +27,7 @@ const actions = {
         })
     },
 
+    // get all fields
     [types.actions.getFields]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
@@ -43,6 +45,7 @@ const actions = {
         })
     },
 
+    // get one field
     [types.actions.getField]: ({ commit}, idField) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
@@ -60,6 +63,7 @@ const actions = {
         })
     },
 
+    // update field
     [types.actions.updateField]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {

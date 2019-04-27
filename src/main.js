@@ -29,6 +29,7 @@ import globalTypes from '@/types/global';
 import authModule from '@/modules/auth';
 import leagueModule from '@/modules/league';
 import fieldModule from '@/modules/field';
+import userTypeModule from '@/modules/userType';
 
 // vee-validate
 import es from 'vee-validate/dist/locale/es';
@@ -65,7 +66,8 @@ export const store = new Vuex.Store({
   modules: {
     authModule,
     leagueModule,
-    fieldModule
+    fieldModule,
+    userTypeModule
   }
 });
 

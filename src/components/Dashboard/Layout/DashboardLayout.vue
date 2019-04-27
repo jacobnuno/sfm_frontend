@@ -46,6 +46,10 @@
         <i class="nc-icon nc-spaceship"></i>
         <p>Ligas</p>
       </sidebar-link>
+      <sidebar-link to="userTypes">
+        <i class="nc-icon nc-badge"></i>
+        <p>Tipos de Usuario</p>
+      </sidebar-link>
       <sidebar-link to="/documents">
         <i class="nc-icon nc-badge"></i>
         <p>Documentos</p>

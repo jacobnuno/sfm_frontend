@@ -31,6 +31,7 @@ import { mapActions } from 'vuex';
 import fieldType from '@/types/field';
 import leagueType from '@/types/league';
 import userTypes from '@/types/userType';
+import matchEventTypes from '@/types/matchEvent';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEye } from '@fortawesome/fontawesome-free-regular'
@@ -62,7 +63,8 @@ library.add(faTrashAlt)
       ...mapActions({
         deleteLeague: leagueType.actions.deleteLeague,
         deleteField: fieldType.actions.deleteField,
-        deleteUserType: userTypes.actions.deleteUserType
+        deleteUserType: userTypes.actions.deleteUserType,
+        deleteMatchEvent: matchEventTypes.actions.deleteMatchEvent
       }),
       notifyVue (verticalAlign, horizontalAlign, msg, color) {
             const notification = {

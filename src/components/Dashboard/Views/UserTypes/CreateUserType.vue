@@ -1,29 +1,19 @@
 <template>
-    <section id="smf-create-field">
-        <form @submit.prevent="beforeCreateField" class="col-sm-12 col-md-4 offset-md-4">
-            <h2 class="create-title">Crear una cancha</h2>
+    <section id="smf-create-user-types">
+        <form @submit.prevent="beforeCreateUserType" class="col-sm-12 col-md-4 offset-md-4">
+            <h2 class="create-title">Crear un Tipo de Usuario</h2>
             <div class="form-group col-sm-12">
-                <label for="FieldName">Nombre de la Cancha</label>
-                <input type="text" autocomplete="off" class="form-control" id="FieldName" v-model="FieldName" v-validate="'required|alpha_spaces'" data-vv-name="FieldName" placeholder="Ingresa el nombre" required>
-                <div class="invalid-feedback">{{ errors.first("FieldName") }}</div>
-            </div>
-                        
-            <div class="form-group col-sm-12">
-                <label for="Complex">Complejo</label>
-                <select class="form-control" id="Complex" name="Complex" v-model="Complex" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                </select>
-            </div>
-            
+                <label for="Description">Descripción</label>
+                <input type="text" autocomplete="off" class="form-control" id="Description" v-model="Description" v-validate="'required|alpha_spaces'" data-vv-name="Description" placeholder="Ingresa la descripción" required>
+                <div class="invalid-feedback">{{ errors.first("Description") }}</div>
+            </div>         
 
             <span class="alert alert-danger validation-error" v-if="error">A ocurrido un error</span>
             
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" tabindex=8 class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Fields' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'UserTypes' }">
                         Cerrar
                     </router-link>
                 </div>
@@ -34,15 +24,14 @@
 
 <script>
 import DatePicker from 'vue2-datepicker';
-import fieldTypes from '@/types/field';
+import userTypes from '@/types/userType';
 import { mapActions } from 'vuex';
 
 export default {
     components: { DatePicker },
     data() {
         return {
-            FieldName: '',
-            Complex: '',
+            Description: '',
             error: null
         }
     }, 
@@ -62,17 +51,16 @@ export default {
             })
         },
          ...mapActions({
-            create: fieldTypes.actions.createField
+            createUserType: userTypes.actions.createUserType
         }),
-        beforeCreateField() {
-            this.create({
-                FieldName: this.FieldName,
-                Complex: this.Complex
+        beforeCreateUserType() {
+            this.createUserType({
+                Description: this.Description
             })
             .then(
                 field => {
                     this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Fields'});
+                    this.$router.push({ name: 'UserTypes'});
                 },
                 error => {
                     console.log(error)
@@ -85,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss">
-    #smf-create-field {
+    #smf-create-user-types {
         .buttons {
             margin-top: 3em;
         }

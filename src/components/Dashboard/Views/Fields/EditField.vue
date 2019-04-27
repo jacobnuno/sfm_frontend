@@ -1,7 +1,7 @@
 <template>
-    <section id="smf-create-field">
+    <section id="smf-edit-field">
         <form @submit.prevent="beforeUpdateField" class="col-sm-12 col-md-4 offset-md-4">
-            <h2 class="create-title">Editar una Cancha</h2>
+            <h2 class="edit-title">Editar una Cancha</h2>
             <div class="form-group col-sm-12">
                 <label for="FieldName">Nombre de la Cancha</label>
                 <input type="text" autocomplete="off" class="form-control" id="FieldName" v-model="FieldName" v-validate="'required|alpha_spaces'" data-vv-name="FieldName" placeholder="Ingresa el nombre" required>
@@ -101,11 +101,11 @@ export default {
 </script>
 
 <style lang="scss">
-    #smf-create-field {
+    #smf-edit-field {
         .buttons {
             margin-top: 3em;
         }
-        .create-title {
+        .edit-title {
             color: var(--primary) !important;
         }
         .validation-error {

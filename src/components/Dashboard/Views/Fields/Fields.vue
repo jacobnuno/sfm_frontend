@@ -6,8 +6,10 @@
         <div class="col-12">
           <card class="card-plain">
             <template slot="header">
+              <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateField' }">
+                Nuevo
+              </router-link>
               <h4 class="card-title">Canchas</h4>
-              <p class="card-category">Here is a subtitle for this table</p>
             </template>
             <div class="table-responsive">
               <l-table class="table-hover"

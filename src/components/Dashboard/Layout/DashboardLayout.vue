@@ -41,42 +41,11 @@
       <sidebar-link to="fields">
         <i class="nc-icon nc-planet"></i>
         <p>Canchas</p>
-      </sidebar-link>
-      <ul>
-        <span>
-          <i class="nc-icon nc-notes"></i>
-          LIGAS
-        </span>
-        <li>
-          <sidebar-link to="leagues">
-            <p>Ligas</p>
-          </sidebar-link>
-        </li>
-        <li>
-          <sidebar-link to="create-league">
-            <p>Alta Ligas</p>
-          </sidebar-link>
-        </li>
-        <li>
-          <sidebar-link to="show-league">
-            <p>Ver Ligas</p>
-          </sidebar-link>
-        </li>
-        <li>
-          <sidebar-link to="edit-league">
-            <p>Editar Ligas</p>
-          </sidebar-link>
-        </li>
-        <li>
-          <sidebar-link to="personal">
-            <p>Personal</p>
-          </sidebar-link>
-        </li>
-      </ul>
-      <!--<sidebar-link to="leagues">
+      </sidebar-link>      
+      <sidebar-link to="leagues">
         <i class="nc-icon nc-spaceship"></i>
         <p>Ligas</p>
-      </sidebar-link> -->
+      </sidebar-link>
       <sidebar-link to="/documents">
         <i class="nc-icon nc-badge"></i>
         <p>Documentos</p>

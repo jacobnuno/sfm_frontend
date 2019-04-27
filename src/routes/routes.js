@@ -122,7 +122,7 @@ const router = new Router({
         },
         {
           path: 'create-league',
-          name: 'createLeague',
+          name: 'CreateLeague',
           component: CreateLeague,
           /*beforeEnter: registerGuard*/
         },
@@ -146,7 +146,7 @@ const router = new Router({
         },
         {
           path: 'create-field',
-          name: 'createField',
+          name: 'CreateField',
           component: CreateField,
           /*beforeEnter: registerGuard*/
         },

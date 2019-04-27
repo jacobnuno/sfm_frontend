@@ -40,9 +40,9 @@ import EditField from '@/components/Dashboard/Views/Fields/EditField.vue'
 
 // User Types
 import UserTypes from '@/components/Dashboard/Views/UserTypes/UserTypes.vue'
-//import CreateField from '@/components/Dashboard/Views/Fields/CreateField.vue'
-//import ShowField from '@/components/Dashboard/Views/Fields/ShowField.vue'
-//import EditField from '@/components/Dashboard/Views/Fields/EditField.vue'
+import CreateUserType from '@/components/Dashboard/Views/UserTypes/CreateUserType.vue'
+import ShowUserType from '@/components/Dashboard/Views/UserTypes/ShowUserType.vue'
+import EditUserType from '@/components/Dashboard/Views/UserTypes/EditUserType.vue'
 
 // Guards
 
@@ -169,27 +169,27 @@ const router = new Router({
           /*beforeEnter: registerGuard*/
         },
         {
-          path: 'userTypes',
-          name: 'UserTYpes',
+          path: 'user-types',
+          name: 'UserTypes',
           component: UserTypes,
           /*beforeEnter: registerGuard*/
         },
         {
-          path: 'create-field',
-          name: 'CreateField',
-          component: CreateField,
+          path: 'create-user-type',
+          name: 'CreateUserType',
+          component: CreateUserType,
           /*beforeEnter: registerGuard*/
         },
         {
-          path: 'show-field',
-          name: 'ShowField',
-          component: ShowField,
+          path: 'show-user-type',
+          name: 'ShowUserType',
+          component: ShowUserType,
           /*beforeEnter: registerGuard*/
         },
         {
-          path: 'edit-field',
-          name: 'EditField',
-          component: EditField,
+          path: 'edit-user-type',
+          name: 'EditUserType',
+          component: EditUserType,
           /*beforeEnter: registerGuard*/
         }
       ]

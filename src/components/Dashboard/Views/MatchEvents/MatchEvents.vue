@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-  import matchEventTypes from '@/types/userType';
+  import matchEventTypes from '@/types/matchEvent';
   import { mapActions } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'

@@ -1,7 +1,7 @@
 <template>
-    <section id="smf-create-league">
+    <section id="smf-edit-league">
         <form @submit.prevent="beforeUpdateLeague" class="col-sm-12 col-md-4 offset-md-4">
-            <h2 class="create-title">Editar una Liga</h2>
+            <h2 class="edit-title">Editar una Liga</h2>
             <div class="form-group col-sm-12">
                 <label for="LeagueName">Nombre de la Liga</label>
                 <input type="text" autocomplete="off" class="form-control" id="LeagueName" v-model="LeagueName" v-validate="'required|alpha_spaces'" data-vv-name="LeagueName" placeholder="Ingresa el nombre" required>
@@ -131,11 +131,11 @@ export default {
 </script>
 
 <style lang="scss">
-    #smf-create-league {
+    #smf-edit-league {
         .buttons {
             margin-top: 3em;
         }
-        .create-title {
+        .edit-title {
             color: var(--primary) !important;
         }
         .smf-datepicker input {

@@ -10,7 +10,7 @@ const state = {
 const actions = {
     
     // create matchEvent
-    [types.actions.createUserType]: ({ commit}, data) => {
+    [types.actions.createMatchEvent]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.post('/matchevent/', data)
@@ -28,7 +28,7 @@ const actions = {
     },
 
     // get all matchEvents
-    [types.actions.getUserTypes]: ({ commit }) => {
+    [types.actions.getMatchEvents]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.get('/matchevent/findall')
@@ -46,7 +46,7 @@ const actions = {
     },
 
     // get one matchEvent
-    [types.actions.getUserType]: ({ commit}, idMatchEvent) => {
+    [types.actions.getMatchEvent]: ({ commit}, idMatchEvent) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.get(`/matchevent/${idMatchEvent}`)
@@ -64,7 +64,7 @@ const actions = {
     },
 
     // update matchEvent
-    [types.actions.updateUserType]: ({ commit}, data) => {
+    [types.actions.updateMatchEvent]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.put(`/matchevent/${data.id}`, data)
@@ -82,7 +82,7 @@ const actions = {
     },
 
     // delete matchEvent
-    [types.actions.deleteUserType]: ({ commit}, data) => {
+    [types.actions.deleteMatchEvent]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.put(`/matchevent/delete/${data.id}`)

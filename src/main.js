@@ -31,6 +31,7 @@ import leagueModule from '@/modules/league';
 import fieldModule from '@/modules/field';
 import userTypeModule from '@/modules/userType';
 import matchEventModule from '@/modules/matchEvent';
+import complexModule from '@/modules/complex';
 
 // vee-validate
 import es from 'vee-validate/dist/locale/es';
@@ -69,7 +70,8 @@ export const store = new Vuex.Store({
     leagueModule,
     fieldModule,
     userTypeModule,
-    matchEventModule
+    matchEventModule,
+    complexModule
   }
 });
 

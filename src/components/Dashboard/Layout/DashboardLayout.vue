@@ -6,6 +6,7 @@
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Dashboard</p>
       </sidebar-link>
+      <!--
       <sidebar-link to="/admin/user">
         <i class="nc-icon nc-circle-09"></i>
         <p>User Profile</p>
@@ -38,6 +39,7 @@
         <i class="nc-icon nc-planet"></i>
         <p>Equipos</p>
       </sidebar-link>
+      -->
       <sidebar-link to="fields">
         <i class="nc-icon nc-planet"></i>
         <p>Canchas</p>
@@ -54,6 +56,7 @@
         <i class="nc-icon nc-atom"></i>
         <p>Eventos Partidos</p>
       </sidebar-link>
+      <!--
       <sidebar-link to="/documents">
         <i class="nc-icon nc-badge"></i>
         <p>Documentos</p>
@@ -62,6 +65,7 @@
         <i class="nc-icon nc-chart-bar-32"></i>
         <p>Estadísticas</p>
       </sidebar-link>
+      -->
     </side-bar>
     <div class="main-panel">
       <top-navbar></top-navbar>

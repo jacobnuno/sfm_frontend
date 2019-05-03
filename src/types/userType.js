@@ -12,6 +12,6 @@ export default namespace('userType', {
         'deleteUserType'
     ],
     mutations: [
-        
+
     ]
 });

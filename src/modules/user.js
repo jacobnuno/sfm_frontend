@@ -28,7 +28,7 @@ const actions = {
     },
 
     // get all user
-    [types.actions.getUserTypes]: ({ commit }) => {
+    [types.actions.getUser]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.get('/user/findall')

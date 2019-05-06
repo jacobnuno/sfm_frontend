@@ -6,10 +6,10 @@
                 <label for="Description">Descripción</label>
                 <input type="text" autocomplete="off" class="form-control" id="Description" v-model="Description" v-validate="'required|alpha_spaces'" data-vv-name="Description" placeholder="Ingresa la descripción" required>
                 <div class="invalid-feedback">{{ errors.first("Description") }}</div>
-            </div>         
+            </div>
 
             <span class="alert alert-danger validation-error" v-if="error">A ocurrido un error</span>
-            
+
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" tabindex=8 class="btn btn-primary">Guardar</button>
@@ -34,7 +34,7 @@ export default {
             Description: '',
             error: null
         }
-    }, 
+    },
     methods: {
         notifyVue (verticalAlign, horizontalAlign, msg, color) {
             const notification = {
@@ -89,5 +89,3 @@ export default {
         }
     }
 </style>
-
-

@@ -5,7 +5,7 @@ export default namespace('user', {
     actions: [
         'createUser',
         'getUser',
-        'getUser',
+        'getUsers',
         'updateUser',
         'deleteUser'
     ],

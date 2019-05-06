@@ -43,7 +43,7 @@
       <sidebar-link to="fields">
         <i class="nc-icon nc-planet"></i>
         <p>Canchas</p>
-      </sidebar-link>      
+      </sidebar-link>
       <sidebar-link to="leagues">
         <i class="nc-icon nc-spaceship"></i>
         <p>Ligas</p>
@@ -55,6 +55,10 @@
       <sidebar-link to="user-types">
         <i class="nc-icon nc-badge"></i>
         <p>Tipos de Usuario</p>
+      </sidebar-link>
+      <sidebar-link to="users">
+        <i class="nc-icon nc-atom"></i>
+        <p>Usuarios</p>
       </sidebar-link>
       <sidebar-link to="match-events">
         <i class="nc-icon nc-atom"></i>

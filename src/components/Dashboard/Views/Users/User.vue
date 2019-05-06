@@ -6,10 +6,10 @@
         <div class="col-12">
           <card class="card-plain">
             <template slot="header">
-              <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateUserType' }">
+              <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateUser' }">
                 Nuevo
               </router-link>
-              <h4 class="card-title">Tipos de Usuarios</h4>
+              <h4 class="card-title">Usuarios</h4>
             </template>
             <div class="table-responsive">
               <l-table class="table-hover"
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-  import userTypes from '@/types/userType';
+  import users from '@/types/user';
   import { mapActions, mapState } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
@@ -50,12 +50,12 @@
     },
     methods: {
       ...mapActions({
-        getUserTypes: userTypes.actions.getUserTypes
+        getUserTypes: users.actions.getUsers
       }),
       gridData() {
-        this.getUserTypes()
-          .then(userTypes => {
-            userTypes.data.data.forEach(e => {
+        this.getUsers()
+          .then(users => {
+            users.data.data.forEach(e => {
               let element = {
                 'id': e.id,
                 'descripción': e.Description

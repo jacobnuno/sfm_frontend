@@ -15,9 +15,9 @@
               <l-table class="table-hover"
                        :columns="table1.columns"
                        :data="table1.data"
-                       :redirectShow="'ShowUserType'"
-                       :redirectEdit="'EditUserType'"
-                       :deleteAction="'deleteUserType'">
+                       :redirectShow="'ShowUser'"
+                       :redirectEdit="'EditUser'"
+                       :deleteAction="'deleteUser'">
               </l-table>
             </div>
           </card>
@@ -29,10 +29,10 @@
 </template>
 <script>
   import users from '@/types/user';
-  import { mapActions, mapState } from 'vuex';
+  import { mapActions } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  const tableColumns = ['ID', 'Descripción']
+  const tableColumns = ['ID', 'Nombre', 'Apellido Paterno', 'Apellido Materno']
 
   export default {
     components: {
@@ -50,7 +50,7 @@
     },
     methods: {
       ...mapActions({
-        getUserTypes: users.actions.getUsers
+        getUsers: users.actions.getUsers
       }),
       gridData() {
         this.getUsers()
@@ -58,7 +58,9 @@
             users.data.data.forEach(e => {
               let element = {
                 'id': e.id,
-                'descripción': e.Description
+                'nombre': e.FirstName,
+                'apellido paterno': e.LastName,
+                'apellido materno': e.SecondLastName
               }
               this.table1.data.push(element)
             });

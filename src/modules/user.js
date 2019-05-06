@@ -28,12 +28,12 @@ const actions = {
     },
 
     // get all user
-    [types.actions.getUser]: ({ commit }) => {
+    [types.actions.getUsers]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.get('/user/findall')
-                .then(userTypes => {
-                    resolve(user);
+                .then(users => {
+                    resolve(users);
                 })
                 .catch(err => {
                     console.log(err)
@@ -82,7 +82,7 @@ const actions = {
     },
 
     // delete user
-    [types.actions.deleteUser: ({ commit}, data) => {
+    [types.actions.deleteUser]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.put(`/user/delete/${data.id}`)

@@ -1,5 +1,5 @@
 <template>
-    <section id="smf-create-user-type">
+    <section id="smf-create-user">
         <form @submit.prevent="beforeUpdateField" class="col-sm-12 col-md-4 offset-md-4">
             <h2 class="create-title">Editar un Tipo de Usuario</h2>
             <div class="form-group col-sm-12">
@@ -85,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss">
-    #smf-create-user-type {
+    #smf-create-user {
         .buttons {
             margin-top: 3em;
         }

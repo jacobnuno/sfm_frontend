@@ -45,7 +45,7 @@ import ShowUserType from '@/components/Dashboard/Views/UserTypes/ShowUserType.vu
 import EditUserType from '@/components/Dashboard/Views/UserTypes/EditUserType.vue'
 
 //User
-import Users from '@/components/Dashboard/Views/Users/User.vue'
+import Users from '@/components/Dashboard/Views/Users/Users.vue'
 import CreateUser from '@/components/Dashboard/Views/Users/CreateUser.vue'
 import ShowUser from '@/components/Dashboard/Views/Users/ShowUser.vue'
 import EditUser from '@/components/Dashboard/Views/Users/EditUser.vue'
@@ -256,6 +256,30 @@ const router = new Router({
           path: 'edit-complex',
           name: 'EditComplex',
           component: EditComplex,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'users',
+          name: 'Users',
+          component: Users,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-user',
+          name: 'CreateUser',
+          component: CreateUser,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-user',
+          name: 'ShowUser',
+          component: ShowUser,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-user',
+          name: 'EditUser',
+          component: EditUser,
           /*beforeEnter: registerGuard*/
         }
       ]

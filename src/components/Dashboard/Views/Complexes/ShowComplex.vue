@@ -1,19 +1,46 @@
 <template>
-<div class="content" id="smf-show-match-event">
+<div class="content" id="smf-show-complex">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-12 col-md-6 offset-md-3">
+        <div class="col-sm-12 col-md-10 offset-md-1">
           <card>
-            <h4 slot="header" class="card-title">Evento Partido</h4>
+            <h4 slot="header" class="card-title">Unidades</h4>
 
             <div class="row">
-              <div class="form-group col-sm-12 col-md-6">
-                  <label for="Description">Descripción</label>
-                  <span class="span-input form-control">{{ Description }}</span>
+              <div class="col-sm-12 col-md-6">
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <label for="ComplexName">Nombre</label>
+                    <span class="span-input form-control">{{ ComplexName }}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <label for="Address">Ubicación</label>
+                    <span class="span-input form-control">{{ Address }}</span>
+                  </div>
+                </div>
               </div>
+              <!-- Google Map -->
+              <div class="col-sm-12 col-md-6">
+                <gmap-map
+                  :center="center"
+                  :zoom="12"
+                  style="width:100%;  height: 400px;"
+                >
+                  <gmap-marker
+                    :key="index"
+                    v-for="(m, index) in markers"
+                    :position="m.position"
+                    @click="center=m.position"
+                  ></gmap-marker>
+                </gmap-map>
+              </div>
+
+              
             </div>
                         
-            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'MatchEvents' }">
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Complexes' }">
               Cerrar
             </router-link>
           </card>
@@ -24,8 +51,8 @@
   
 </template>
 <script>
-  import Card from 'src/components/UIComponents/Cards/Card.vue'
-  import matchEventTypes from '@/types/matchEvent';
+  import Card from 'src/components/UIComponents/Cards/Card.vue';
+  import complexTypes from '@/types/complex';
   import { mapActions } from 'vuex';
 
   export default {
@@ -34,24 +61,45 @@
     },
     data () {
       return {
-        id: null,
-        Description: null
+        id: 1,
+        ComplexName: null,
+        Latitude: null,
+        Longitude: null,
+        Address: null,
+        center: { lat: 45.508, lng: -73.587 },
+        markers: [],
+        places: [],
+        currentPlace: null
       }
     },
     created() {      
-      this.id = this.$route.params.id;
+      //this.id = this.$route.params.id;
       this.getData();
+    },
+    mounted() {
+      this.geolocate();
     },
     methods: {
       ...mapActions({
-        getMatchEvent: matchEventTypes.actions.getMatchEvent
+        getComplex: complexTypes.actions.getComplex
       }),
       getData() {
-       this.getMatchEvent(this.id)
+       this.getComplex(this.id)
             .then(matchEvent => {
-                this.Description = matchEvent.data.data.Description
+                this.ComplexName = matchEvent.data.data.ComplexName
+                this.Latitude = matchEvent.data.data.Latitude
+                this.Longitude = matchEvent.data.data.Longitude
+                this.Address = matchEvent.data.data.Address
             })
             .catch(err => console.log('err: ', err))
+      },
+      geolocate: function() {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+        });
       }
     }
   }
@@ -59,7 +107,7 @@
 </script>
 
 <style lang="scss">
-  #smf-show-user-type {
+  #smf-show-complex {
     .span-input {
       background-color: #F5F5F5;
       color: #888888;

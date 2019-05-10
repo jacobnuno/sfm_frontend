@@ -73,7 +73,7 @@ export const store = new Vuex.Store({
     userTypeModule,
     matchEventModule,
     complexModule,
-    matchDetail
+    matchDetailModule
   }
 });
 

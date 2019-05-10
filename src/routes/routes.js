@@ -56,6 +56,12 @@ import CreateComplex from '@/components/Dashboard/Views/Complexes/CreateComplex.
 import ShowComplex from '@/components/Dashboard/Views/Complexes/ShowComplex.vue'
 import EditComplex from '@/components/Dashboard/Views/Complexes/EditComplex.vue'
 
+// Match Detail
+import MatchDetails from '@/components/Dashboard/Views/MatchDetails/MatchDetails.vue'
+import CreateMatchDetail from '@/components/Dashboard/Views/MatchDetails/CreateMatchDetail.vue'
+import ShowMatchDetail from '@/components/Dashboard/Views/MatchDetails/ShowMatchDetail.vue'
+import EditMatchDetail from '@/components/Dashboard/Views/MatchDetails/EditMatchDetail.vue'
+
 // Guards
 
 // Guard to auth user
@@ -250,6 +256,30 @@ const router = new Router({
           path: 'edit-complex',
           name: 'EditComplex',
           component: EditComplex,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'match-details',
+          name: 'MatchDetails',
+          component: MatchDetails,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-match-detail',
+          name: 'CreateMatchDetail',
+          component: CreateMatchDetail,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-match-detail',
+          name: 'ShowMatchDetail',
+          component: ShowMatchDetail,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-match-detail',
+          name: 'EditMatchDetail',
+          component: EditMatchDetail,
           /*beforeEnter: registerGuard*/
         }
       ]

@@ -6,7 +6,7 @@
         <div class="col-12">
           <card class="card-plain">
             <template slot="header">
-              <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateLeague' }">
+              <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateMatchDetail' }">
                 Nuevo
               </router-link>
               <h4 class="card-title">Ligas</h4>

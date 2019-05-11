@@ -1,7 +1,7 @@
 <template>
     <section id="smf-create-team">
         <form @submit.prevent="beforeUpdateTeam" class="col-sm-12 col-md-4 offset-md-4">
-            <h2 class="create-title">Editar un Tipo de Usuario</h2>
+            <h2 class="create-title">Editar un Equipo</h2>
             
             <div class="form-group col-sm-12">
                 <label for="TeamName">Nombre</label>

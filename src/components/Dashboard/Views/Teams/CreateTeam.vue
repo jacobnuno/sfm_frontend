@@ -1,11 +1,19 @@
 <template>
-    <section id="smf-create-user-types">
-        <form @submit.prevent="beforeCreateUserType" class="col-sm-12 col-md-4 offset-md-4">
-            <h2 class="create-title">Crear un Tipo de Usuario</h2>
+    <section id="smf-create-teams">
+        <form @submit.prevent="beforeCreateTeam" class="col-sm-12 col-md-4 offset-md-4">
+            <h2 class="create-title">Crear un Equipo</h2>
             <div class="form-group col-sm-12">
-                <label for="Description">Descripción</label>
-                <input type="text" autocomplete="off" class="form-control" id="Description" v-model="Description" v-validate="'required|alpha_spaces'" data-vv-name="Description" placeholder="Ingresa la descripción" required>
-                <div class="invalid-feedback">{{ errors.first("Description") }}</div>
+                <label for="TeamName">Nombre</label>
+                <input type="text" autocomplete="off" class="form-control" id="TeamName" v-model="TeamName" v-validate="'required|alpha_spaces'" data-vv-name="TeamName" placeholder="Ingresa el nombre" required>
+                <div class="invalid-feedback">{{ errors.first("TeamName") }}</div>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <label for="idLeague">Liga</label>
+                <select class="form-control" id="idLeague" name="idLeague" v-model="idLeague" required>
+                    <option selected disabled>Elije una opción</option>
+                    <option v-for="option in leagueOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
+                </select>
             </div>
 
             <span class="alert alert-danger validation-error" v-if="error">A ocurrido un error</span>
@@ -13,7 +21,7 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" tabindex=8 class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'UserTypes' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Teams' }">
                         Cerrar
                     </router-link>
                 </div>
@@ -23,15 +31,16 @@
 </template>
 
 <script>
-import DatePicker from 'vue2-datepicker';
-import userTypes from '@/types/userType';
+import teamTypes from '@/types/team';
+import leagueTypes from '@/types/league';
 import { mapActions } from 'vuex';
 
 export default {
-    components: { DatePicker },
     data() {
         return {
-            Description: '',
+            TeamName: '',
+            idLeague: null,
+            leagueOptions: [],
             error: null
         }
     },
@@ -51,29 +60,42 @@ export default {
             })
         },
          ...mapActions({
-            createUserType: userTypes.actions.createUserType
+            createTeam: teamTypes.actions.createTeam,
+            getLeagues: leagueTypes.actions.getLeagues
         }),
-        beforeCreateUserType() {
-            this.createUserType({
-                Description: this.Description
+        beforeCreateTeam() {
+            this.createTeam({
+                TeamName: this.TeamName,
+                League: this.idLeague
             })
             .then(
                 field => {
                     this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'UserTypes'});
+                    this.$router.push({ name: 'Teams'});
                 },
                 error => {
                     console.log(error)
                     this.notifyVue('top', 'right', error, 'danger')
                 }
             )
-        }
-    }
+        },
+        populateLeagues() {
+            this.getLeagues()
+            .then(leagues => {
+                leagues.data.data.forEach(e => {
+                    this.leagueOptions.push({ text: e.LeagueName, value: e.id })
+                });
+            })
+      }
+    },
+    mounted() {
+        this.populateLeagues()
+    },
 }
 </script>
 
 <style lang="scss">
-    #smf-create-user-types {
+    #smf-create-team{
         .buttons {
             margin-top: 3em;
         }

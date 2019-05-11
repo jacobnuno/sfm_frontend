@@ -27,7 +27,7 @@
             <!--Email-->
             <div class="form-group col-sm-12">
                 <label for="Email">Email</label>
-                <input type="text" autocomplete="off" class="form-control" id="Email" v-model="Email" v-validate="'required|alpha_spaces'" data-vv-name="Email" placeholder="Ingresa el Email" required>
+                <input type="text" autocomplete="off" class="form-control" id="Email" v-model="Email" v-validate="'required|email'" data-vv-name="Email" placeholder="Ingresa el Email" required>
                 <div class="invalid-feedback">{{ errors.first("Email") }}</div>
             </div>
 

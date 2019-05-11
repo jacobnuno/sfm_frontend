@@ -27,7 +27,21 @@
             <!--email-->
             <div class="form-group col-sm-12">
                 <label for="Email">Email</label>
-                <input type="text" autocomplete="off" class="form-control" id="Email" v-model="Email" v-validate="'required|alpha_spaces'" data-vv-name="Email" placeholder="Ingresa el email" required>
+                <input type="text" autocomplete="off" class="form-control" id="Email" v-model="Email" v-validate="'required|email'" data-vv-name="Email" placeholder="Ingresa el email" required>
+                <div class="invalid-feedback">{{ errors.first("Email") }}</div>
+            </div>
+
+            <!--password-->
+            <div class="form-group col-sm-12">
+                <label for="Password">Email</label>
+                <input type="password" autocomplete="off" class="form-control" id="Password" v-model="Password" v-validate="'required|email'" data-vv-name="Password" placeholder="Ingresa la contraseña" required>
+                <div class="invalid-feedback">{{ errors.first("Password") }}</div>
+            </div>
+
+            <!--userType-->
+            <div class="form-group col-sm-12">
+                <label for="UserType">Email</label>
+                <input type="text" autocomplete="off" class="form-control" id="UserType" v-model="Email" v-validate="'required|email'" data-vv-name="Email" placeholder="Ingresa el email" required>
                 <div class="invalid-feedback">{{ errors.first("Email") }}</div>
             </div>
 

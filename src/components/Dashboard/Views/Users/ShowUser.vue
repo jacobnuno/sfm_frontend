@@ -31,6 +31,12 @@
                   <span class="span-input form-control">{{ Email }}</span>
               </div>
 
+              <!--userType-->
+              <div class="form-group col-sm-12 col-md-6">
+                  <label for="UserType">Role</label>
+                  <span class="span-input form-control">{{ UserType }}</span>
+              </div>
+
             </div>
 
             <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Users' }">
@@ -58,7 +64,8 @@
         FirstName: '',
         LastName: '',
         SecondLastName: '',
-        Email: ''
+        Email: '',
+        UserType: null
       }
     },
     created() {
@@ -75,7 +82,8 @@
               this.FirstName = user.data.data.FirstName,
               this.LastName = user.data.data.LastName,
               this.SecondLastName = user.data.data.SecondLastName,
-              this.Email = user.data.data.Email
+              this.Email = user.data.data.Email,
+              this.UserType = user.data.data["User Type"].Description
             })
             .catch(err => console.log('err: ', err))
       }

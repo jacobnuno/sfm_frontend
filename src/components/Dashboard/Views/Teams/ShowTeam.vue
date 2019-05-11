@@ -4,16 +4,21 @@
       <div class="row">
         <div class="col-sm-12 col-md-6 offset-md-3">
           <card>
-            <h4 slot="header" class="card-title">Tipo de Usuario</h4>
+            <h4 slot="header" class="card-title">Equipo</h4>
 
             <div class="row">
               <div class="form-group col-sm-12 col-md-6">
-                  <label for="Description">Descripción</label>
-                  <span class="span-input form-control">{{ Description }}</span>
+                  <label for="TeamName">Nombre</label>
+                  <span class="span-input form-control">{{ TeamName }}</span>
+              </div>
+
+              <div class="form-group col-sm-12 col-md-6">
+                  <label for="League">Liga</label>
+                  <span class="span-input form-control">{{ League }}</span>
               </div>
             </div>
                         
-            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'UserTypes' }">
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Teams' }">
               Cerrar
             </router-link>
           </card>
@@ -25,7 +30,7 @@
 </template>
 <script>
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  import userTypes from '@/types/userType';
+  import teamTypes from '@/types/team';
   import { mapActions } from 'vuex';
 
   export default {
@@ -35,7 +40,8 @@
     data () {
       return {
         id: null,
-        Description: null
+        TeamName: '',
+        League: null
       }
     },
     created() {      
@@ -44,12 +50,13 @@
     },
     methods: {
       ...mapActions({
-        getUserType: userTypes.actions.getUserType
+        getTeam: teamTypes.actions.getTeam
       }),
       getData() {
-       this.getUserType(this.id)
-            .then(userType => {
-                this.Description = userType.data.data.Description
+       this.getTeam(this.id)
+            .then(team => {
+                this.TeamName = team.data.data.TeamName,
+                this.League = team.data.data["League Detail"].LeagueName
             })
             .catch(err => console.log('err: ', err))
       }

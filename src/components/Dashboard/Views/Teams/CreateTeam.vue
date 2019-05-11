@@ -2,6 +2,7 @@
     <section id="smf-create-teams">
         <form @submit.prevent="beforeCreateTeam" class="col-sm-12 col-md-4 offset-md-4">
             <h2 class="create-title">Crear un Equipo</h2>
+
             <div class="form-group col-sm-12">
                 <label for="TeamName">Nombre</label>
                 <input type="text" autocomplete="off" class="form-control" id="TeamName" v-model="TeamName" v-validate="'required|alpha_spaces'" data-vv-name="TeamName" placeholder="Ingresa el nombre" required>
@@ -86,7 +87,7 @@ export default {
                     this.leagueOptions.push({ text: e.LeagueName, value: e.id })
                 });
             })
-      }
+        }
     },
     mounted() {
         this.populateLeagues()

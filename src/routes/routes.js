@@ -68,6 +68,12 @@ import CreateMatchDetail from '@/components/Dashboard/Views/MatchDetails/CreateM
 import ShowMatchDetail from '@/components/Dashboard/Views/MatchDetails/ShowMatchDetail.vue'
 import EditMatchDetail from '@/components/Dashboard/Views/MatchDetails/EditMatchDetail.vue'
 
+// Team
+import Teams from '@/components/Dashboard/Views/Teams/Teams.vue'
+import CreateTeam from '@/components/Dashboard/Views/Teams/CreateTeam.vue'
+import ShowTeam from '@/components/Dashboard/Views/Teams/ShowTeam.vue'
+import EditTeam from '@/components/Dashboard/Views/Teams/EditTeam.vue'
+
 // Guards
 
 // Guard to auth user
@@ -286,6 +292,9 @@ const router = new Router({
           path: 'edit-match-detail',
           name: 'EditMatchDetail',
           component: EditMatchDetail,
+          /*beforeEnter: registerGuard*/
+        },
+        {
           path: 'users',
           name: 'Users',
           component: Users,
@@ -308,7 +317,31 @@ const router = new Router({
           name: 'EditUser',
           component: EditUser,
           /*beforeEnter: registerGuard*/
-        }
+        },
+        {
+          path: 'teams',
+          name: 'Teams',
+          component: Teams,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-team',
+          name: 'CreateTeam',
+          component: CreateTeam,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-team',
+          name: 'ShowTeam',
+          component: ShowTeam,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-team',
+          name: 'EditTeam',
+          component: EditTeam,
+          /*beforeEnter: registerGuard*/
+        },
       ]
     },
     { path: '*', component: NotFound }

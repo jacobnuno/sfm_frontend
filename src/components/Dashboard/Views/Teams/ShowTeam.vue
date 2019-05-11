@@ -1,5 +1,5 @@
 <template>
-<div class="content" id="smf-show-field">
+<div class="content" id="smf-show-team">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12 col-md-6 offset-md-3">
@@ -54,11 +54,11 @@
       }),
       getData() {
        this.getTeam(this.id)
-            .then(team => {
-                this.TeamName = team.data.data.TeamName,
-                this.League = team.data.data["League Detail"].LeagueName
-            })
-            .catch(err => console.log('err: ', err))
+          .then(team => {
+              this.TeamName = team.data.data.TeamName,
+              this.League = team.data.data["League Detail"].LeagueName
+          })
+          .catch(err => console.log('err: ', err))
       }
     }
   }
@@ -66,7 +66,7 @@
 </script>
 
 <style lang="scss">
-  #smf-show-user-type {
+  #smf-show-team {
     .span-input {
       background-color: #F5F5F5;
       color: #888888;

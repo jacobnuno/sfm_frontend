@@ -32,7 +32,7 @@
   import { mapActions } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  const tableColumns = ['ID', 'Nombre', 'Apellido Paterno', 'Apellido Materno' , 'Email']
+  const tableColumns = ['ID', 'Nombre', 'Apellido Paterno', 'Apellido Materno' , 'Email', 'Role']
 
   export default {
     components: {
@@ -55,13 +55,14 @@
       gridData() {
         this.getUsers()
           .then(users => {
-            users.data.data.forEach(e => {
+            users.data.data.rows.forEach(e => {
               let element = {
                 'id': e.id,
                 'nombre': e.FirstName,
                 'apellido paterno': e.LastName,
                 'apellido materno': e.SecondLastName,
-                'email': e.Email
+                'email': e.Email,
+                'role': e.UserType
               }
               this.table1.data.push(element)
             });

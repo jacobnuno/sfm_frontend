@@ -14,7 +14,7 @@ const actions = {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.post('/user/', data)
-                .then(userType => {
+                .then(user => {
                     resolve(user);
                 })
                 .catch(err => {

@@ -32,6 +32,7 @@ import fieldType from '@/types/field';
 import leagueType from '@/types/league';
 import userTypes from '@/types/userType';
 import matchEventTypes from '@/types/matchEvent';
+import users from '@/types/user';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEye } from '@fortawesome/fontawesome-free-regular'
@@ -64,7 +65,8 @@ library.add(faTrashAlt)
         deleteLeague: leagueType.actions.deleteLeague,
         deleteField: fieldType.actions.deleteField,
         deleteUserType: userTypes.actions.deleteUserType,
-        deleteMatchEvent: matchEventTypes.actions.deleteMatchEvent
+        deleteMatchEvent: matchEventTypes.actions.deleteMatchEvent,
+        deleteUser: users.actions.deleteUser,
       }),
       notifyVue (verticalAlign, horizontalAlign, msg, color) {
             const notification = {

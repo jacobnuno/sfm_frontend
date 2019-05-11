@@ -6,18 +6,18 @@
         <div class="col-12">
           <card class="card-plain">
             <template slot="header">
-              <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateUserType' }">
+              <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateUser' }">
                 Nuevo
               </router-link>
-              <h4 class="card-title">Tipos de Usuarios</h4>
+              <h4 class="card-title">Usuarios</h4>
             </template>
             <div class="table-responsive">
               <l-table class="table-hover"
                        :columns="table1.columns"
                        :data="table1.data"
-                       :redirectShow="'ShowUserType'"
-                       :redirectEdit="'EditUserType'"
-                       :deleteAction="'deleteUserType'">
+                       :redirectShow="'ShowUser'"
+                       :redirectEdit="'EditUser'"
+                       :deleteAction="'deleteUser'">
               </l-table>
             </div>
           </card>
@@ -28,11 +28,11 @@
   </div>
 </template>
 <script>
-  import userTypes from '@/types/userType';
-  import { mapActions, mapState } from 'vuex';
+  import users from '@/types/user';
+  import { mapActions } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  const tableColumns = ['ID', 'Descripción']
+  const tableColumns = ['ID', 'Nombre', 'Apellido Paterno', 'Apellido Materno' , 'Email', 'Role']
 
   export default {
     components: {
@@ -50,15 +50,19 @@
     },
     methods: {
       ...mapActions({
-        getUserTypes: userTypes.actions.getUserTypes
+        getUsers: users.actions.getUsers
       }),
       gridData() {
-        this.getUserTypes()
-          .then(userTypes => {
-            userTypes.data.data.forEach(e => {
+        this.getUsers()
+          .then(users => {
+            users.data.data.rows.forEach(e => {
               let element = {
                 'id': e.id,
-                'descripción': e.Description
+                'nombre': e.FirstName,
+                'apellido paterno': e.LastName,
+                'apellido materno': e.SecondLastName,
+                'email': e.Email,
+                'role': e.UserType
               }
               this.table1.data.push(element)
             });

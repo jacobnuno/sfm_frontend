@@ -53,8 +53,8 @@
 <script>
 import matchDetailTypes from '@/types/matchDetail';
 import matchEventTypes from '@/types/matchEvent';
-import teamTypes from '@/types/team';
-import athleteTypes from '@/types/athlete';
+//import teamTypes from '@/types/team';
+//import athleteTypes from '@/types/athlete';
 import { mapActions } from 'vuex';
 
 export default {

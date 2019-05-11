@@ -48,6 +48,10 @@
         <i class="nc-icon nc-spaceship"></i>
         <p>Ligas</p>
       </sidebar-link>
+      <sidebar-link to="teams">
+        <i class="nc-icon nc-planet"></i>
+        <p>Equipos</p>
+      </sidebar-link>
       <sidebar-link to="complexes">
         <i class="nc-icon nc-circle-09"></i>
         <p>Unidades</p>

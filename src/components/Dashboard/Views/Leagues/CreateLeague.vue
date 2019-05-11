@@ -95,13 +95,13 @@ export default {
             .then(
                 league => {
                     this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push('/');
+                    this.$router.push({ name: 'Leagues'});
                 },
                 error => {
                     console.log(error)
                     this.notifyVue('top', 'right', error, 'danger')
                 }
-            )
+            ).catch(err => this.notifyVue('top', 'right', err, 'danger'))
         }
     }
 }

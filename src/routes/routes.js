@@ -44,6 +44,12 @@ import CreateUserType from '@/components/Dashboard/Views/UserTypes/CreateUserTyp
 import ShowUserType from '@/components/Dashboard/Views/UserTypes/ShowUserType.vue'
 import EditUserType from '@/components/Dashboard/Views/UserTypes/EditUserType.vue'
 
+//User
+import Users from '@/components/Dashboard/Views/Users/Users.vue'
+import CreateUser from '@/components/Dashboard/Views/Users/CreateUser.vue'
+import ShowUser from '@/components/Dashboard/Views/Users/ShowUser.vue'
+import EditUser from '@/components/Dashboard/Views/Users/EditUser.vue'
+
 // Match Event
 import MatchEvents from '@/components/Dashboard/Views/MatchEvents/MatchEvents.vue'
 import CreateMatchEvent from '@/components/Dashboard/Views/MatchEvents/CreateMatchEvent.vue'
@@ -280,6 +286,27 @@ const router = new Router({
           path: 'edit-match-detail',
           name: 'EditMatchDetail',
           component: EditMatchDetail,
+          path: 'users',
+          name: 'Users',
+          component: Users,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-user',
+          name: 'CreateUser',
+          component: CreateUser,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-user',
+          name: 'ShowUser',
+          component: ShowUser,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-user',
+          name: 'EditUser',
+          component: EditUser,
           /*beforeEnter: registerGuard*/
         }
       ]

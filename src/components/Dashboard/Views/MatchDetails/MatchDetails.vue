@@ -9,15 +9,15 @@
               <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateMatchDetail' }">
                 Nuevo
               </router-link>
-              <h4 class="card-title">Ligas</h4>
+              <h4 class="card-title">Eventos del Partido</h4>
             </template>
             <div class="table-responsive">
               <l-table class="table-hover"
                        :columns="table1.columns"
                        :data="table1.data"
-                       :redirectShow="'ShowLeague'"
-                       :redirectEdit="'EditLeague'"
-                       :deleteAction="'deleteLeague'">
+                       :redirectShow="'ShowMatchDetail'"
+                       :redirectEdit="'EditMatchDetail'"
+                       :deleteAction="'deleteMatchDetail'">
               </l-table>
             </div>
           </card>
@@ -27,11 +27,11 @@
   </div>
 </template>
 <script>
-  import leagueTypes from '@/types/league';
-  import { mapActions, mapState } from 'vuex';
+  import matchDetailTypes from '@/types/matchDetail';
+  import { mapActions } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  const tableColumns = ['ID', 'Nombre', 'Día de Inicio', 'Día de Finalización', 'Complejo', 'Día de Juego']
+  const tableColumns = ['Evento', 'Minuto Ocurrido', 'Jugador', 'Equipo']
 
   export default {
     components: {
@@ -49,7 +49,7 @@
     }, 
     methods: {
       ...mapActions({
-        getLeagues: leagueTypes.actions.getLeagues
+        getMatchDetails: matchDetailTypes.actions.getMatchDetails
       }),
       returnArray(obj) {
         let myArr = [];
@@ -61,30 +61,16 @@
       date(value) {
         return value.split('T')[0];
       },
-      getData() {
-        this.getLeague(this.id)
-          .then(league => {
-            console.log('leagues: ', league.data.data)
-            let newLeague = league.data.data;
-            this.LeagueName = newLeague.LeagueName
-            this.StartDate = this.date(newLeague.StartDate)
-            this.EndDate = this.date(newLeague.EndDate)
-            this.GameDay = newLeague.Day.Days
-            this.Complex = newLeague["Complex Detail"].ComplexName
-          })
-          .catch(err => console.log('err: ', err))
-      },
       gridData() {
-        this.getLeagues()
-          .then(leagues => {
-            leagues.data.data.forEach(e => {
+        this.getMatchDetails()
+          .then(matchDetails => {
+            console.log(matchDetails)
+            matchDetails.data.data.forEach(e => {
               let element = { 
-                'id': e.id, 
-                'nombre': e.LeagueName, 
-                'día de inicio': this.date(e.StartDate), 
-                'día de finalización': this.date(e.EndDate),
-                'complejo': e["Complex Detail"].ComplexName,
-                'día de juego': e.Day.Days
+                'evento': e.MatchDetailName, 
+                'minuto ocurrido': e.Time, 
+                'jugador': this.date(e.EndDate),
+                'equipo': e["Complex Detail"].ComplexName
               }
               this.table1.data.push(element)
             });

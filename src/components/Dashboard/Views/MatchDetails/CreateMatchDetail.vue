@@ -13,7 +13,7 @@
 
                 <div class="form-group col-sm-12 col-md-6">
                     <label for="Time">Minuto Ocurrido</label>
-                    <input v-validate="'required|numeric|min_value:0|max_value:120'" class="form-control" type="text" placeholder="Ingresa el minuto" name="Time">
+                    <input v-validate="'required|numeric|min_value:0|max_value:120'" v-model="Time" autocomplete="off" class="form-control" type="text" placeholder="Ingresa el minuto" name="Time">
                     <div class="invalid-feedback">{{ errors.first("Time") }}</div>
                 </div>
             </div>
@@ -28,10 +28,10 @@
                 </div>
 
                 <div class="form-group col-sm-12 col-md-6">
-                    <label for="idPlayer">JUgador</label>
+                    <label for="idPlayer">Jugador</label>
                     <select class="form-control" id="idPlayer" name="idPlayer" v-model="idPlayer" required>
                         <option selected disabled>Elije una opción</option>
-                        <option v-for="option in playerOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
+                        <option v-for="option in athleteOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                     </select>
                 </div>
             </div>
@@ -53,20 +53,21 @@
 <script>
 import matchDetailTypes from '@/types/matchDetail';
 import matchEventTypes from '@/types/matchEvent';
-//import teamTypes from '@/types/team';
-//import athleteTypes from '@/types/athlete';
+import teamTypes from '@/types/team';
+import athleteTypes from '@/types/athlete';
 import { mapActions } from 'vuex';
 
 export default {
     data() {
         return {
+            idMatch: 1,
             idEvent: null,
             Time: null,
             idTeam: null,
             idPlayer: null,
             eventOptions: [],
             teamOptions: [],
-            playerOptions: [],
+            athleteOptions: [],
             error: null
         }
     }, 
@@ -86,16 +87,18 @@ export default {
             })
         },
          ...mapActions({
-            create: matchDetailTypes.actions.create,
-            getMatchEvents: matchEventTypes.actions.getMatchEvents
+            createMatchDetail: matchDetailTypes.actions.createMatchDetail,
+            getMatchEvents: matchEventTypes.actions.getMatchEvents,
+            getTeams: teamTypes.actions.getTeams,
+            getAthletes: athleteTypes.actions.getAthletes
         }),
         beforeCreateMatchDetail() {
-            this.create({
-                idEvent: this.idEvent,
-                StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
-                EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
-                Complex: this.Complex,
-                GameDay: this.GameDay
+            this.createMatchDetail({
+                IdMatch: this.idMatch,
+                Event: this.idEvent,
+                Time: this.Time,
+                Team: this.idTeam,
+                Player: this.idPlayer
             })
             .then(
                 matchDetail => {
@@ -110,15 +113,33 @@ export default {
         },
         populateMatchEvents() {
             this.getMatchEvents()
-            .then(matchEvent => {
-                matchEvent.data.data.forEach(e => {
+            .then(matchEvents => {
+                matchEvents.data.data.forEach(e => {
                 this.eventOptions.push({ text: e.Description, value: e.id })
+                });
+            })
+        },
+        populateTeams() {
+            this.getTeams()
+            .then(teams => {
+                teams.data.data.forEach(e => {
+                this.teamOptions.push({ text: e.TeamName, value: e.id })
+                });
+            })
+        },
+        populateAthletes() {
+            this.getAthletes()
+            .then(athletes => {
+                athletes.data.data.forEach(e => {
+                this.athleteOptions.push({ text: e["Id User"].FirstName + " " + e["Id User"].LastName, value: e.id })
                 });
             })
         }
     },
     mounted() {
         this.populateMatchEvents()
+        this.populateTeams()
+        this.populateAthletes()
     },
 }
 </script>

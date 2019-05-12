@@ -34,6 +34,7 @@ import userTypes from '@/types/userType';
 import matchEventTypes from '@/types/matchEvent';
 import users from '@/types/user';
 import teams from '@/types/team';
+import athletes from '@/types/athlete';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEye } from '@fortawesome/fontawesome-free-regular'
@@ -69,6 +70,7 @@ library.add(faTrashAlt)
         deleteMatchEvent: matchEventTypes.actions.deleteMatchEvent,
         deleteUser: users.actions.deleteUser,
         deleteTeam: teams.actions.deleteTeam,
+        deleteAthlete: athletes.actions.deleteAthlete,
       }),
       notifyVue (verticalAlign, horizontalAlign, msg, color) {
             const notification = {

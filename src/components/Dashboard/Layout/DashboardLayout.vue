@@ -64,6 +64,10 @@
         <i class="nc-icon nc-atom"></i>
         <p>Usuarios</p>
       </sidebar-link>
+      <sidebar-link to="athletes">
+        <i class="nc-icon nc-circle-09"></i>
+        <p>Jugadores</p>
+      </sidebar-link>
       <sidebar-link to="match-events">
         <i class="nc-icon nc-atom"></i>
         <p>Eventos Partidos</p>

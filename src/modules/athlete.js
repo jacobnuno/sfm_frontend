@@ -1,4 +1,4 @@
-import types from '@/types/athelete';
+import types from '@/types/athlete';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
 import { openHttp } from '@/utils/http';
@@ -9,13 +9,13 @@ const state = {
 
 const actions = {
     
-    // create athelete
-    [types.actions.createAthelete]: ({ commit}, data) => {
+    // create athlete
+    [types.actions.createAthlete]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/athelete/', data)
-                .then(athelete => {
-                    resolve(athelete);
+            openHttp.post('/athlete/', data)
+                .then(athlete => {
+                    resolve(athlete);
                 })
                 .catch(err => {
                     console.log(err)
@@ -27,13 +27,13 @@ const actions = {
         })
     },
 
-    // get all atheletes
-    [types.actions.getAtheletes]: ({ commit }) => {
+    // get all athletes
+    [types.actions.getAthletes]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/athelete/findall')
-                .then(atheletes => {
-                    resolve(atheletes);
+            openHttp.get('/athlete/findall')
+                .then(athletes => {
+                    resolve(athletes);
                 })
                 .catch(err => {
                     console.log(err)
@@ -45,13 +45,13 @@ const actions = {
         })
     },
 
-    // get one athelete
-    [types.actions.getAthelete]: ({ commit}, idAthelete) => {
+    // get one athlete
+    [types.actions.getAthlete]: ({ commit}, idAthlete) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/athelete/${idAthelete}`)
-                .then(athelete => {
-                    resolve(athelete);
+            openHttp.get(`/athlete/${idAthlete}`)
+                .then(athlete => {
+                    resolve(athlete);
                 })
                 .catch(err => {
                     console.log(err)
@@ -63,13 +63,13 @@ const actions = {
         })
     },
 
-    // update athelete
-    [types.actions.updateAthelete]: ({ commit}, data) => {
+    // update athlete
+    [types.actions.updateAthlete]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/athelete/${data.id}`, data)
-                .then(athelete => {
-                    resolve(athelete);
+            openHttp.put(`/athlete/${data.id}`, data)
+                .then(athlete => {
+                    resolve(athlete);
                 })
                 .catch(err => {
                     console.log(err)
@@ -81,13 +81,13 @@ const actions = {
         })
     },
 
-    // delete athelete
-    [types.actions.deleteAthelete]: ({ commit}, data) => {
+    // delete athlete
+    [types.actions.deleteAthlete]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/athelete/delete/${data.id}`)
-                .then(athelete => {
-                    resolve(athelete);
+            openHttp.put(`/athlete/delete/${data.id}`)
+                .then(athlete => {
+                    resolve(athlete);
                 })
                 .catch(err => {
                     console.log(err)

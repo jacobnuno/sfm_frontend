@@ -33,7 +33,7 @@
                             Si
                         </label>
                         <label class="lbl-radio">
-                            <input type="radio" name="optradio" value="2" v-model="isCaptain">
+                            <input type="radio" name="optradio" value="0" v-model="isCaptain">
                             No
                         </label>
                     </div>

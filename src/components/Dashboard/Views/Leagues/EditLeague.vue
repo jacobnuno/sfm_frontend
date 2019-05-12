@@ -96,7 +96,6 @@ export default {
         getData() {
             this.getLeague(this.id)
             .then(league => {
-                console.log('leagues: ', league.data.data)
                 let newLeague = league.data.data;
                 this.LeagueName = newLeague.LeagueName
                 this.time1 = new Date(newLeague.StartDate)

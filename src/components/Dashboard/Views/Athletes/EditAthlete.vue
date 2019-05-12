@@ -1,8 +1,8 @@
 <template>
-    <section id="smf-create-teams">
-        <form @submit.prevent="beforeCreateTeam" class="col-sm-12 col-md-4 offset-md-4">
-            <h2 class="create-title">Crear un Equipo</h2>
-
+    <section id="smf-create-team">
+        <form @submit.prevent="beforeUpdateTeam" class="col-sm-12 col-md-4 offset-md-4">
+            <h2 class="create-title">Editar un Equipo</h2>
+            
             <div class="form-group col-sm-12">
                 <label for="TeamName">Nombre</label>
                 <input type="text" autocomplete="off" class="form-control" id="TeamName" v-model="TeamName" v-validate="'required|alpha_spaces'" data-vv-name="TeamName" placeholder="Ingresa el nombre" required>
@@ -12,8 +12,8 @@
             <div class="form-group col-sm-12">
                 <label for="idLeague">Liga</label>
                 <select class="form-control" id="idLeague" name="idLeague" v-model="idLeague" required>
-                    <option selected disabled>Elije una opción</option>
-                    <option v-for="option in leagueOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
+                    <option disabled>Elije una opción</option>
+                    <option v-for="option in leagueOptions" :key="option.value" :value="option.value" :selected="option.value == idLeague">{{ option.text }}</option>
                 </select>
             </div>
 
@@ -21,7 +21,7 @@
 
             <div class="text-center buttons">
                 <div class="form-group">
-                    <button type="submit" tabindex=8 class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                     <router-link class="btn btn-danger btn-close" :to="{ name: 'Teams' }">
                         Cerrar
                     </router-link>
@@ -39,11 +39,16 @@ import { mapActions } from 'vuex';
 export default {
     data() {
         return {
+            id: null,
             TeamName: '',
             idLeague: null,
             leagueOptions: [],
             error: null
         }
+    },
+    created() {
+      this.id = this.$route.params.id;
+      this.getData();
     },
     methods: {
         notifyVue (verticalAlign, horizontalAlign, msg, color) {
@@ -61,17 +66,27 @@ export default {
             })
         },
          ...mapActions({
-            createTeam: teamTypes.actions.createTeam,
+            updateTeam: teamTypes.actions.updateTeam,
+            getTeam: teamTypes.actions.getTeam,
             getLeagues: leagueTypes.actions.getLeagues
         }),
-        beforeCreateTeam() {
-            this.createTeam({
+        getData() {
+            this.getTeam(this.id)
+                .then(team => {
+                    this.TeamName = team.data.data.TeamName,
+                    this.idLeague = team.data.data["League Detail"].id
+                })
+                .catch(err => console.log('err: ', err))
+        },
+        beforeUpdateTeam() {
+            this.updateTeam({
+                id: this.id,
                 TeamName: this.TeamName,
                 League: this.idLeague
             })
             .then(
-                field => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                userType => {
+                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
                     this.$router.push({ name: 'Teams'});
                 },
                 error => {
@@ -96,7 +111,7 @@ export default {
 </script>
 
 <style lang="scss">
-    #smf-create-teams {
+    #smf-create-team {
         .buttons {
             margin-top: 3em;
         }

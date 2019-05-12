@@ -80,6 +80,12 @@ import CreateAthlete from '@/components/Dashboard/Views/Athletes/CreateAthlete.v
 import ShowAthlete from '@/components/Dashboard/Views/Athletes/ShowAthlete.vue'
 import EditAthlete from '@/components/Dashboard/Views/Athletes/EditAthlete.vue'
 
+// Match
+import Matches from '@/components/Dashboard/Views/Matches/Matches.vue'
+import CreateMatch from '@/components/Dashboard/Views/Matches/CreateMatch.vue'
+import ShowMatch from '@/components/Dashboard/Views/Matches/ShowMatch.vue'
+import EditMatch from '@/components/Dashboard/Views/Matches/EditMatch.vue'
+
 // Guards
 
 // Guard to auth user
@@ -370,6 +376,30 @@ const router = new Router({
           path: 'edit-athlete',
           name: 'EditAthlete',
           component: EditAthlete,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'matches',
+          name: 'Matches',
+          component: Matches,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-match',
+          name: 'CreateMatch',
+          component: CreateMatch,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-match',
+          name: 'ShowMatch',
+          component: ShowMatch,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-match',
+          name: 'EditMatch',
+          component: EditMatch,
           /*beforeEnter: registerGuard*/
         }
       ]

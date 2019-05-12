@@ -1,5 +1,5 @@
 <template>
-<div class="content" id="smf-show-team">
+<div class="content" id="smf-show-athlete">
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12 col-md-6 offset-md-3">
@@ -72,13 +72,13 @@
       },
       getData() {
        this.getAthlete(this.id)
-                .then(athlete => {
-                    this.User = athlete.data.data["Id User"].FirstName + " " + athlete.data.data["Id User"].LastName,
-                    this.BirthDate = this.date(athlete.data.data.BirthDate)
-                    this.Team = athlete.data.data["Athlete Team"].TeamName
-                    this.isCaptain = (athlete.data.data.Captain) ? 'Si' : 'No'
-                })
-                .catch(err => console.log('err: ', err))
+          .then(athlete => {
+              this.User = athlete.data.data["Id User"].FirstName + " " + athlete.data.data["Id User"].LastName,
+              this.BirthDate = this.date(athlete.data.data.BirthDate)
+              this.Team = athlete.data.data["Athlete Team"].TeamName
+              this.isCaptain = (athlete.data.data.Captain) ? 'Si' : 'No'
+          })
+          .catch(err => console.log('err: ', err))
       }
     },
 
@@ -87,7 +87,7 @@
 </script>
 
 <style lang="scss">
-  #smf-show-team {
+  #smf-show-athlete {
     .span-input {
       background-color: #F5F5F5;
       color: #888888;

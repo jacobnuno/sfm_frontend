@@ -8,17 +8,29 @@
 
             <div class="row">
               <div class="form-group col-sm-12 col-md-6">
-                  <label for="TeamName">Nombre</label>
-                  <span class="span-input form-control">{{ TeamName }}</span>
+                  <label for="User">Usuario</label>
+                  <span class="span-input form-control">{{ User }}</span>
               </div>
 
               <div class="form-group col-sm-12 col-md-6">
-                  <label for="League">Liga</label>
-                  <span class="span-input form-control">{{ League }}</span>
+                  <label for="Team">Equipo</label>
+                  <span class="span-input form-control">{{ Team }}</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-sm-12 col-md-6">
+                  <label for="BirthDate">Fecha de Nacimiento</label>
+                  <span class="span-input form-control">{{ BirthDate }}</span>
+              </div>
+
+              <div class="form-group col-sm-12 col-md-6">
+                  <label for="isCaptain">¿Es capitán?</label>
+                  <span class="span-input form-control">{{ isCaptain }}</span>
               </div>
             </div>
                         
-            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Teams' }">
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Athletes' }">
               Cerrar
             </router-link>
           </card>
@@ -30,7 +42,7 @@
 </template>
 <script>
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  import teamTypes from '@/types/team';
+  import athleteTypes from '@/types/athlete';
   import { mapActions } from 'vuex';
 
   export default {
@@ -40,8 +52,11 @@
     data () {
       return {
         id: null,
-        TeamName: '',
-        League: null
+        User: null,
+        Team: null,
+        BirthDate: null,
+        isCaptain: null,
+        error: null
       }
     },
     created() {      
@@ -50,17 +65,23 @@
     },
     methods: {
       ...mapActions({
-        getTeam: teamTypes.actions.getTeam
+        getAthlete: athleteTypes.actions.getAthlete
       }),
+      date(value) {
+        return value.split('T')[0];
+      },
       getData() {
-       this.getTeam(this.id)
-          .then(team => {
-              this.TeamName = team.data.data.TeamName,
-              this.League = team.data.data["League Detail"].LeagueName
-          })
-          .catch(err => console.log('err: ', err))
+       this.getAthlete(this.id)
+                .then(athlete => {
+                    this.User = athlete.data.data["Id User"].FirstName + " " + athlete.data.data["Id User"].LastName,
+                    this.BirthDate = this.date(athlete.data.data.BirthDate)
+                    this.Team = athlete.data.data["Athlete Team"].TeamName
+                    this.isCaptain = (athlete.data.data.Captain) ? 'Si' : 'No'
+                })
+                .catch(err => console.log('err: ', err))
       }
-    }
+    },
+
   }
 
 </script>

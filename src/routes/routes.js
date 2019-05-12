@@ -74,6 +74,12 @@ import CreateTeam from '@/components/Dashboard/Views/Teams/CreateTeam.vue'
 import ShowTeam from '@/components/Dashboard/Views/Teams/ShowTeam.vue'
 import EditTeam from '@/components/Dashboard/Views/Teams/EditTeam.vue'
 
+// Athlete
+import Athletes from '@/components/Dashboard/Views/Athletes/Athletes.vue'
+import CreateAthlete from '@/components/Dashboard/Views/Athletes/CreateAthlete.vue'
+import ShowAthlete from '@/components/Dashboard/Views/Athletes/ShowAthlete.vue'
+import EditAthlete from '@/components/Dashboard/Views/Athletes/EditAthlete.vue'
+
 // Guards
 
 // Guard to auth user
@@ -342,6 +348,30 @@ const router = new Router({
           component: EditTeam,
           /*beforeEnter: registerGuard*/
         },
+        {
+          path: 'athletes',
+          name: 'Athletes',
+          component: Athletes,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-athlete',
+          name: 'CreateAthlete',
+          component: CreateAthlete,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-athlete',
+          name: 'ShowAthlete',
+          component: ShowAthlete,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-athlete',
+          name: 'EditAthlete',
+          component: EditAthlete,
+          /*beforeEnter: registerGuard*/
+        }
       ]
     },
     { path: '*', component: NotFound }

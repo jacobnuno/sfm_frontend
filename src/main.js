@@ -35,6 +35,7 @@ import complexModule from '@/modules/complex';
 import matchDetailModule from '@/modules/matchDetail';
 import userModule from '@/modules/user';
 import teamModule from '@/modules/team';
+import atheleteModule from '@/modules/athelete';
 
 // vee-validate
 import es from 'vee-validate/dist/locale/es';
@@ -77,7 +78,8 @@ export const store = new Vuex.Store({
     complexModule,
     matchDetailModule,
     userModule,
-    teamModule
+    teamModule,
+    atheleteModule
   }
 });
 

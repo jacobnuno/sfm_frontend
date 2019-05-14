@@ -23,7 +23,7 @@
                 </select>
             </div>
             <div class="form-group col-sm-12">
-                <label for="idGameDay">Complejo</label>
+                <label for="idGameDay">Día de Juego</label>
                 <select class="form-control" id="idGameDay" name="idGameDay" v-model="idGameDay" required>
                     <option selected disabled>Elije una opción</option>
                     <option v-for="option in gameDayOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
@@ -48,6 +48,7 @@
 import DatePicker from 'vue2-datepicker';
 import leagueTypes from '@/types/league';
 import complexTypes from '@/types/complex';
+import dayTypes from '@/types/day';
 import { mapActions } from 'vuex';
 
 export default {
@@ -83,7 +84,8 @@ export default {
         },
          ...mapActions({
             create: leagueTypes.actions.create,
-            getComplexes: complexTypes.actions.getComplexes
+            getComplexes: complexTypes.actions.getComplexes,
+            getDays: dayTypes.actions.getDays
         }),
         beforeCreateLeague() {
             this.create({
@@ -112,19 +114,19 @@ export default {
                 });
             })
         },
-        populateGameDays() {
-            this.getGameDays()
-            .then(gameDays => {
-                console.log(gameDays)
-                gameDays.data.data.forEach(e => {
-                    this.gameDayOptions.push({ text: e.ComplexName, value: e.id })
+        populateDays() {
+            this.getDays()
+            .then(days => {
+                console.log(days)
+                days.data.data.forEach(e => {
+                    this.gameDayOptions.push({ text: e.Days, value: e.id })
                 });
             })
         },
     },
     mounted() {
         this.populateComplexes()
-        this.populateGameDays()
+        this.populateDays()
     }
 }
 </script>

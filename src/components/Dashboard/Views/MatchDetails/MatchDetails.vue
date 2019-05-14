@@ -67,6 +67,7 @@
             console.log(matchDetails)
             matchDetails.data.data.forEach(e => {
               let element = { 
+                'id': e.id,
                 'evento': e.MatchDetailName, 
                 'minuto ocurrido': e.Time, 
                 'jugador': this.date(e.EndDate),

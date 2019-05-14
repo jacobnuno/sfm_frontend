@@ -23,6 +23,10 @@
         </td>
       </slot>
     </tr>
+    <!--<tr v-if="!data.lenght">
+      <td colspan="5" class="no-data">No se encontraron resultados</td>
+    </tr> -->
+    
     </tbody>
   </table>
 </template>
@@ -49,6 +53,7 @@ library.add(faTrashAlt)
     name: 'l-table',
     props: {
       columns: Array,
+      lenColumns: Int32Array,
       data: Array,
       redirectShow: String,
       redirectEdit: String,
@@ -120,4 +125,8 @@ library.add(faTrashAlt)
   }
 </script>
 <style>
+  .no-data {
+      background-color: #ffbc67;
+      text-align: center;
+  }
 </style>

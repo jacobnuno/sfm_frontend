@@ -1,37 +1,33 @@
 <template>
-<div class="content" id="smf-show-league">
+<div class="content" id="smf-show-match-detail">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8 offset-md-2">
           <card>
-            <h4 slot="header" class="card-title">Liga</h4>
+            <h4 slot="header" class="card-title">Ver detalle del partido</h4>
 
             <div class="row">
               <div class="form-group col-sm-12 col-md-6">
-                  <label for="LeagueName">Nombre de la Liga</label>
-                  <span class="span-input form-control">{{ LeagueName }}</span>
+                  <label for="Event">Evento</label>
+                  <span class="span-input form-control">{{ Event }}</span>
               </div>
-              <div class="form-group col-sm-12 col-md-3">
-                  <label for="StartDate">Día de Inicio</label>
-                  <span class="span-input">{{ StartDate }}</span>
-              </div>
-              <div class="form-group col-sm-12 col-md-3">
-                  <label for="EndDate">Día de Finalización</label>
-                  <span class="span-input">{{ EndDate }}</span>
+              <div class="form-group col-sm-12 col-md-6">
+                  <label for="Time">Minuto Ocurrido</label>
+                  <span class="span-input">{{ Time }}</span>
               </div>
             </div>
             <div class="row">
               <div class="form-group col-sm-12 col-md-6">
-                  <label for="Complex">Complejo</label>
-                  <span class="span-input">{{ Complex }}</span>
+                  <label for="Player">Jugador</label>
+                  <span class="span-input">{{ Player }}</span>
               </div>
               <div class="form-group col-sm-12 col-md-6">
-                  <label for="GameDay">Día(s) de Juego</label>
-                  <span class="span-input form-control">{{ GameDay }}</span>
+                  <label for="Team">Equipo</label>
+                  <span class="span-input">{{ Team }}</span>
               </div>
             </div>
             
-            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Leagues' }">
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Matches' }">
               Cerrar
             </router-link>
           </card>
@@ -43,7 +39,7 @@
 </template>
 <script>
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  import leagueTypes from '@/types/league';
+  import matchDetailTypes from '@/types/matchDetail';
   import { mapActions } from 'vuex';
 
   export default {
@@ -53,11 +49,10 @@
     data () {
       return {
         id: null,
-        LeagueName: null,
-        StartDate: null,
-        EndDate: null,
-        Complex: null,
-        GameDay: null
+        Event: null,
+        Time: null,
+        Team: null,
+        Player: null,
       }
     },
     created() {      
@@ -66,28 +61,18 @@
     },
     methods: {
       ...mapActions({
-        getLeague: leagueTypes.actions.getLeague
+        getMatchDetail: matchDetailTypes.actions.getMatchDetail
       }),
-      date(value) {
-        return value.split('T')[0];
-      },
       getData() {
-        this.getLeague(this.id)
-          .then(league => {
-            console.log('leagues: ', league.data.data)
-            let newLeague = league.data.data;
-            this.LeagueName = newLeague.LeagueName
-            this.StartDate = this.date(newLeague.StartDate)
-            this.EndDate = this.date(newLeague.EndDate)
-            this.GameDay = newLeague.Day.Days
-            this.Complex = newLeague["Complex Detail"].ComplexName
+        this.getMatchDetail(this.id)
+          .then(matchDetail => {
+            this.Time = matchDetail.data.data[0].Time,
+            this.Event = matchDetail.data.data[0]["MatchEvent"].Description,
+            
+            this.Team = matchDetail.data.data[0]["IdTeam"].TeamName,
+            this.Player = matchDetail.data.data[0]["User"].FirstName + " " + matchDetail.data.data[0]["User"].LastName
           })
           .catch(err => console.log('err: ', err))
-      }
-    },
-    filters: {
-      date(value) {
-        return value.split('T')[0];
       }
     }
   }
@@ -95,7 +80,7 @@
 </script>
 
 <style lang="scss">
-  #smf-show-league {
+  #smf-show-match-detail {
     .span-input {
       background-color: #F5F5F5;
       color: #888888;

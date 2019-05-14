@@ -7,82 +7,67 @@
             <h4 slot="header" class="card-title">Partido</h4>
 
             <div class="row">
-              <div class="form-group col-sm-12 col-md-3">
+              <div class="form-group col-sm-12 col-md-4">
                   <label for="Field">Campo</label>
                   <span class="span-input form-control">{{ Field }}</span>
               </div>
 
-              <div class="form-group col-sm-12 col-md-3">
+              <div class="form-group col-sm-12 col-md-4">
                   <label for="League">Liga</label>
                   <span class="span-input form-control">{{ League }}</span>
               </div>
 
-              <div class="form-group col-sm-12 col-md-3">
+              <div class="form-group col-sm-12 col-md-4">
                   <label for="Referee">Árbitro</label>
                   <span class="span-input form-control">{{ Referee }}</span>
               </div>
+            </div>
 
-              <div v-if="IsDraw == 1" class="form-group col-sm-12 col-md-3">
+            <div class="row">
+              <div class="form-group col-sm-12 col-md-4">
+                  <label for="Local">Equipo Local</label>
+                  <span class="span-input form-control">{{ Local }}</span>
+              </div>
+
+              <div class="form-group col-sm-12 col-md-4">
+                  <label for="Guest">Equipo Visitante</label>
+                  <span class="span-input form-control">{{ Guest }}</span>
+              </div>
+
+              <div v-if="IsDraw == 1" class="form-group col-sm-12 col-md-4">
                   <label for="IsDraw">Resultado</label>
                   <span class="span-input form-control">Empataron</span>
               </div>
 
-              <div v-else class="form-group col-sm-12 col-md-3">
+              <div v-else class="form-group col-sm-12 col-md-4">
                   <label for="Winner">Ganador</label>
                   <span class="span-input form-control">{{ Winner }}</span>
               </div>
             </div>
 
             <div class="row">
-              <div class="form-group col-sm-12 col-md-3">
-                  <label for="Local">Equipo Local</label>
-                  <span class="span-input form-control">{{ Local }}</span>
-              </div>
-
-              <div class="form-group col-sm-12 col-md-3">
-                  <label for="Guest">Equipo Visitante</label>
-                  <span class="span-input form-control">{{ Guest }}</span>
-              </div>
-
-              <div class="form-group col-sm-12 col-md-3">
+              <div class="form-group col-sm-12 col-md-4">
                   <label for="StartGame">Hora de comienzo</label>
                   <span class="span-input form-control">{{ StartGame }}</span>
               </div>
 
-              <div class="form-group col-sm-12 col-md-3">
+              <div class="form-group col-sm-12 col-md-4">
                   <label for="EndGame">Hora de finalización</label>
                   <span class="span-input form-control">{{ EndGame }}</span>
               </div>
-            </div>      
-            
-          </card>
-
-          <!-- match details table -->
-          <div class="row">
-            <div class="col-12">
-              <card class="card-plain">
-                <template slot="header">
-                  <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateMatchDetail' }">
-                    Nuevo
-                  </router-link>
-                  <h4 class="card-title">Eventos del Partido</h4>
-                </template>
-                <div class="table-responsive">
-                  <l-table class="table-hover"
-                          :columns="table1.columns"
-                          :data="table1.data"
-                          :redirectShow="'ShowMatchDetail'"
-                          :redirectEdit="'EditMatchDetail'"
-                          :deleteAction="'deleteMatchDetail'">
-                  </l-table>
-                </div>
-              </card>
             </div>
-          </div>
-          <!-- match details table -->
-          <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Matches' }">
+
+            <div class="row">
+              
+
+              
+            </div>
+
+                        
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Matches' }">
               Cerrar
             </router-link>
+          </card>
         </div>
       </div>
     </div>
@@ -95,14 +80,9 @@
   import teamTypes from '@/types/team';
   import { mapActions } from 'vuex';
 
-  import matchDetailTypes from '@/types/matchDetail';
-  import LTable from 'src/components/UIComponents/Table.vue'
-  const tableColumns = ['Evento', 'Minuto Ocurrido', 'Jugador', 'Equipo']
-
   export default {
     components: {
-      Card,
-      LTable,
+      Card
     },
     data () {
       return {
@@ -116,23 +96,17 @@
         IsDraw: null,
         StartGame: null,
         EndGame: null,
-        error: null,
-        table1: {
-          columns: [...tableColumns],
-          data: [],
-        }
+        error: null
       }
     },
     created() {      
       this.id = this.$route.params.id;
       this.getData();
-      this.gridData();
     },
     methods: {
       ...mapActions({
         getMatch: matchTypes.actions.getMatch,
         getTeam: teamTypes.actions.getTeam,
-        getMatchDetailByMatch: matchDetailTypes.actions.getMatchDetailByMatch
       }),
       date(value) {
         return value.split('T')[0];
@@ -158,25 +132,8 @@
                 this.Winner = team.data.data.TeamName
             })
       },
-      gridData() {
-        this.getMatchDetailByMatch(this.id)
-          .then(matchDetails => {
-            matchDetails.data.data.forEach(e => {
-              let element = { 
-                'id': e.id,
-                'evento': e["MatchEvent"] .Description,
-                'minuto ocurrido': e.Time, 
-                'jugador': e.User.FirstName + " " + e.User.LastName,
-                'equipo': e["IdTeam"].TeamName
-              }
-              this.table1.data.push(element)
-            });
-          })
-      }
     },
-    mounted() {
-      //this.gridData()
-    },
+
   }
 
 </script>

@@ -8,6 +8,7 @@ export default namespace('matchDetail', {
         'createMatchDetail',
         'getMatchDetails',
         'getMatchDetail',
+        'getMatchDetailByMatch',
         'updateMatchDetail',
         'deleteMatchDetail'
     ],

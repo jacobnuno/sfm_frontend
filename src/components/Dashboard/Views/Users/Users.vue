@@ -55,7 +55,7 @@
       gridData() {
         this.getUsers()
           .then(users => {
-            users.data.data.rows.forEach(e => {
+            users.data.data.forEach(e => {
               let element = {
                 'id': e.id,
                 'nombre': e.FirstName,

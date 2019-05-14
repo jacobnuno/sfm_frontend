@@ -1,7 +1,7 @@
 import types from '@/types/auth';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { openHttp, authHttp } from '@/utils/http';
 
 const state = {
     user: null,
@@ -10,7 +10,7 @@ const state = {
 
 const actions = {
     [types.actions.login]: ({ commit }, userCredentials) => {
-       // commit(globalTypes.mutations.starProcessing);
+        commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.post('/user/login', userCredentials)
                 .then(user => {
@@ -20,10 +20,10 @@ const actions = {
                 })
                 .catch(err => {
                     reject(err);
-                }) /*
+                })
                 .finally(() => {
                     commit(globalTypes.mutations.stopProcessing);
-                }) */
+                })
         })
     },
 
@@ -46,7 +46,7 @@ const actions = {
     [types.actions.updateUser]: ({ commit }, userCredentials) => {
         commit(globalTypes.mutations.starProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put('/users/', userCredentials)
+            authHttp.put('/users/', userCredentials)
                 .then(user => {
                     window.localStorage.setItem('_token', user.body.token); // check correct name for the token field 
                     commit(types.mutations.setUser);

@@ -44,14 +44,18 @@
                   <span class="span-input form-control">{{ Guest }}</span>
               </div>
 
-              <div class="form-group col-sm-12 col-md-3">
+              <div class="form-group col-sm-12 col-md-2">
                   <label for="StartGame">Hora de comienzo</label>
                   <span class="span-input form-control">{{ StartGame }}</span>
               </div>
 
-              <div class="form-group col-sm-12 col-md-3">
+              <div class="form-group col-sm-12 col-md-2">
                   <label for="EndGame">Hora de finalización</label>
                   <span class="span-input form-control">{{ EndGame }}</span>
+              </div>
+              <div class="form-group col-sm-12 col-md-2">
+                  <label for="GameDay">Día del Juego</label>
+                  <span class="span-input form-control">{{ GameDay }}</span>
               </div>
             </div>      
             
@@ -116,6 +120,7 @@
         IsDraw: null,
         StartGame: null,
         EndGame: null,
+        GameDay: null,
         error: null,
         table1: {
           columns: [...tableColumns],
@@ -149,6 +154,7 @@
             this.StartGame = match.data.data.StartGame
             this.EndGame = match.data.data.EndGame
             this.getNameWinner(match.data.data.Winner)
+            this.GameDay = this.date(match.data.data.GameDay)
           })
           .catch(err => console.log('err: ', err))
       },

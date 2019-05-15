@@ -11,6 +11,7 @@ const actions = {
     
     // create match
     [types.actions.createMatch]: ({ commit}, data) => {
+        console.log(data)
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
             openHttp.post('/match/', data)

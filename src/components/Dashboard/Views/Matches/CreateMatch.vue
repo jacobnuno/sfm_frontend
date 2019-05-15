@@ -80,6 +80,10 @@
 
             <div class="row">
                 <div class="form-group col-sm-12 col-md-6">
+                    <label for="gameDay">Día del Partido</label>
+                    <date-picker v-model="gameDay" lang="es" :width="'100%'" :input-attr="{required: true}"></date-picker>
+                </div>
+                <div class="form-group col-sm-12 col-md-6">
                     <label for="idReferee">Árbitro</label>
                     <select class="form-control" id="idReferee" name="idReferee" v-model="idReferee" required>
                         <option selected disabled>Elije una opción</option>
@@ -104,6 +108,7 @@
 </template>
 
 <script>
+import DatePicker from 'vue2-datepicker';
 import matchTypes from '@/types/match';
 import leagueTypes from '@/types/league';
 import teamTypes from '@/types/team';
@@ -112,6 +117,7 @@ import fieldTypes from '@/types/field';
 import { mapActions } from 'vuex';
 
 export default {
+    components: { DatePicker },
     data() {
         return {
             idField: null,
@@ -123,6 +129,7 @@ export default {
             IsDraw: 0,
             time1: null,
             time2: null,
+            gameDay: null,
             fieldOptions: [],
             leagueOptions: [],
             teamOptions: [],
@@ -162,7 +169,8 @@ export default {
                 Winner: this.idWinner,
                 IsDraw: this.IsDraw,
                 StartGame: this.time1,
-                EndGame: this.time2
+                EndGame: this.time2,
+                GameDay: this.GameDay
             })
             .then(
                 match => {
@@ -186,7 +194,7 @@ export default {
         populateUsers() {
             this.getUsers()
             .then(users => {
-                users.data.data.rows.forEach(e => {
+                users.data.data.forEach(e => {
                     this.userOptions.push({ text: e.FirstName + " " + e.LastName, value: e.id })
                 });
             })
@@ -214,6 +222,11 @@ export default {
         this.populateLeagues()
         this.populateFields()
     },
+    computed: {
+        GameDay() {
+            return this.gameDay.getUTCFullYear() + "-" + (this.gameDay.getUTCMonth() + 1) + "-" + this.gameDay.getUTCDate()
+        }
+    }
 }
 </script>
 

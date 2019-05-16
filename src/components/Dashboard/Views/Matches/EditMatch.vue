@@ -185,29 +185,32 @@ export default {
                 .catch(err => console.log('err: ', err))
         },
         beforeUpdateMatch() {
-            this.updateMatch({
-                id: this.id,
-                Field: this.idField,
-                League: this.idLeague,
-                Local: this.idLocal,
-                Guest: this.idGuest,
-                Referee: this.idReferee,
-                Winner: this.idWinner,
-                IsDraw: this.IsDraw,
-                StartGame: this.time1,
-                EndGame: this.time2,
-                GameDay: this.GameDay
-            })
-            .then(
-                match => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'Matches'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.updateMatch({
+                    id: this.id,
+                    Field: this.idField,
+                    League: this.idLeague,
+                    Local: this.idLocal,
+                    Guest: this.idGuest,
+                    Referee: this.idReferee,
+                    Winner: this.idWinner,
+                    IsDraw: this.IsDraw,
+                    StartGame: this.time1,
+                    EndGame: this.time2,
+                    GameDay: this.GameDay
+                })
+                .then(
+                    match => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'Matches'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateTeams() {
             this.getTeams()

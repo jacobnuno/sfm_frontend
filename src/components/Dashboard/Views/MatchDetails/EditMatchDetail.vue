@@ -113,24 +113,27 @@ export default {
             .catch(err => console.log('err: ', err))
         },
         beforeUpdateMatchDetails() {
-            this.updateMatchDetail({
-                id: this.id,
-                IdMatch: this.idMatch,
-                Event: this.idEvent,
-                Time: this.Time,
-                Team: this.idTeam,
-                Player: this.idPlayer
-            })
-            .then(
-                matchDetail => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'Matches'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.updateMatchDetail({
+                    id: this.id,
+                    IdMatch: this.idMatch,
+                    Event: this.idEvent,
+                    Time: this.Time,
+                    Team: this.idTeam,
+                    Player: this.idPlayer
+                })
+                .then(
+                    matchDetail => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'Matches'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateMatchEvents() {
             this.getMatchEvents()

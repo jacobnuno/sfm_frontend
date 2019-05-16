@@ -1,6 +1,6 @@
 <template>
     <section id="smf-create-user-type">
-        <form @submit.prevent="beforeUpdateField" class="col-sm-12 col-md-4 offset-md-4">
+        <form @submit.prevent="beforeUpdateUserType" class="col-sm-12 col-md-4 offset-md-4">
             <h2 class="create-title">Editar un Tipo de Usuario</h2>
             <div class="form-group col-sm-12">
                 <label for="Description">Descripción</label>
@@ -64,21 +64,24 @@ export default {
             })
             .catch(err => console.log('err: ', err))
         },
-        beforeUpdateField() {
-            this.updateUserType({
-                id: this.id,
-                Description: this.Description
-            })
-            .then(
-                userType => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'UserTypes'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+        beforeUpdateUserType() {
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.updateUserType({
+                    id: this.id,
+                    Description: this.Description
+                })
+                .then(
+                    userType => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'UserTypes'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         }
     }
 }

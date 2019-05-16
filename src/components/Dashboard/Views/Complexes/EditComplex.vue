@@ -24,7 +24,7 @@
                 <gmap-map
                   :center="center"
                   :zoom="15"
-                  style="width:100%;  height: 400px;"
+                  style="width:100%;  height: 350px;"
                 >
                   <gmap-marker
                     :key="index"
@@ -106,23 +106,26 @@ export default {
                 .catch(err => console.log('err: ', err))
         },
         beforeUpdateComplex() {
-            this.updateComplex({
-                id: this.id,
-                ComplexName: this.ComplexName,
-                Address: this.Address,
-                Latitude: this.Latitude,
-                Longitude: this.Longitude
-            })
-            .then(
-                complex => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'Complexes'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.updateComplex({
+                    id: this.id,
+                    ComplexName: this.ComplexName,
+                    Address: this.Address,
+                    Latitude: this.Latitude,
+                    Longitude: this.Longitude
+                })
+                .then(
+                    complex => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'Complexes'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         setPlace(place) {
             this.currentPlace = place;

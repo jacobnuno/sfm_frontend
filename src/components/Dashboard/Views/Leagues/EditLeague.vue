@@ -106,24 +106,27 @@ export default {
             .catch(err => console.log('err: ', err))
         },
         beforeUpdateLeague() {
-            this.update({
-                id: this.id,
-                LeagueName: this.LeagueName,
-                StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
-                EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
-                Complex: this.Complex,
-                GameDay: this.GameDay
-            })
-            .then(
-                league => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'Leagues'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.update({
+                    id: this.id,
+                    LeagueName: this.LeagueName,
+                    StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
+                    EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
+                    Complex: this.Complex,
+                    GameDay: this.GameDay
+                })
+                .then(
+                    league => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'Leagues'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         }
     }
 }

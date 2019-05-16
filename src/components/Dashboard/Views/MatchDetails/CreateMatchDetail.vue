@@ -93,23 +93,26 @@ export default {
             getAthletes: athleteTypes.actions.getAthletes
         }),
         beforeCreateMatchDetail() {
-            this.createMatchDetail({
-                IdMatch: this.idMatch,
-                Event: this.idEvent,
-                Time: this.Time,
-                Team: this.idTeam,
-                Player: this.idPlayer
-            })
-            .then(
-                matchDetail => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'MatchDetails'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.createMatchDetail({
+                    IdMatch: this.idMatch,
+                    Event: this.idEvent,
+                    Time: this.Time,
+                    Team: this.idTeam,
+                    Player: this.idPlayer
+                })
+                .then(
+                    matchDetail => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'MatchDetails'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateMatchEvents() {
             this.getMatchEvents()

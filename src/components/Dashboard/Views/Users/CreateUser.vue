@@ -105,24 +105,27 @@ export default {
             getUserTypes: userType.actions.getUserTypes
         }),
         beforeCreateUser() {
-            this.createUser({
-              FirstName: this.FirstName,
-              LastName: this.LastName,
-              SecondLastName: this.SecondLastName,
-              Email: this.Email,
-              Password: this.Password,
-              UserType: this.UserType
-            })
-            .then(
-                field => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Users'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.createUser({
+                FirstName: this.FirstName,
+                LastName: this.LastName,
+                SecondLastName: this.SecondLastName,
+                Email: this.Email,
+                Password: this.Password,
+                UserType: this.UserType
+                })
+                .then(
+                    field => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'Users'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateUserTypes() {
             this.getUserTypes()

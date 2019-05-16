@@ -88,23 +88,26 @@ export default {
             getDays: dayTypes.actions.getDays
         }),
         beforeCreateLeague() {
-            this.create({
-                LeagueName: this.LeagueName,
-                StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
-                EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
-                Complex: this.idComplex,
-                GameDay: this.GameDay
-            })
-            .then(
-                league => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Leagues'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            ).catch(err => this.notifyVue('top', 'right', err, 'danger'))
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.create({
+                    LeagueName: this.LeagueName,
+                    StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
+                    EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
+                    Complex: this.idComplex,
+                    GameDay: this.GameDay
+                })
+                .then(
+                    league => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'Leagues'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                ).catch(err => this.notifyVue('top', 'right', err, 'danger'))
+            }
         },
         populateComplexes() {
             this.getComplexes()

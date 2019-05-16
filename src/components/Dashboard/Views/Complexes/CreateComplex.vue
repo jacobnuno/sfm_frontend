@@ -24,7 +24,7 @@
                 <gmap-map
                   :center="center"
                   :zoom="15"
-                  style="width:100%;  height: 400px;"
+                  style="width:100%;  height: 350px;"
                 >
                   <gmap-marker
                     :key="index"
@@ -90,22 +90,25 @@ export default {
             createComplex: complexTypes.actions.createComplex
         }),
         beforeCreateComplex() {
-            this.createComplex({
-                ComplexName: this.ComplexName,
-                Address: this.Address,
-                Latitude: this.Latitude,
-                Longitude: this.Longitude
-            })
-            .then(
-                complex => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Complexes'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.createComplex({
+                    ComplexName: this.ComplexName,
+                    Address: this.Address,
+                    Latitude: this.Latitude,
+                    Longitude: this.Longitude
+                })
+                .then(
+                    complex => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'Complexes'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         setPlace(place) {
             console.log('ṕlace', place)

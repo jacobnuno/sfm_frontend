@@ -54,19 +54,22 @@ export default {
             createUserType: userTypes.actions.createUserType
         }),
         beforeCreateUserType() {
-            this.createUserType({
-                Description: this.Description
-            })
-            .then(
-                field => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'UserTypes'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.createUserType({
+                    Description: this.Description
+                })
+                .then(
+                    field => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'UserTypes'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         }
     }
 }

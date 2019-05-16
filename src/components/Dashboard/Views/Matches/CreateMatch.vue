@@ -160,28 +160,31 @@ export default {
             getFields: fieldTypes.actions.getFields
         }),
         beforeCreateMatch() {
-            this.createMatch({
-                Field: this.idField,
-                League: this.idLeague,
-                Local: this.idLocal,
-                Guest: this.idGuest,
-                Referee: this.idReferee,
-                Winner: this.idWinner,
-                IsDraw: this.IsDraw,
-                StartGame: this.time1,
-                EndGame: this.time2,
-                GameDay: this.GameDay
-            })
-            .then(
-                match => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Matches'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.createMatch({
+                    Field: this.idField,
+                    League: this.idLeague,
+                    Local: this.idLocal,
+                    Guest: this.idGuest,
+                    Referee: this.idReferee,
+                    Winner: this.idWinner,
+                    IsDraw: this.IsDraw,
+                    StartGame: this.time1,
+                    EndGame: this.time2,
+                    GameDay: this.GameDay
+                })
+                .then(
+                    match => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'Matches'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateTeams() {
             this.getTeams()

@@ -97,22 +97,25 @@ export default {
             getUsers: userTypes.actions.getUsers
         }),
         beforeCreateAthlete() {
-            this.createAthlete({
-                User: this.idUser,
-                BirthDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
-                Team: this.idTeam,
-                Captain: this.isCaptain
-            })
-            .then(
-                field => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Athletes'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.createAthlete({
+                    User: this.idUser,
+                    BirthDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
+                    Team: this.idTeam,
+                    Captain: this.isCaptain
+                })
+                .then(
+                    field => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'Athletes'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateTeams() {
             this.getTeams()

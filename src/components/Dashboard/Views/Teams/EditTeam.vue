@@ -79,21 +79,24 @@ export default {
                 .catch(err => console.log('err: ', err))
         },
         beforeUpdateTeam() {
-            this.updateTeam({
-                id: this.id,
-                TeamName: this.TeamName,
-                League: this.idLeague
-            })
-            .then(
-                userType => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'Teams'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.updateTeam({
+                    id: this.id,
+                    TeamName: this.TeamName,
+                    League: this.idLeague
+                })
+                .then(
+                    userType => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'Teams'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateLeagues() {
             this.getLeagues()

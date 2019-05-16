@@ -141,7 +141,7 @@ export default {
         populateUsers() {
             this.getUsers()
             .then(users => {
-                users.data.data.rows.forEach(e => {
+                users.data.data.forEach(e => {
                     this.userOptions.push({ text: e.FirstName + " " + e.LastName, value: e.id })
                 });
             })

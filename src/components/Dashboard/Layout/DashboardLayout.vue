@@ -76,10 +76,6 @@
         <i class="nc-icon nc-atom"></i>
         <p>Eventos Partidos</p>
       </sidebar-link>
-      <sidebar-link to="match-details">
-        <i class="nc-icon nc-atom"></i>
-        <p>Detalle del Partido</p>
-      </sidebar-link>
       <!--
       <sidebar-link to="/documents">
         <i class="nc-icon nc-badge"></i>

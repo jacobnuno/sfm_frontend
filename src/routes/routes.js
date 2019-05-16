@@ -23,7 +23,6 @@ import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
 import TableList from 'src/components/Dashboard/Views/TableList.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import Icons from 'src/components/Dashboard/Views/Icons.vue'
-import Maps from 'src/components/Dashboard/Views/Maps.vue'
 import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
 
 // Leagues
@@ -145,11 +144,6 @@ const router = new Router({
           path: 'icons',
           name: 'Icons',
           component: Icons
-        },
-        {
-          path: 'maps',
-          name: 'Maps',
-          component: Maps
         },
         {
           path: 'notifications',

@@ -14,7 +14,7 @@ const actions = {
         return new Promise((resolve, reject) =>  {
             openHttp.post('/user/login', userCredentials)
                 .then(user => {
-                    window.localStorage.setItem('_token', user.body.token); // check correct name for the token field
+                    window.localStorage.setItem('_token', user.data.data.token); // check correct name for the token field
                     commit(types.mutations.setUser);
                     resolve(user);
                 })

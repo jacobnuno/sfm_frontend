@@ -1,7 +1,7 @@
 import types from '@/types/league';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { openHttp , authHttp } from '@/utils/http';
 
 const state = {
     user: null,
@@ -10,12 +10,12 @@ const state = {
 };
 
 const actions = {
-    
+
     // create league
     [types.actions.create]: ({ commit}, createLeague) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/league/', createLeague)
+            authHttp.post('/league/', createLeague)
                 .then(league => {
                     resolve(league);
                 })
@@ -33,7 +33,7 @@ const actions = {
     [types.actions.getLeagues]: ({ commit}, getLeagues) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/league/findall')
+            authHttp.get('/league/findall')
                 .then(leagues => {
                     resolve(leagues);
                 })
@@ -51,7 +51,7 @@ const actions = {
     [types.actions.getLeague]: ({ commit}, idLeague) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/league/${idLeague}`)
+            authHttp.get(`/league/${idLeague}`)
                 .then(league => {
                     resolve(league);
                 })
@@ -69,7 +69,7 @@ const actions = {
     [types.actions.updateLeague]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/league/${data.id}`, data)
+            authHttp.put(`/league/${data.id}`, data)
                 .then(league => {
                     resolve(league);
                 })
@@ -87,7 +87,7 @@ const actions = {
     [types.actions.deleteLeague]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/league/delete/${data.id}`)
+            authHttp.put(`/league/delete/${data.id}`)
                 .then(league => {
                     resolve(league);
                 })
@@ -100,15 +100,15 @@ const actions = {
                 })
         })
     }
-    
+
 };
 
 const getters = {
-   
+
 };
 
 const mutations = {
-    
+
 };
 
 export default {

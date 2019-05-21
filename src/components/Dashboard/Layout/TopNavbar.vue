@@ -2,6 +2,7 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Dashboard</a>
+      <!--
       <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
@@ -38,13 +39,13 @@
               <span class="d-lg-block">&nbsp;Search</span>
             </a>
           </li>
-        </ul>
+        </ul> -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#">
               Account
             </a>
-          </li>
+          </li> <!--
           <drop-down title="Dropdown">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
@@ -53,11 +54,9 @@
             <a class="dropdown-item" href="#">Something</a>
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
-          </drop-down>
+          </drop-down> -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              Log out
-            </a>
+            <button type="button"  class="btn btn-warning" @click="callLogOut">Log out</button>
           </li>
         </ul>
       </div>
@@ -65,6 +64,9 @@
   </nav>
 </template>
 <script>
+import authTypes from '@/types/auth';
+import { mapActions } from 'vuex';
+
   export default {
     computed: {
       routeName () {
@@ -78,6 +80,15 @@
       }
     },
     methods: {
+      ...mapActions({
+        logout: authTypes.actions.logout
+      }),
+      callLogOut () {
+        this.logout()
+        .then(res => {
+          this.$router.push({ name: 'login'});
+        })
+      },
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },
@@ -98,5 +109,4 @@
 
 </script>
 <style>
-
 </style>

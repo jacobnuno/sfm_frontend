@@ -1,23 +1,21 @@
-import types from '@/types/league';
+import types from '@/types/tournament';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp , authHttp } from '@/utils/http';
+import { openHttp } from '@/utils/http';
 
 const state = {
-    user: null,
-    logged: !!window.localStorage.getItem('_token'),
-    leagues: []
+
 };
 
 const actions = {
-
-    // create league
-    [types.actions.create]: ({ commit}, createLeague) => {
+    
+    // create tournament
+    [types.actions.createTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            authHttp.post('/league/', createLeague)
-                .then(league => {
-                    resolve(league);
+            openHttp.post('/tournament/', data)
+                .then(tournament => {
+                    resolve(tournament);
                 })
                 .catch(err => {
                     console.log(err)
@@ -29,13 +27,13 @@ const actions = {
         })
     },
 
-    // get all leagues
-    [types.actions.getLeagues]: ({ commit}, getLeagues) => {
+    // get all tournaments
+    [types.actions.getTournaments]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            authHttp.get('/league/findall')
-                .then(leagues => {
-                    resolve(leagues);
+            openHttp.get('/tournament/findall')
+                .then(tournaments => {
+                    resolve(tournaments);
                 })
                 .catch(err => {
                     console.log(err)
@@ -47,13 +45,13 @@ const actions = {
         })
     },
 
-    // get one league
-    [types.actions.getLeague]: ({ commit}, idLeague) => {
+    // get one tournament
+    [types.actions.getTournament]: ({ commit}, idTournament) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            authHttp.get(`/league/${idLeague}`)
-                .then(league => {
-                    resolve(league);
+            openHttp.get(`/tournament/${idTournament}`)
+                .then(tournament => {
+                    resolve(tournament);
                 })
                 .catch(err => {
                     console.log(err)
@@ -65,13 +63,13 @@ const actions = {
         })
     },
 
-    // update league
-    [types.actions.updateLeague]: ({ commit}, data) => {
+    // update tournament
+    [types.actions.updateTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            authHttp.put(`/league/${data.id}`, data)
-                .then(league => {
-                    resolve(league);
+            openHttp.put(`/tournament/${data.id}`, data)
+                .then(tournament => {
+                    resolve(tournament);
                 })
                 .catch(err => {
                     console.log(err)
@@ -83,13 +81,13 @@ const actions = {
         })
     },
 
-    // delete league
-    [types.actions.deleteLeague]: ({ commit}, data) => {
+    // delete tournament
+    [types.actions.deleteTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            authHttp.put(`/league/delete/${data.id}`)
-                .then(league => {
-                    resolve(league);
+            openHttp.put(`/tournament/delete/${data.id}`)
+                .then(tournament => {
+                    resolve(tournament);
                 })
                 .catch(err => {
                     console.log(err)
@@ -100,11 +98,10 @@ const actions = {
                 })
         })
     }
-
 };
 
 const getters = {
-
+   
 };
 
 const mutations = {

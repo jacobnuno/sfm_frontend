@@ -20,7 +20,7 @@ var authHttp = axios.create({
 })
 
 authHttp.interceptors.request.use(function (config) {
-  let { authToken } = window.localStorage.getItem(_token);
+  let { authToken } = window.localStorage.getItem('_token');
   if (authToken) config.headers.Authorization = authToken
   return config
 }, function (error) {

@@ -56,12 +56,7 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </drop-down> -->
           <li class="nav-item">
-            <button type="button"
-                    @click="callLogOut">
-              <a href="#" class="nav-link">
-                Log out
-              </a>
-            </button>
+            <button type="button"  class="btn btn-warning" @click="callLogOut">Log out</button>
           </li>
         </ul>
       </div>
@@ -85,9 +80,13 @@ import { mapActions } from 'vuex';
       }
     },
     methods: {
+      ...mapActions({
+        logout: authTypes.actions.logout
+      }),
       callLogOut () {
-        mapActions({
-          logout: authTypes.actions.logout
+        this.logout()
+        .then(res => {
+          this.$router.push({ name: 'login'});
         })
       },
       capitalizeFirstLetter (string) {
@@ -110,5 +109,4 @@ import { mapActions } from 'vuex';
 
 </script>
 <style>
-
 </style>

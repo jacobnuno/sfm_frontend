@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 //const BASE_URL = 'https://soccermanagerfield.herokuapp.com'
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = 'http://localhost:8081'
 
 var openHttp = axios.create({
   baseURL: BASE_URL,
@@ -20,7 +20,7 @@ var authHttp = axios.create({
 })
 
 authHttp.interceptors.request.use(function (config) {
-  let { authToken } = window.localStorage.getItem(_token);
+  let { authToken } = window.localStorage.getItem('_token');
   if (authToken) config.headers.Authorization = authToken
   return config
 }, function (error) {

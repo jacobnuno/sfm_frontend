@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-  import userTypes from '@/types/userType';
+  import tournamentTypes from '@/types/tournament';
   import { mapActions, mapState } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
@@ -50,7 +50,7 @@
     },
     methods: {
       ...mapActions({
-        getTournaments: userTypes.actions.getTournaments
+        getTournaments: tournamentTypes.actions.getTournaments
       }),
       gridData() {
         this.getTournaments()

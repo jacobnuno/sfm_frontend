@@ -42,7 +42,7 @@
 						</button>
 					</div>
 
-					<div class="text-center forgot-credentials">
+					<!--<div class="text-center forgot-credentials">
 						<a href="#" class="txt1">
 							¿Haz olivado tu contraseña?
 						</a>
@@ -53,7 +53,8 @@
 							Crear nueva cuenta
 							<i class="fa fa-long-arrow-right"></i>						
 						</a>
-					</div>
+					</div> -->
+
 				</form>
 			</div>
 		</div>

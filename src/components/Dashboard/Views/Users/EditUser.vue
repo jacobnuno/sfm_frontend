@@ -1,6 +1,6 @@
 <template>
     <section id="smf-create-user">
-        <form @submit.prevent="beforeUpdateField" class="col-sm-12 col-md-6 offset-md-3">
+        <form @submit.prevent="beforeUpdateUser" class="col-sm-12 col-md-6 offset-md-3">
             <h2 class="create-title">Editar un Usuario</h2>
 
             <div class="row">
@@ -120,26 +120,29 @@ export default {
             })
             .catch(err => console.log('err: ', err))
         },
-        beforeUpdateField() {
-            this.updateUser({
-                id: this.id,
-                FirstName: this.FirstName,
-                LastName: this.LastName,
-                SecondLastName: this.SecondLastName,
-                Email: this.Email,
-                Password: this.Password,
-                UserType: this.UserType
-            })
-            .then(
-                user => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'Users'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+        beforeUpdateUser() {
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.updateUser({
+                    id: this.id,
+                    FirstName: this.FirstName,
+                    LastName: this.LastName,
+                    SecondLastName: this.SecondLastName,
+                    Email: this.Email,
+                    Password: this.Password,
+                    UserType: this.UserType
+                })
+                .then(
+                    user => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'Users'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateUserTypes() {
             this.getUserTypes()

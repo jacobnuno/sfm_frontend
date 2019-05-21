@@ -46,12 +46,30 @@ const actions = {
     },
 
     // get one matchDetail
-    [types.actions.getMatchDetail]: ({ commit}, idMatchDetail) => {
+    [types.actions.getMatchDetail]: ({ commit }, idMatchDetail) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/matchdetail/${idMatchDetail}`)
+            openHttp.get(`/matchdetail/findOneById/${idMatchDetail}`)
                 .then(matchDetail => {
                     resolve(matchDetail);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
+    },
+
+    // get all matchDetails by match
+    [types.actions.getMatchDetailByMatch]: ({ commit }, idMatch) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.get(`/matchdetail/${idMatch}`)
+                .then(matchDetails => {
+                    resolve(matchDetails);
                 })
                 .catch(err => {
                     console.log(err)

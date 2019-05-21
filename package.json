@@ -31,11 +31,12 @@
     "vue": "^2.5.2",
     "vue-blockui": "^1.1.7",
     "vue-clickaway": "^2.1.0",
+    "vue-multiselect": "^2.1.6",
     "vue-notifyjs": "^0.2.0",
     "vue-router": "^3.0.1",
     "vue-sweetalert2": "^1.6.4",
     "vue2-datepicker": "^2.11.0",
-    "vue2-google-maps": "^0.8.4",
+    "vue2-google-maps": "^0.10.6",
     "vuejs-datepicker": "^1.5.4",
     "vuex": "^3.1.0"
   },

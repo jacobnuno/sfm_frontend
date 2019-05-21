@@ -65,20 +65,23 @@ export default {
             getLeagues: leagueTypes.actions.getLeagues
         }),
         beforeCreateTeam() {
-            this.createTeam({
-                TeamName: this.TeamName,
-                League: this.idLeague
-            })
-            .then(
-                field => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Teams'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.createTeam({
+                    TeamName: this.TeamName,
+                    League: this.idLeague
+                })
+                .then(
+                    field => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'Teams'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         },
         populateLeagues() {
             this.getLeagues()

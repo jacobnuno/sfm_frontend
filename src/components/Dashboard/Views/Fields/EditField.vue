@@ -80,21 +80,24 @@ export default {
             .catch(err => console.log('err: ', err))
         },
         beforeUpdateField() {
-            this.update({
-                id: this.id,
-                FieldName: this.FieldName,
-                Complex: this.Complex
-            })
-            .then(
-                field => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'Fields'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.update({
+                    id: this.id,
+                    FieldName: this.FieldName,
+                    Complex: this.Complex
+                })
+                .then(
+                    field => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'Fields'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         }
     }
 }

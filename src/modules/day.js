@@ -1,4 +1,4 @@
-import types from '@/types/user';
+import types from '@/types/day';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
 import { openHttp } from '@/utils/http';
@@ -8,14 +8,14 @@ const state = {
 };
 
 const actions = {
-
-    // create user
-    [types.actions.createUser]: ({ commit}, data) => {
+    
+    // create day
+    [types.actions.createDay]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/user/', data)
-                .then(user => {
-                    resolve(user);
+            openHttp.post('/day/', data)
+                .then(day => {
+                    resolve(day);
                 })
                 .catch(err => {
                     console.log(err)
@@ -27,13 +27,13 @@ const actions = {
         })
     },
 
-    // get all user
-    [types.actions.getUsers]: ({ commit }) => {
+    // get all days
+    [types.actions.getDays]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/user')
-                .then(users => {
-                    resolve(users);
+            openHttp.get('/day/findall')
+                .then(days => {
+                    resolve(days);
                 })
                 .catch(err => {
                     console.log(err)
@@ -45,13 +45,13 @@ const actions = {
         })
     },
 
-    // get one user
-    [types.actions.getUser]: ({ commit}, idUser) => {
+    // get one day
+    [types.actions.getDay]: ({ commit}, idDay) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/user/${idUser}`)
-                .then(user => {
-                    resolve(user);
+            openHttp.get(`/day/${idDay}`)
+                .then(day => {
+                    resolve(day);
                 })
                 .catch(err => {
                     console.log(err)
@@ -63,13 +63,13 @@ const actions = {
         })
     },
 
-    // update user
-    [types.actions.updateUser]: ({ commit}, data) => {
+    // update day
+    [types.actions.updateDay]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/user/${data.id}`, data)
-                .then(user => {
-                    resolve(user);
+            openHttp.put(`/day/${data.id}`, data)
+                .then(day => {
+                    resolve(day);
                 })
                 .catch(err => {
                     console.log(err)
@@ -81,13 +81,13 @@ const actions = {
         })
     },
 
-    // delete user
-    [types.actions.deleteUser]: ({ commit}, data) => {
+    // delete day
+    [types.actions.deleteDay]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/user/delete/${data.id}`)
-                .then(user => {
-                    resolve(user);
+            openHttp.put(`/day/delete/${data.id}`)
+                .then(day => {
+                    resolve(day);
                 })
                 .catch(err => {
                     console.log(err)
@@ -101,7 +101,7 @@ const actions = {
 };
 
 const getters = {
-
+   
 };
 
 const mutations = {

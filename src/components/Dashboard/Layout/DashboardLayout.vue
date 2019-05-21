@@ -3,7 +3,7 @@
     <side-bar>
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link to="/admin/overview">
-        <i class="nc-icon nc-chart-pie-35"></i>
+        <fai :icon="['fas', 'chart-pie']" class="icons" />
         <p>Dashboard</p>
       </sidebar-link>
       <!--
@@ -40,41 +40,45 @@
         <p>Equipos</p>
       </sidebar-link>
       -->
+      <sidebar-link to="tournaments">
+        <fai :icon="['fas', 'trophy']" class="icons" />
+        <p>Torneos</p>
+      </sidebar-link>
       <sidebar-link to="fields">
-        <i class="nc-icon nc-planet"></i>
+        <fai :icon="['fas', 'square']" class="icons" />
         <p>Canchas</p>
       </sidebar-link>
       <sidebar-link to="leagues">
-        <i class="nc-icon nc-spaceship"></i>
+        <fai :icon="['far', 'futbol']" class="icons" />
         <p>Ligas</p>
       </sidebar-link>
       <sidebar-link to="teams">
-        <i class="nc-icon nc-planet"></i>
+        <fai :icon="['fas', 'clipboard-list']" class="icons" />
         <p>Equipos</p>
       </sidebar-link>
       <sidebar-link to="complexes">
-        <i class="nc-icon nc-circle-09"></i>
+        <fai :icon="['far', 'compass']" class="icons" />
         <p>Unidades</p>
       </sidebar-link>
       <sidebar-link to="user-types">
-        <i class="nc-icon nc-badge"></i>
+        <fai :icon="['fas', 'cubes']" class="icons" />
         <p>Tipos de Usuario</p>
       </sidebar-link>
       <sidebar-link to="users">
-        <i class="nc-icon nc-atom"></i>
+        <fai :icon="['fas', 'users']" class="icons" />
         <p>Usuarios</p>
       </sidebar-link>
       <sidebar-link to="athletes">
-        <i class="nc-icon nc-circle-09"></i>
+        <fai :icon="['fas', 'walking']" class="icons athletes" />
         <p>Jugadores</p>
       </sidebar-link>
-      <sidebar-link to="match-events">
-        <i class="nc-icon nc-atom"></i>
-        <p>Eventos Partidos</p>
+      <sidebar-link to="matches">
+        <fai :icon="['fas', 'calendar']" class="icons" />
+        <p>Partidos</p>
       </sidebar-link>
-      <sidebar-link to="match-details">
-        <i class="nc-icon nc-atom"></i>
-        <p>Detalle del Partido</p>
+      <sidebar-link to="match-events">
+        <fai :icon="['fas', 'stopwatch']" class="icons" />
+        <p>Eventos Partidos</p>
       </sidebar-link>
       <!--
       <sidebar-link to="/documents">
@@ -99,10 +103,34 @@
   </div>
 </template>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
+  .icons {
+    font-size: 2.2em;
+    padding-right: .2em;
+    line-height: 2.3em;
+  }
+  .athletes {
+    font-size: 2.9em;
+  }
 </style>
+
 <script>
+  import { library } from '@fortawesome/fontawesome-svg-core'
+  import { faFutbol } from '@fortawesome/fontawesome-free-regular'
+  import { faUsers, faWalking, faStopwatch, faCubes, faClipboardList, faCalendar, faChartPie, faSquare, faTrophy } from '@fortawesome/fontawesome-free-solid'
+  import { faCompass } from '@fortawesome/fontawesome-free-regular'
+  library.add(faUsers)
+  library.add(faFutbol)
+  library.add(faCompass)
+  library.add(faWalking)
+  library.add(faStopwatch)
+  library.add(faCubes)
+  library.add(faClipboardList)
+  library.add(faCalendar)
+  library.add(faChartPie)
+  library.add(faSquare)
+  library.add(faTrophy)
+
   import TopNavbar from './TopNavbar.vue'
   import ContentFooter from './ContentFooter.vue'
   import DashboardContent from './Content.vue'

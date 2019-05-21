@@ -15,21 +15,18 @@
                 <label for="EndDate">Día de Finalización</label>
                 <date-picker v-model="time2" lang="es" :width="'100%'" :input-attr="{required: true}"></date-picker>
             </div>
-            
             <div class="form-group col-sm-12">
-                <label for="Complex">Complejo</label>
-                <select class="form-control" id="Complex" name="Complex" v-model="Complex" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                <label for="idComplex">Complejo</label>
+                <select class="form-control" id="idComplex" name="idComplex" v-model="idComplex" required>
+                    <option selected disabled>Elije una opción</option>
+                    <option v-for="option in complexOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                 </select>
             </div>
             <div class="form-group col-sm-12">
-                <label for="GameDay">Día de Juego</label>
-                <select class="form-control" id="GameDay" name="GameDay" v-model="GameDay" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                <label for="idGameDay">Día de Juego</label>
+                <select class="form-control" id="idGameDay" name="idGameDay" v-model="idGameDay" required>
+                    <option selected disabled>Elije una opción</option>
+                    <option v-for="option in gameDayOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                 </select>
             </div>
 
@@ -50,15 +47,19 @@
 <script>
 import DatePicker from 'vue2-datepicker';
 import leagueTypes from '@/types/league';
+import complexTypes from '@/types/complex';
+import dayTypes from '@/types/day';
 import { mapActions } from 'vuex';
 
 export default {
     components: { DatePicker },
     data() {
         return {
-            LeagueName: '',
-            Complex: '',
-            GameDay: '',
+            LeagueName: null,
+            idComplex: null,
+            complexOptions: [],
+            gameDayOptions: [],
+            idGameDay: null,
             StartDate: new Date(),
             EndDate: new Date(),
             time1: null,
@@ -82,27 +83,53 @@ export default {
             })
         },
          ...mapActions({
-            create: leagueTypes.actions.create
+            create: leagueTypes.actions.create,
+            getComplexes: complexTypes.actions.getComplexes,
+            getDays: dayTypes.actions.getDays
         }),
         beforeCreateLeague() {
-            this.create({
-                LeagueName: this.LeagueName,
-                StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
-                EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
-                Complex: this.Complex,
-                GameDay: this.GameDay
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.create({
+                    LeagueName: this.LeagueName,
+                    StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
+                    EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
+                    Complex: this.idComplex,
+                    GameDay: this.GameDay
+                })
+                .then(
+                    league => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'Leagues'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                ).catch(err => this.notifyVue('top', 'right', err, 'danger'))
+            }
+        },
+        populateComplexes() {
+            this.getComplexes()
+            .then(complexes => {
+                complexes.data.data.forEach(e => {
+                    this.complexOptions.push({ text: e.ComplexName, value: e.id })
+                });
             })
-            .then(
-                league => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Leagues'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            ).catch(err => this.notifyVue('top', 'right', err, 'danger'))
-        }
+        },
+        populateDays() {
+            this.getDays()
+            .then(days => {
+                console.log(days)
+                days.data.data.forEach(e => {
+                    this.gameDayOptions.push({ text: e.Days, value: e.id })
+                });
+            })
+        },
+    },
+    mounted() {
+        this.populateComplexes()
+        this.populateDays()
     }
 }
 </script>

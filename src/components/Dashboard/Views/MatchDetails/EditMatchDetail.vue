@@ -1,36 +1,39 @@
 <template>
-    <section id="smf-edit-league">
-        <form @submit.prevent="beforeUpdateLeague" class="col-sm-12 col-md-4 offset-md-4">
+    <section id="smf-edit-match-detail">
+        <form @submit.prevent="beforeUpdateMatchDetails" class="col-sm-12 col-md-4 offset-md-4">
             <h2 class="edit-title">Editar una Liga</h2>
-            <div class="form-group col-sm-12">
-                <label for="LeagueName">Nombre de la Liga</label>
-                <input type="text" autocomplete="off" class="form-control" id="LeagueName" v-model="LeagueName" v-validate="'required|alpha_spaces'" data-vv-name="LeagueName" placeholder="Ingresa el nombre" required>
-                <div class="invalid-feedback">{{ errors.first("LeagueName") }}</div>
-            </div>
-            <div class="form-group col-sm-12">
-                <label for="StartDate">Día de Inicio</label>
-                <date-picker v-model="time1" lang="es" :width="'100%'" :input-attr="{required: true}"></date-picker>
-            </div>
-            <div class="form-group col-sm-12">
-                <label for="EndDate">Día de Finalización</label>
-                <date-picker v-model="time2" lang="es" :width="'100%'" :input-attr="{required: true}"></date-picker>
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-6">
+                    <label for="idEvent">Evento</label>
+                    <select class="form-control" id="idEvent" name="idEvent" v-model="idEvent" required>
+                        <option selected disabled>Elije una opción</option>
+                        <option v-for="option in eventOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-12 col-md-6">
+                    <label for="Time">Minuto Ocurrido</label>
+                    <input v-validate="'required|numeric|min_value:0|max_value:120'" v-model="Time" autocomplete="off" class="form-control" type="text" placeholder="Ingresa el minuto" name="Time">
+                    <div class="invalid-feedback">{{ errors.first("Time") }}</div>
+                </div>
             </div>
             
-            <div class="form-group col-sm-12">
-                <label for="Complex">Complejo</label>
-                <select class="form-control" id="Complex" name="Complex" v-model="Complex" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-12">
-                <label for="GameDay">Día de Juego</label>
-                <select class="form-control" id="GameDay" name="GameDay" v-model="GameDay" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                </select>
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-6">
+                    <label for="idTeam">Equipo</label>
+                    <select class="form-control" id="idTeam" name="idTeam" v-model="idTeam" required>
+                        <option selected disabled>Elije una opción</option>
+                        <option v-for="option in teamOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-12 col-md-6">
+                    <label for="idPlayer">Jugador</label>
+                    <select class="form-control" id="idPlayer" name="idPlayer" v-model="idPlayer" required>
+                        <option selected disabled>Elije una opción</option>
+                        <option v-for="option in athleteOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
+                    </select>
+                </div>
             </div>
 
             <span class="alert alert-danger validation-error" v-if="error">A ocurrido un error</span>
@@ -38,7 +41,7 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Leagues' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Matches' }">
                         Cerrar
                     </router-link>
                 </div>
@@ -48,22 +51,24 @@
 </template>
 
 <script>
-import DatePicker from 'vue2-datepicker';
-import leagueTypes from '@/types/league';
+import matchDetailTypes from '@/types/matchDetail';
+import matchEventTypes from '@/types/matchEvent';
+import teamTypes from '@/types/team';
+import athleteTypes from '@/types/athlete';
 import { mapActions } from 'vuex';
 
 export default {
-    components: { DatePicker },
     data() {
         return {
             id: null,
-            LeagueName: '',
-            Complex: '',
-            GameDay: '',
-            StartDate: new Date(),
-            EndDate: new Date(),
-            time1: null,
-            time2: null,
+            idMatch: 1,
+            idEvent: null,
+            Time: null,
+            idTeam: null,
+            idPlayer: null,
+            eventOptions: [],
+            teamOptions: [],
+            athleteOptions: [],
             error: null
         }
     },
@@ -87,51 +92,84 @@ export default {
             })
         },
          ...mapActions({
-            update: leagueTypes.actions.updateLeague,
-            getLeague: leagueTypes.actions.getLeague
+            updateMatchDetail: matchDetailTypes.actions.updateMatchDetail,
+            getMatchDetail: matchDetailTypes.actions.getMatchDetail,
+            getMatchEvents: matchEventTypes.actions.getMatchEvents,
+            getTeams: teamTypes.actions.getTeams,
+            getAthletes: athleteTypes.actions.getAthletes
         }),
         date(value) {
             return value.split('T')[0];
         },
         getData() {
-            this.getLeague(this.id)
-            .then(league => {
-                console.log('leagues: ', league.data.data)
-                let newLeague = league.data.data;
-                this.LeagueName = newLeague.LeagueName
-                this.time1 = new Date(newLeague.StartDate)
-                this.time2 = new Date(newLeague.EndDate)
-                this.GameDay = newLeague.Day.id
-                this.Complex = newLeague["Complex Detail"].id
+            this.getMatchDetail(this.id)
+            .then(matchDetail => {
+                this.Time = matchDetail.data.data[0].Time,
+                this.idEvent = matchDetail.data.data[0]["MatchEvent"].id,
+                
+                this.idTeam = matchDetail.data.data[0]["IdTeam"].id,
+                this.idPlayer = matchDetail.data.data[0]["User"].id
             })
             .catch(err => console.log('err: ', err))
         },
-        beforeUpdateLeague() {
-            this.update({
-                id: this.id,
-                LeagueName: this.LeagueName,
-                StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
-                EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
-                Complex: this.Complex,
-                GameDay: this.GameDay
+        beforeUpdateMatchDetails() {
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.updateMatchDetail({
+                    id: this.id,
+                    IdMatch: this.idMatch,
+                    Event: this.idEvent,
+                    Time: this.Time,
+                    Team: this.idTeam,
+                    Player: this.idPlayer
+                })
+                .then(
+                    matchDetail => {
+                        this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
+                        this.$router.push({ name: 'Matches'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
+        },
+        populateMatchEvents() {
+            this.getMatchEvents()
+            .then(matchEvents => {
+                matchEvents.data.data.forEach(e => {
+                this.eventOptions.push({ text: e.Description, value: e.id })
+                });
             })
-            .then(
-                league => {
-                    this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                    this.$router.push({ name: 'Leagues'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+        },
+        populateTeams() {
+            this.getTeams()
+            .then(teams => {
+                teams.data.data.forEach(e => {
+                this.teamOptions.push({ text: e.TeamName, value: e.id })
+                });
+            })
+        },
+        populateAthletes() {
+            this.getAthletes()
+            .then(athletes => {
+                athletes.data.data.forEach(e => {
+                this.athleteOptions.push({ text: e["Id User"].FirstName + " " + e["Id User"].LastName, value: e.id })
+                });
+            })
         }
+    },
+    mounted() {
+        this.populateMatchEvents()
+        this.populateTeams()
+        this.populateAthletes()
     }
 }
 </script>
 
 <style lang="scss">
-    #smf-edit-league {
+    #smf-edit-match-detail {
         .buttons {
             margin-top: 3em;
         }

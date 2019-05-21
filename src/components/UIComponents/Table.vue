@@ -2,14 +2,14 @@
   <table class="table">
     <thead>
       <slot name="columns">
-        <th v-for="column in columns">{{column}}</th>
+        <th v-for="column in columns" :key="column">{{column}}</th>
         <th>Opciones</th>
       </slot>
     </thead>
     <tbody>
-    <tr v-for="item in data">
+    <tr v-for="(item, index) in data" :key="index">
       <slot :row="item">
-        <td v-for="column in columns" v-if="hasValue(item, column)">{{ itemValue(item, column) }}</td>
+        <td v-for="column in columns" :key="column" v-if="hasValue(item, column)">{{ itemValue(item, column) }}</td>
         <td>
           <button class="btn btn-primary btn-simple" v-on:click="send(redirectShow, item.id)">
             <fai :icon="['far', 'eye']" class="icons" />
@@ -23,6 +23,10 @@
         </td>
       </slot>
     </tr>
+    <!--<tr v-if="!data.lenght">
+      <td colspan="5" class="no-data">No se encontraron resultados</td>
+    </tr> -->
+    
     </tbody>
   </table>
 </template>
@@ -35,6 +39,9 @@ import matchEventTypes from '@/types/matchEvent';
 import users from '@/types/user';
 import teams from '@/types/team';
 import athletes from '@/types/athlete';
+import matches from '@/types/match';
+import matchDetailTypes from '@/types/matchDetail';
+import complexTypes from '@/types/complex';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEye } from '@fortawesome/fontawesome-free-regular'
@@ -48,6 +55,7 @@ library.add(faTrashAlt)
     name: 'l-table',
     props: {
       columns: Array,
+      lenColumns: Int32Array,
       data: Array,
       redirectShow: String,
       redirectEdit: String,
@@ -71,6 +79,9 @@ library.add(faTrashAlt)
         deleteUser: users.actions.deleteUser,
         deleteTeam: teams.actions.deleteTeam,
         deleteAthlete: athletes.actions.deleteAthlete,
+        deleteMatch: matches.actions.deleteMatch,
+        deleteMatchDetail: matchDetailTypes.actions.deleteMatchDetail,
+        deleteComplex: complexTypes.actions.deleteComplex,
       }),
       notifyVue (verticalAlign, horizontalAlign, msg, color) {
             const notification = {
@@ -118,4 +129,8 @@ library.add(faTrashAlt)
   }
 </script>
 <style>
+  .no-data {
+      background-color: #ffbc67;
+      text-align: center;
+  }
 </style>

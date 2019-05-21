@@ -1,4 +1,4 @@
-import types from '@/types/user';
+import types from '@/types/tournament';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
 import { openHttp } from '@/utils/http';
@@ -8,14 +8,14 @@ const state = {
 };
 
 const actions = {
-
-    // create user
-    [types.actions.createUser]: ({ commit}, data) => {
+    
+    // create tournament
+    [types.actions.createTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/user/', data)
-                .then(user => {
-                    resolve(user);
+            openHttp.post('/tournament/', data)
+                .then(tournament => {
+                    resolve(tournament);
                 })
                 .catch(err => {
                     console.log(err)
@@ -27,13 +27,13 @@ const actions = {
         })
     },
 
-    // get all user
-    [types.actions.getUsers]: ({ commit }) => {
+    // get all tournaments
+    [types.actions.getTournaments]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/user')
-                .then(users => {
-                    resolve(users);
+            openHttp.get('/tournament/findall')
+                .then(tournaments => {
+                    resolve(tournaments);
                 })
                 .catch(err => {
                     console.log(err)
@@ -45,13 +45,13 @@ const actions = {
         })
     },
 
-    // get one user
-    [types.actions.getUser]: ({ commit}, idUser) => {
+    // get one tournament
+    [types.actions.getTournament]: ({ commit}, idTournament) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/user/${idUser}`)
-                .then(user => {
-                    resolve(user);
+            openHttp.get(`/tournament/${idTournament}`)
+                .then(tournament => {
+                    resolve(tournament);
                 })
                 .catch(err => {
                     console.log(err)
@@ -63,13 +63,13 @@ const actions = {
         })
     },
 
-    // update user
-    [types.actions.updateUser]: ({ commit}, data) => {
+    // update tournament
+    [types.actions.updateTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/user/${data.id}`, data)
-                .then(user => {
-                    resolve(user);
+            openHttp.put(`/tournament/${data.id}`, data)
+                .then(tournament => {
+                    resolve(tournament);
                 })
                 .catch(err => {
                     console.log(err)
@@ -81,13 +81,13 @@ const actions = {
         })
     },
 
-    // delete user
-    [types.actions.deleteUser]: ({ commit}, data) => {
+    // delete tournament
+    [types.actions.deleteTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/user/delete/${data.id}`)
-                .then(user => {
-                    resolve(user);
+            openHttp.put(`/tournament/delete/${data.id}`)
+                .then(tournament => {
+                    resolve(tournament);
                 })
                 .catch(err => {
                     console.log(err)
@@ -101,7 +101,7 @@ const actions = {
 };
 
 const getters = {
-
+   
 };
 
 const mutations = {

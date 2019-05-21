@@ -63,20 +63,23 @@ export default {
             create: fieldTypes.actions.createField
         }),
         beforeCreateField() {
-            this.create({
-                FieldName: this.FieldName,
-                Complex: this.Complex
-            })
-            .then(
-                field => {
-                    this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                    this.$router.push({ name: 'Fields'});
-                },
-                error => {
-                    console.log(error)
-                    this.notifyVue('top', 'right', error, 'danger')
-                }
-            )
+            this.$validator.validateAll()
+            if (!this.errors.any()) {
+                this.create({
+                    FieldName: this.FieldName,
+                    Complex: this.Complex
+                })
+                .then(
+                    field => {
+                        this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
+                        this.$router.push({ name: 'Fields'});
+                    },
+                    error => {
+                        console.log(error)
+                        this.notifyVue('top', 'right', error, 'danger')
+                    }
+                )
+            }
         }
     }
 }

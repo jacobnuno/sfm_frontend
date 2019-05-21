@@ -23,7 +23,6 @@ import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
 import TableList from 'src/components/Dashboard/Views/TableList.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import Icons from 'src/components/Dashboard/Views/Icons.vue'
-import Maps from 'src/components/Dashboard/Views/Maps.vue'
 import Notifications from 'src/components/Dashboard/Views/Notifications.vue'
 
 // Leagues
@@ -79,6 +78,18 @@ import Athletes from '@/components/Dashboard/Views/Athletes/Athletes.vue'
 import CreateAthlete from '@/components/Dashboard/Views/Athletes/CreateAthlete.vue'
 import ShowAthlete from '@/components/Dashboard/Views/Athletes/ShowAthlete.vue'
 import EditAthlete from '@/components/Dashboard/Views/Athletes/EditAthlete.vue'
+
+// Match
+import Matches from '@/components/Dashboard/Views/Matches/Matches.vue'
+import CreateMatch from '@/components/Dashboard/Views/Matches/CreateMatch.vue'
+import ShowMatch from '@/components/Dashboard/Views/Matches/ShowMatch.vue'
+import EditMatch from '@/components/Dashboard/Views/Matches/EditMatch.vue'
+
+// Tournament
+import Tournaments from '@/components/Dashboard/Views/Tournaments/Tournaments.vue'
+import CreateTournament from '@/components/Dashboard/Views/Tournaments/CreateTournament.vue'
+import ShowTournament from '@/components/Dashboard/Views/Tournaments/ShowTournament.vue'
+import EditTournament from '@/components/Dashboard/Views/Tournaments/EditTournament.vue'
 
 // Guards
 
@@ -139,11 +150,6 @@ const router = new Router({
           path: 'icons',
           name: 'Icons',
           component: Icons
-        },
-        {
-          path: 'maps',
-          name: 'Maps',
-          component: Maps
         },
         {
           path: 'notifications',
@@ -370,6 +376,54 @@ const router = new Router({
           path: 'edit-athlete',
           name: 'EditAthlete',
           component: EditAthlete,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'matches',
+          name: 'Matches',
+          component: Matches,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-match',
+          name: 'CreateMatch',
+          component: CreateMatch,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-match',
+          name: 'ShowMatch',
+          component: ShowMatch,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-match',
+          name: 'EditMatch',
+          component: EditMatch,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'tournaments',
+          name: 'Tournaments',
+          component: Tournaments,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-tournament',
+          name: 'CreateTournament',
+          component: CreateTournament,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-tournament',
+          name: 'ShowTournament',
+          component: ShowTournament,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-tournament',
+          name: 'EditTournament',
+          component: EditTournament,
           /*beforeEnter: registerGuard*/
         }
       ]

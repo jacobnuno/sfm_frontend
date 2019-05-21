@@ -1,4 +1,4 @@
-import types from '@/types/user';
+import types from '@/types/match';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
 import { openHttp } from '@/utils/http';
@@ -8,14 +8,15 @@ const state = {
 };
 
 const actions = {
-
-    // create user
-    [types.actions.createUser]: ({ commit}, data) => {
+    
+    // create match
+    [types.actions.createMatch]: ({ commit}, data) => {
+        console.log(data)
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/user/', data)
-                .then(user => {
-                    resolve(user);
+            openHttp.post('/match/', data)
+                .then(match => {
+                    resolve(match);
                 })
                 .catch(err => {
                     console.log(err)
@@ -27,13 +28,13 @@ const actions = {
         })
     },
 
-    // get all user
-    [types.actions.getUsers]: ({ commit }) => {
+    // get all matches
+    [types.actions.getMatches]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/user')
-                .then(users => {
-                    resolve(users);
+            openHttp.get('/match/findall')
+                .then(matches => {
+                    resolve(matches);
                 })
                 .catch(err => {
                     console.log(err)
@@ -45,13 +46,13 @@ const actions = {
         })
     },
 
-    // get one user
-    [types.actions.getUser]: ({ commit}, idUser) => {
+    // get one match
+    [types.actions.getMatch]: ({ commit}, idMatch) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/user/${idUser}`)
-                .then(user => {
-                    resolve(user);
+            openHttp.get(`/match/${idMatch}`)
+                .then(match => {
+                    resolve(match);
                 })
                 .catch(err => {
                     console.log(err)
@@ -63,13 +64,13 @@ const actions = {
         })
     },
 
-    // update user
-    [types.actions.updateUser]: ({ commit}, data) => {
+    // update match
+    [types.actions.updateMatch]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/user/${data.id}`, data)
-                .then(user => {
-                    resolve(user);
+            openHttp.put(`/match/${data.id}`, data)
+                .then(match => {
+                    resolve(match);
                 })
                 .catch(err => {
                     console.log(err)
@@ -81,13 +82,13 @@ const actions = {
         })
     },
 
-    // delete user
-    [types.actions.deleteUser]: ({ commit}, data) => {
+    // delete match
+    [types.actions.deleteMatch]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/user/delete/${data.id}`)
-                .then(user => {
-                    resolve(user);
+            openHttp.put(`/match/delete/${data.id}`)
+                .then(match => {
+                    resolve(match);
                 })
                 .catch(err => {
                     console.log(err)
@@ -101,7 +102,7 @@ const actions = {
 };
 
 const getters = {
-
+   
 };
 
 const mutations = {

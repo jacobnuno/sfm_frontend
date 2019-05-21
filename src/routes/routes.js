@@ -85,6 +85,12 @@ import CreateMatch from '@/components/Dashboard/Views/Matches/CreateMatch.vue'
 import ShowMatch from '@/components/Dashboard/Views/Matches/ShowMatch.vue'
 import EditMatch from '@/components/Dashboard/Views/Matches/EditMatch.vue'
 
+// Tournament
+import Tournaments from '@/components/Dashboard/Views/Tournaments/Tournaments.vue'
+import CreateTournament from '@/components/Dashboard/Views/Tournaments/CreateTournament.vue'
+import ShowTournament from '@/components/Dashboard/Views/Tournaments/ShowTournament.vue'
+import EditTournament from '@/components/Dashboard/Views/Tournaments/EditTournament.vue'
+
 // Guards
 
 // Guard to auth user
@@ -394,6 +400,30 @@ const router = new Router({
           path: 'edit-match',
           name: 'EditMatch',
           component: EditMatch,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'tournaments',
+          name: 'Tournaments',
+          component: Tournaments,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'create-tournament',
+          name: 'CreateTournament',
+          component: CreateTournament,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'show-tournament',
+          name: 'ShowTournament',
+          component: ShowTournament,
+          /*beforeEnter: registerGuard*/
+        },
+        {
+          path: 'edit-tournament',
+          name: 'EditTournament',
+          component: EditTournament,
           /*beforeEnter: registerGuard*/
         }
       ]

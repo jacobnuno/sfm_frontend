@@ -40,6 +40,10 @@
         <p>Equipos</p>
       </sidebar-link>
       -->
+      <sidebar-link to="tournaments">
+        <fai :icon="['fas', 'exchange-alt']" class="icons" />
+        <p>Torneos</p>
+      </sidebar-link>
       <sidebar-link to="fields">
         <fai :icon="['fas', 'square']" class="icons" />
         <p>Canchas</p>
@@ -113,7 +117,7 @@
 <script>
   import { library } from '@fortawesome/fontawesome-svg-core'
   import { faFutbol } from '@fortawesome/fontawesome-free-regular'
-  import { faUsers, faWalking, faStopwatch, faCubes, faClipboardList, faCalendar, faChartPie, faSquare } from '@fortawesome/fontawesome-free-solid'
+  import { faUsers, faWalking, faStopwatch, faCubes, faClipboardList, faCalendar, faChartPie, faSquare, faExchangeAlt } from '@fortawesome/fontawesome-free-solid'
   import { faCompass } from '@fortawesome/fontawesome-free-regular'
   library.add(faUsers)
   library.add(faFutbol)
@@ -125,6 +129,7 @@
   library.add(faCalendar)
   library.add(faChartPie)
   library.add(faSquare)
+  library.add(faExchangeAlt)
 
   import TopNavbar from './TopNavbar.vue'
   import ContentFooter from './ContentFooter.vue'

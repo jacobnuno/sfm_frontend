@@ -10,9 +10,9 @@ const state = {
 
 const actions = {
     [types.actions.login]: ({ commit }, userCredentials) => {
-       // commit(globalTypes.mutations.starProcessing);
+        commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/user/login', userCredentials)
+            openHttp.post('/login', userCredentials)
                 .then(user => {
                     window.localStorage.setItem('_token', user.data.data.token); // check correct name for the token field
                     commit(types.mutations.setUser);
@@ -20,13 +20,13 @@ const actions = {
                 })
                 .catch(err => {
                     reject(err);
-                }) /*
+                })
                 .finally(() => {
                     commit(globalTypes.mutations.stopProcessing);
-                }) */
+                })
         })
     },
-
+    /*
     [types.actions.register]: ({ commit}, registerData) => {
         commit(globalTypes.mutations.starProcessing);
         return new Promise((resolve, reject) =>  {
@@ -59,7 +59,7 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
-    },
+    }, */
 
     [types.actions.logout]: ({ commit }) => {
         window.localStorage.removeItem('_token');
@@ -81,8 +81,8 @@ const getters = {
 const mutations = {
     // set user from jwt token
     [types.mutations.setUser]: (state) => {
-        if(window.localStorage.getItem(_token)) {
-            const token = window.localStorage.getItem(_token);
+        if(window.localStorage.getItem('_token')) {
+            const token = window.localStorage.getItem('_token');
             const jwtDecode = require('jwt-decode');
             state.user = jwtDecode(token);
             state.logged = true;

@@ -31,7 +31,7 @@
   import { mapActions, mapState } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  const tableColumns = ['ID', 'Nombre', 'Día de Inicio', 'Día de Finalización', 'Complejo', 'Día de Juego']
+  const tableColumns = ['Nombre', 'Día de Inicio', 'Día de Finalización', 'Complejo', 'Día de Juego']
 
   export default {
     components: {

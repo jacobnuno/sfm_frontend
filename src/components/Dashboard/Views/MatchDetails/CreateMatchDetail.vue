@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="form-group col-sm-12 col-md-6">
                     <label for="idTeam">Equipo</label>
-                    <select class="form-control" id="idTeam" name="idTeam" v-model="idTeam" required>
+                    <select class="form-control" id="idTeam" name="idTeam" v-model="idTeam" @change="onChangeTeam($event)" required>
                         <option selected disabled>Elije una opción</option>
                         <option v-for="option in teamOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                     </select>
@@ -29,10 +29,11 @@
 
                 <div class="form-group col-sm-12 col-md-6">
                     <label for="idPlayer">Jugador</label>
-                    <select class="form-control" id="idPlayer" name="idPlayer" v-model="idPlayer" required>
+                    <select v-if="idTeam != null" class="form-control" id="idPlayer" name="idPlayer" v-model="idPlayer" required>
                         <option selected disabled>Elije una opción</option>
                         <option v-for="option in athleteOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                     </select>
+                    <span v-else class="alert alert-warning span-verify">Selecciona un Equipo</span>
                 </div>
             </div>
 
@@ -97,7 +98,7 @@ export default {
             createMatchDetail: matchDetailTypes.actions.createMatchDetail,
             getMatchEvents: matchEventTypes.actions.getMatchEvents,
             getTeams: teamTypes.actions.getTeams,
-            getAthletes: athleteTypes.actions.getAthletes
+            getPlayersByTeam: teamTypes.actions.getPlayersByTeam
         }),
         beforeCreateMatchDetail() {
             this.$validator.validateAll()
@@ -139,10 +140,14 @@ export default {
                 });
             })
         },
-        populateAthletes() {
-            this.getAthletes()
+        onChangeTeam(event) {
+            this.populateAthletes(event.target.value)
+        },
+        populateAthletes(teamId) {
+            this.athleteOptions = []
+            this.getPlayersByTeam(teamId)
             .then(athletes => {
-                athletes.data.data.forEach(e => {
+                athletes.data.data.players.forEach(e => {
                     this.athleteOptions.push({ text: e["Id User"].FirstName + " " + e["Id User"].LastName, value: e.id })
                 });
             })
@@ -151,7 +156,6 @@ export default {
     mounted() {
         this.populateMatchEvents()
         this.populateTeams()
-        this.populateAthletes()
     },
 }
 </script>
@@ -175,6 +179,10 @@ export default {
             width: 100%;
             display: block;
             border-radius: 4px;
+        }
+        .span-verify {
+            display: block; 
+            text-align: center;
         }
     }
 </style>

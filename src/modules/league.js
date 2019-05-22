@@ -96,7 +96,25 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
-    }
+    },
+
+    // get all teams by league
+    [types.actions.getTeamsByLeague]: ({ commit}, idLeague) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.get(`/league/${idLeague}/teams`)
+                .then(teams => {
+                    resolve(teams);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
+    },
 
 };
 

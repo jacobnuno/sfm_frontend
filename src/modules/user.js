@@ -97,7 +97,26 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
+    },
+
+    // get all user by user type
+    [types.actions.getUsersByUserType]: ({ commit}, idUserType) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.get(`/user/type/${idUserType}`)
+                .then(users => {
+                    resolve(users);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
     }
+
 };
 
 const getters = {

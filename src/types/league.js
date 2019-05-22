@@ -8,7 +8,8 @@ export default namespace('league', {
         'getLeagues',
         'getLeague',
         'updateLeague',
-        'deleteLeague'
+        'deleteLeague',
+        'getTeamsByLeague'
     ],
     mutations: [
     ]

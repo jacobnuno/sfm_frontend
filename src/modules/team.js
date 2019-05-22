@@ -97,7 +97,26 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
+    },
+
+    // get all players by team
+    [types.actions.getPlayersByTeam]: ({ commit}, idTeam) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            openHttp.get(`/team/${idTeam}/players`)
+                .then(players => {
+                    resolve(players);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
     }
+
 };
 
 const getters = {

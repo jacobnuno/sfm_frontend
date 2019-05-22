@@ -41,7 +41,7 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'MatchDetails' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'ShowMatch', params: { id: idMatch } }">
                         Cerrar
                     </router-link>
                 </div>
@@ -60,16 +60,23 @@ import { mapActions } from 'vuex';
 export default {
     data() {
         return {
-            idMatch: 1,
+            idMatch: null,
             idEvent: null,
             Time: null,
             idTeam: null,
             idPlayer: null,
+            idLocal: null,
+            idGuest: null,
             eventOptions: [],
             teamOptions: [],
             athleteOptions: [],
             error: null
         }
+    },
+    created() {      
+      this.idLocal = this.$route.params.idLocal;
+      this.idGuest = this.$route.params.idGuest;
+      this.idMatch = this.$route.params.idMatch;
     }, 
     methods: {
         notifyVue (verticalAlign, horizontalAlign, msg, color) {
@@ -105,7 +112,7 @@ export default {
                 .then(
                     matchDetail => {
                         this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                        this.$router.push({ name: 'MatchDetails'});
+                        this.$router.push({ name: 'ShowMatch', params: { id: this.idMatch } });
                     },
                     error => {
                         console.log(error)
@@ -118,7 +125,7 @@ export default {
             this.getMatchEvents()
             .then(matchEvents => {
                 matchEvents.data.data.forEach(e => {
-                this.eventOptions.push({ text: e.Description, value: e.id })
+                    this.eventOptions.push({ text: e.Description, value: e.id })
                 });
             })
         },
@@ -126,7 +133,9 @@ export default {
             this.getTeams()
             .then(teams => {
                 teams.data.data.forEach(e => {
-                this.teamOptions.push({ text: e.TeamName, value: e.id })
+                    if(e.id == this.idLocal || e.id == this.idGuest) {
+                        this.teamOptions.push({ text: e.TeamName, value: e.id })
+                    }
                 });
             })
         },
@@ -134,7 +143,7 @@ export default {
             this.getAthletes()
             .then(athletes => {
                 athletes.data.data.forEach(e => {
-                this.athleteOptions.push({ text: e["Id User"].FirstName + " " + e["Id User"].LastName, value: e.id })
+                    this.athleteOptions.push({ text: e["Id User"].FirstName + " " + e["Id User"].LastName, value: e.id })
                 });
             })
         }

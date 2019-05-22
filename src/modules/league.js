@@ -4,9 +4,6 @@ import Vue from 'vue';
 import { openHttp , authHttp } from '@/utils/http';
 
 const state = {
-    user: null,
-    logged: !!window.localStorage.getItem('_token'),
-    leagues: []
 };
 
 const actions = {

@@ -66,7 +66,7 @@
             <div class="col-12">
               <card class="card-plain">
                 <template slot="header">
-                  <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateMatchDetail' }">
+                  <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateMatchDetail', params: { idLocal: idLocal, idGuest: idGuest, idMatch: id} }">
                     Nuevo
                   </router-link>
                   <h4 class="card-title">Eventos del Partido</h4>
@@ -74,7 +74,7 @@
                 <div class="table-responsive">
                   <l-table class="table-hover"
                           :columns="table1.columns"
-                          :data="table1.data"
+                          :data="table1.data[0]"
                           :redirectShow="'ShowMatchDetail'"
                           :redirectEdit="'EditMatchDetail'"
                           :deleteAction="'deleteMatchDetail'">
@@ -113,7 +113,9 @@
         id: null,
         Field: null,
         League: null,
+        idLocal: null,
         Local: null,
+        idGuest: null,
         Guest: null,
         Referee: null,
         Winner: null,
@@ -125,7 +127,8 @@
         table1: {
           columns: [...tableColumns],
           data: [],
-        }
+        },
+        elements: []
       }
     },
     created() {      
@@ -146,9 +149,11 @@
        this.getMatch(this.id)
           .then(match => {
             this.Field = match.data.data.IdField.FieldName
-            this.League = match.data.data.IdLeague.LeagueName,
-            this.Local = match.data.data.IdLocal.TeamName,
+            this.League = match.data.data.IdLeague.LeagueName
+            this.Local = match.data.data.IdLocal.TeamName
+            this.idLocal = match.data.data.IdLocal.id
             this.Guest = match.data.data.IdGuest.TeamName
+            this.idGuest = match.data.data.IdGuest.id
             this.Referee = match.data.data.IdReferee.FirstName + " " + match.data.data.IdReferee.LastName
             this.IsDraw = match.data.data.IsDraw
             this.StartGame = match.data.data.StartGame
@@ -164,6 +169,10 @@
                 this.Winner = team.data.data.TeamName
             })
       },
+      sortObject(obj) {
+        obj.sort((a, b) => (a['minuto ocurrido'] > b['minuto ocurrido']) ? 1 : -1)
+        return obj
+      },
       gridData() {
         this.getMatchDetailByMatch(this.id)
           .then(matchDetails => {
@@ -175,8 +184,10 @@
                 'jugador': e.User.FirstName + " " + e.User.LastName,
                 'equipo': e["IdTeam"].TeamName
               }
-              this.table1.data.push(element)
+              this.elements.push(element)
+              //this.table1.data.push(element)
             });
+            this.table1.data.push(this.sortObject(this.elements))
           })
       }
     },

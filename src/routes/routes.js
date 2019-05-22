@@ -19,7 +19,8 @@ import Personal from 'src/components/Dashboard/Views/Personal.vue'
 
 // Admin pages
 import Overview from 'src/components/Dashboard/Views/Overview.vue'
-import UserProfile from 'src/components/Dashboard/Views/UserProfile.vue'
+import UserProfile from 'src/components/Dashboard/Views/UserProfile/ShowUser.vue'
+import EditUserProfile from 'src/components/Dashboard/Views/UserProfile/EditUser.vue'
 import TableList from 'src/components/Dashboard/Views/TableList.vue'
 import Typography from 'src/components/Dashboard/Views/Typography.vue'
 import Icons from 'src/components/Dashboard/Views/Icons.vue'
@@ -132,9 +133,14 @@ const router = new Router({
           component: Overview
         },
         {
-          path: 'user',
-          name: 'User',
+          path: 'user-profile',
+          name: 'UserProfile',
           component: UserProfile
+        },
+        {
+          path: 'edit-user-profile',
+          name: 'EditUserProfile',
+          component: EditUserProfile
         },
         {
           path: 'table-list',

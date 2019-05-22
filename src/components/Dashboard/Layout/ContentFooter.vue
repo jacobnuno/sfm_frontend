@@ -23,7 +23,7 @@
 </script>
 <style>
   footer{
-    position: fixed;
+    position: relative;
     width: 100%;
     bottom: 0px;
     right: 0px;

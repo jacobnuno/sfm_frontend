@@ -17,19 +17,18 @@
             </div>
             
             <div class="form-group col-sm-12">
-                <label for="Complex">Complejo</label>
-                <select class="form-control" id="Complex" name="Complex" v-model="Complex" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                <label for="idComplex">Complejo</label>
+                <select class="form-control" id="idComplex" name="idComplex" v-model="idComplex" required>
+                    <option selected disabled>Elije una opción</option>
+                    <option v-for="option in complexOptions" :key="option.value" :value="option.value" :selected="option.value == idComplex">{{ option.text }}</option>
                 </select>
             </div>
+
             <div class="form-group col-sm-12">
-                <label for="GameDay">Día de Juego</label>
-                <select class="form-control" id="GameDay" name="GameDay" v-model="GameDay" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                <label for="idGameDay">Día de Juego</label>
+                <select class="form-control" id="idGameDay" name="idGameDay" v-model="idGameDay" required>
+                    <option selected disabled>Elije una opción</option>
+                    <option v-for="option in gameDayOptions" :key="option.value" :value="option.value" :selected="option.value == idGameDay">{{ option.text }}</option>
                 </select>
             </div>
 
@@ -50,6 +49,8 @@
 <script>
 import DatePicker from 'vue2-datepicker';
 import leagueTypes from '@/types/league';
+import complexTypes from '@/types/complex';
+import dayTypes from '@/types/day';
 import { mapActions } from 'vuex';
 
 export default {
@@ -58,10 +59,12 @@ export default {
         return {
             id: null,
             LeagueName: '',
-            Complex: '',
-            GameDay: '',
+            idComplex: '',
+            idGameDay: '',
             StartDate: new Date(),
             EndDate: new Date(),
+            gameDayOptions: [],
+            complexOptions: [],
             time1: null,
             time2: null,
             error: null
@@ -88,7 +91,9 @@ export default {
         },
          ...mapActions({
             update: leagueTypes.actions.updateLeague,
-            getLeague: leagueTypes.actions.getLeague
+            getLeague: leagueTypes.actions.getLeague,
+            getComplexes: complexTypes.actions.getComplexes,
+            getDays: dayTypes.actions.getDays
         }),
         date(value) {
             return value.split('T')[0];
@@ -100,8 +105,8 @@ export default {
                 this.LeagueName = newLeague.LeagueName
                 this.time1 = new Date(newLeague.StartDate)
                 this.time2 = new Date(newLeague.EndDate)
-                this.GameDay = newLeague.Day.id
-                this.Complex = newLeague["Complex Detail"].id
+                this.idGameDay = newLeague.Day.id
+                this.idComplex = newLeague["Complex Detail"].id
             })
             .catch(err => console.log('err: ', err))
         },
@@ -113,8 +118,8 @@ export default {
                     LeagueName: this.LeagueName,
                     StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
                     EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
-                    Complex: this.Complex,
-                    GameDay: this.GameDay
+                    Complex: this.idComplex,
+                    GameDay: this.idGameDay
                 })
                 .then(
                     league => {
@@ -127,7 +132,27 @@ export default {
                     }
                 )
             }
-        }
+        },
+        populateComplexes() {
+            this.getComplexes()
+            .then(complexes => {
+                complexes.data.data.forEach(e => {
+                    this.complexOptions.push({ text: e.ComplexName, value: e.id })
+                });
+            })
+        },
+        populateDays() {
+            this.getDays()
+            .then(days => {
+                days.data.data.forEach(e => {
+                    this.gameDayOptions.push({ text: e.Days, value: e.id })
+                });
+            })
+        },
+    },
+    mounted() {
+        this.populateComplexes()
+        this.populateDays()
     }
 }
 </script>

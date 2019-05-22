@@ -9,14 +9,12 @@
             </div>
                         
             <div class="form-group col-sm-12">
-                <label for="Complex">Complejo</label>
-                <select class="form-control" id="Complex" name="Complex" v-model="Complex" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                <label for="idComplex">Complejo</label>
+                <select class="form-control" id="idComplex" name="idComplex" v-model="idComplex" required>
+                    <option selected disabled>Elije una opción</option>
+                    <option v-for="option in complexOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                 </select>
             </div>
-            
 
             <span class="alert alert-danger validation-error" v-if="error">A ocurrido un error</span>
             
@@ -34,13 +32,15 @@
 
 <script>
 import fieldTypes from '@/types/field';
+import complexTypes from '@/types/complex';
 import { mapActions } from 'vuex';
 
 export default {
     data() {
         return {
-            FieldName: '',
-            Complex: '',
+            FieldName: null,
+            idComplex: null,
+            complexOptions: [],
             error: null
         }
     }, 
@@ -60,14 +60,15 @@ export default {
             })
         },
          ...mapActions({
-            create: fieldTypes.actions.createField
+            create: fieldTypes.actions.createField,
+            getComplexes: complexTypes.actions.getComplexes
         }),
         beforeCreateField() {
             this.$validator.validateAll()
             if (!this.errors.any()) {
                 this.create({
                     FieldName: this.FieldName,
-                    Complex: this.Complex
+                    Complex: this.idComplex
                 })
                 .then(
                     field => {
@@ -80,7 +81,18 @@ export default {
                     }
                 )
             }
-        }
+        },
+        populateComplexes() {
+            this.getComplexes()
+            .then(complexes => {
+                complexes.data.data.forEach(e => {
+                    this.complexOptions.push({ text: e.ComplexName, value: e.id })
+                });
+            })
+        },
+    },
+    mounted() {
+        this.populateComplexes()
     }
 }
 </script>

@@ -42,7 +42,7 @@
         </ul> -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <router-link class="btn btn-primary" :to="{ name: 'UserProfile', params: { id:  userId} }">
+            <router-link class="btn btn-primary btn-xs" :to="{ name: 'UserProfile', params: { id:  userId} }">
               Mi  Perfil
             </router-link>
           </li> <!--
@@ -56,7 +56,7 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </drop-down> -->
           <li class="nav-item">
-            <button type="button"  class="btn btn-warning" @click="callLogOut">Log Out</button>
+            <button type="button"  class="btn btn-warning btn-xs" @click="callLogOut">Log Out</button>
           </li>
         </ul>
     </div>

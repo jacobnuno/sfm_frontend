@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getDays]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/day/findall')
+            openHttp.get('/day/')
                 .then(days => {
                     resolve(days);
                 })

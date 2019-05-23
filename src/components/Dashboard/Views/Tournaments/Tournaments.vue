@@ -55,7 +55,6 @@
       gridData() {
         this.getTournaments()
           .then(tournaments => {
-            console.log(tournaments)
             tournaments.data.data.forEach(e => {
               let element = {
                 'id': e.id,

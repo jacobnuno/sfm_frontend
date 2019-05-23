@@ -54,6 +54,7 @@ import athletes from '@/types/athlete';
 import matches from '@/types/match';
 import matchDetailTypes from '@/types/matchDetail';
 import complexTypes from '@/types/complex';
+import tournamentTypes from '@/types/tournament';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEye } from '@fortawesome/fontawesome-free-regular'
@@ -105,6 +106,7 @@ library.add(faTrashAlt)
         deleteMatch: matches.actions.deleteMatch,
         deleteMatchDetail: matchDetailTypes.actions.deleteMatchDetail,
         deleteComplex: complexTypes.actions.deleteComplex,
+        deleteTournament: tournamentTypes.actions.deleteTournament
       }),
       notifyVue (verticalAlign, horizontalAlign, msg, color) {
             const notification = {

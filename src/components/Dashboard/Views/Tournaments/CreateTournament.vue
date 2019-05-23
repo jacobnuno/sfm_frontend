@@ -1,6 +1,6 @@
 <template>
     <section id="smf-create-tournament">
-        <form @submit.prevent="beforeCreateUserType" class="col-sm-12 col-md-8 offset-md-2">
+        <form @submit.prevent="beforeCreateTournament" class="col-sm-12 col-md-8 offset-md-2">
             <h2 class="create-title">Crear un Torneo</h2>
 
             <div class="row">
@@ -94,21 +94,20 @@ export default {
         this.value.push(tag)
         },
          ...mapActions({
-            createTournaments: tournamentTypes.actions.createTournaments,
+            createTournament: tournamentTypes.actions.createTournament,
             getTeamsByLeague: leagueTypes.actions.getTeamsByLeague,
             getLeagues: leagueTypes.actions.getLeagues
         }),
-        beforeCreateUserType() {
+        beforeCreateTournament() {
             this.allTeams = []
             this.teams.forEach(e => {
                 this.allTeams.push(e.code)
             })
             this.$validator.validateAll()
             if (!this.errors.any()) {
-                this.createTournaments({
-                    tournamentName: this.tournamentName,
-                    Teams: this.allTeams,
-                    League: this.idLeague
+                this.createTournament({
+                    tournament: { Name: this.tournamentName, IdLeague: this.idLeague},
+                    teams: this.allTeams
                 })
                 .then(
                     field => {

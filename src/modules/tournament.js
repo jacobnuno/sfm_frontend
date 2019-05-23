@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getTournaments]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            authHttp.get('/tournament/findall')
+            authHttp.get('/tournament/')
                 .then(tournaments => {
                     resolve(tournaments);
                 })

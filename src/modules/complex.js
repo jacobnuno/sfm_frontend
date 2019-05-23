@@ -1,7 +1,7 @@
 import types from '@/types/complex';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createComplex]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/complex/', data)
+            authHttp.post('/complex/', data)
                 .then(complex => {
                     resolve(complex);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getComplexes]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/complex/findall')
+            authHttp.get('/complex/findall')
                 .then(complexes => {
                     resolve(complexes);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getComplex]: ({ commit}, idComplex) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/complex/${idComplex}`)
+            authHttp.get(`/complex/${idComplex}`)
                 .then(complex => {
                     resolve(complex);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.updateComplex]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/complex/${data.id}`, data)
+            authHttp.put(`/complex/${data.id}`, data)
                 .then(complex => {
                     resolve(complex);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.deleteComplex]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/complex/delete/${data.id}`)
+            authHttp.put(`/complex/delete/${data.id}`)
                 .then(complex => {
                     resolve(complex);
                 })

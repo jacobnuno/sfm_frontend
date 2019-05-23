@@ -1,7 +1,7 @@
 import types from '@/types/athlete';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createAthlete]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/athlete/', data)
+            authHttp.post('/athlete/', data)
                 .then(athlete => {
                     resolve(athlete);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getAthletes]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/athlete/findall')
+            authHttp.get('/athlete/findall')
                 .then(athletes => {
                     resolve(athletes);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getAthlete]: ({ commit}, idAthlete) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/athlete/${idAthlete}`)
+            authHttp.get(`/athlete/${idAthlete}`)
                 .then(athlete => {
                     resolve(athlete);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.updateAthlete]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/athlete/${data.id}`, data)
+            authHttp.put(`/athlete/${data.id}`, data)
                 .then(athlete => {
                     resolve(athlete);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.deleteAthlete]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/athlete/delete/${data.id}`)
+            authHttp.put(`/athlete/delete/${data.id}`)
                 .then(athlete => {
                     resolve(athlete);
                 })

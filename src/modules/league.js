@@ -1,7 +1,7 @@
 import types from '@/types/league';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp , authHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 };
@@ -102,7 +102,7 @@ const actions = {
     [types.actions.getTeamsByLeague]: ({ commit}, idLeague) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/league/${idLeague}/teams`)
+            authHttp.get(`/league/${idLeague}/teams`)
                 .then(teams => {
                     resolve(teams);
                 })

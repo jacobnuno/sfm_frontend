@@ -32,7 +32,7 @@ const actions = {
     [types.actions.register]: ({ commit}, registerData) => {
         commit(globalTypes.mutations.starProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/users/register', registerData)
+            authHttp.post('/users/register', registerData)
                 .then(user => {
                     resolve(user);
                 })

@@ -130,307 +130,314 @@ const router = new Router({
         {
           path: 'overview',
           name: 'Overview',
-          component: Overview
+          component: Overview,
+          beforeEnter: registerGuard
         },
         {
           path: 'user-profile',
           name: 'UserProfile',
-          component: UserProfile
+          component: UserProfile,
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-user-profile',
           name: 'EditUserProfile',
-          component: EditUserProfile
+          component: EditUserProfile,
+          beforeEnter: registerGuard
         },
         {
           path: 'table-list',
           name: 'Table List',
-          component: TableList
+          component: TableList,
+          beforeEnter: registerGuard
         },
         {
           path: 'typography',
           name: 'Typography',
-          component: Typography
+          component: Typography,
+          beforeEnter: registerGuard
         },
         {
           path: 'icons',
           name: 'Icons',
-          component: Icons
+          component: Icons,
+          beforeEnter: registerGuard
         },
         {
           path: 'notifications',
           name: 'Notifications',
-          component: Notifications
+          component: Notifications,
+          beforeEnter: registerGuard
         },
         {
           path: 'personal',
           name: 'Personal',
           component: Personal,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'leagues',
           name: 'Leagues',
           component: League,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-league',
           name: 'CreateLeague',
           component: CreateLeague,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-league',
           name: 'ShowLeague',
           component: ShowLeague,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-league',
           name: 'EditLeague',
           component: EditLeague,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'fields',
           name: 'Fields',
           component: Fields,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-field',
           name: 'CreateField',
           component: CreateField,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-field',
           name: 'ShowField',
           component: ShowField,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-field',
           name: 'EditField',
           component: EditField,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'user-types',
           name: 'UserTypes',
           component: UserTypes,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-user-type',
           name: 'CreateUserType',
           component: CreateUserType,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-user-type',
           name: 'ShowUserType',
           component: ShowUserType,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-user-type',
           name: 'EditUserType',
           component: EditUserType,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'match-events',
           name: 'MatchEvents',
           component: MatchEvents,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-match-event',
           name: 'CreateMatchEvent',
           component: CreateMatchEvent,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-match-event',
           name: 'ShowMatchEvent',
           component: ShowMatchEvent,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-match-event',
           name: 'EditMatchEvent',
           component: EditMatchEvent,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'complexes',
           name: 'Complexes',
           component: Complexes,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-complex',
           name: 'CreateComplex',
           component: CreateComplex,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-complex',
           name: 'ShowComplex',
           component: ShowComplex,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-complex',
           name: 'EditComplex',
           component: EditComplex,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'match-details',
           name: 'MatchDetails',
           component: MatchDetails,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-match-detail',
           name: 'CreateMatchDetail',
           component: CreateMatchDetail,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-match-detail',
           name: 'ShowMatchDetail',
           component: ShowMatchDetail,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-match-detail',
           name: 'EditMatchDetail',
           component: EditMatchDetail,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'users',
           name: 'Users',
           component: Users,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-user',
           name: 'CreateUser',
           component: CreateUser,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-user',
           name: 'ShowUser',
           component: ShowUser,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-user',
           name: 'EditUser',
           component: EditUser,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'teams',
           name: 'Teams',
           component: Teams,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-team',
           name: 'CreateTeam',
           component: CreateTeam,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-team',
           name: 'ShowTeam',
           component: ShowTeam,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-team',
           name: 'EditTeam',
           component: EditTeam,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'athletes',
           name: 'Athletes',
           component: Athletes,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-athlete',
           name: 'CreateAthlete',
           component: CreateAthlete,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-athlete',
           name: 'ShowAthlete',
           component: ShowAthlete,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-athlete',
           name: 'EditAthlete',
           component: EditAthlete,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'matches',
           name: 'Matches',
           component: Matches,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-match',
           name: 'CreateMatch',
           component: CreateMatch,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-match',
           name: 'ShowMatch',
           component: ShowMatch,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-match',
           name: 'EditMatch',
           component: EditMatch,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'tournaments',
           name: 'Tournaments',
           component: Tournaments,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'create-tournament',
           name: 'CreateTournament',
           component: CreateTournament,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'show-tournament',
           name: 'ShowTournament',
           component: ShowTournament,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         },
         {
           path: 'edit-tournament',
           name: 'EditTournament',
           component: EditTournament,
-          /*beforeEnter: registerGuard*/
+          beforeEnter: registerGuard
         }
       ]
     },

@@ -1,7 +1,7 @@
 import types from '@/types/userType';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createUserType]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/usertype/', data)
+            authHttp.post('/usertype/', data)
                 .then(userType => {
                     resolve(userType);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getUserTypes]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/usertype/findall')
+            authHttp.get('/usertype/findall')
                 .then(userTypes => {
                     resolve(userTypes);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getUserType]: ({ commit}, idUserType) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/usertype/${idUserType}`)
+            authHttp.get(`/usertype/${idUserType}`)
                 .then(userType => {
                     resolve(userType);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.updateUserType]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/usertype/${data.id}`, data)
+            authHttp.put(`/usertype/${data.id}`, data)
                 .then(userType => {
                     resolve(userType);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.deleteUserType]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/usertype/delete/${data.id}`)
+            authHttp.put(`/usertype/delete/${data.id}`)
                 .then(userType => {
                     resolve(userType);
                 })

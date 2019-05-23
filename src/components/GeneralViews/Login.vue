@@ -4,11 +4,11 @@
 			<div class="wrap-login">
 				<form autocomplete="off" @submit.prevent="validateBeforeSubmit" class="login-form validate-form">
 					<div class="login-form-avatar">
-						<img src="@static/img/faces/face-4.jpg" alt="AVATAR">
+						<img src="@static/img/faces/face-0.jpg" alt="AVATAR">
 					</div>
 
 					<span class="login-form-title">
-						Sign in to SMF
+						Iniciar sesión en SMF
 					</span>
 
           <span class="alert alert-danger credentials-error" v-if="error">La contraseña o el usuario son incorrectos</span>

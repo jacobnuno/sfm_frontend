@@ -1,7 +1,7 @@
 import types from '@/types/matchEvent';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createMatchEvent]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/matchevent/', data)
+            authHttp.post('/matchevent/', data)
                 .then(matchEvent => {
                     resolve(matchEvent);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getMatchEvents]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/matchevent/findall')
+            authHttp.get('/matchevent/findall')
                 .then(matchEvents => {
                     resolve(matchEvents);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getMatchEvent]: ({ commit}, idMatchEvent) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/matchevent/${idMatchEvent}`)
+            authHttp.get(`/matchevent/${idMatchEvent}`)
                 .then(matchEvent => {
                     resolve(matchEvent);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.updateMatchEvent]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/matchevent/${data.id}`, data)
+            authHttp.put(`/matchevent/${data.id}`, data)
                 .then(matchEvent => {
                     resolve(matchEvent);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.deleteMatchEvent]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/matchevent/delete/${data.id}`)
+            authHttp.put(`/matchevent/delete/${data.id}`)
                 .then(matchEvent => {
                     resolve(matchEvent);
                 })

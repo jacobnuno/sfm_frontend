@@ -9,7 +9,8 @@ export default namespace('user', {
         'getUser',
         'getUsers',
         'updateUser',
-        'deleteUser'
+        'deleteUser',
+        'getUsersByUserType'
     ],
     mutations: [
 

@@ -27,7 +27,7 @@
               </div>
             </div>
             
-            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'Matches' }">
+            <router-link class="btn btn-danger btn-close float-right" :to="{ name: 'ShowMatch', params: { id: idMatch } }">
               Cerrar
             </router-link>
           </card>
@@ -50,6 +50,7 @@
       return {
         id: null,
         Event: null,
+        idMatch: null,
         Time: null,
         Team: null,
         Player: null,
@@ -68,7 +69,7 @@
           .then(matchDetail => {
             this.Time = matchDetail.data.data[0].Time,
             this.Event = matchDetail.data.data[0]["MatchEvent"].Description,
-            
+            this.idMatch = matchDetail.data.data[0].IdMatch
             this.Team = matchDetail.data.data[0]["IdTeam"].TeamName,
             this.Player = matchDetail.data.data[0]["User"].FirstName + " " + matchDetail.data.data[0]["User"].LastName
           })

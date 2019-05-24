@@ -4,7 +4,7 @@ import Vue from 'vue';
 import { openHttp, authHttp } from '@/utils/http';
 
 const state = {
-    user: null,
+    user: window.localStorage.getItem('_id'),
     logged: !!window.localStorage.getItem('_token')
 };
 
@@ -14,7 +14,9 @@ const actions = {
         return new Promise((resolve, reject) =>  {
             openHttp.post('/login', userCredentials)
                 .then(user => {
-                    window.localStorage.setItem('_token', user.data.data.token); // check correct name for the token field
+                    console.log(user)
+                    window.localStorage.setItem('_token', user.data.data.token);
+                    window.localStorage.setItem('_id', user.data.data.user.id);
                     commit(types.mutations.setUser);
                     resolve(user);
                 })
@@ -30,7 +32,7 @@ const actions = {
     [types.actions.register]: ({ commit}, registerData) => {
         commit(globalTypes.mutations.starProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/users/register', registerData)
+            authHttp.post('/users/register', registerData)
                 .then(user => {
                     resolve(user);
                 })
@@ -63,13 +65,14 @@ const actions = {
 
     [types.actions.logout]: ({ commit }) => {
         window.localStorage.removeItem('_token');
+        window.localStorage.removeItem('_id');
         commit(types.mutations.setUser);
     }
 };
 
 const getters = {
     // get user
-    [types.getters.users]: (state) => {
+    [types.getters.user]: (state) => {
         return state.user;
     },
     // is logged

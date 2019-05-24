@@ -42,9 +42,9 @@
         </ul> -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              Account
-            </a>
+            <router-link class="btn btn-primary btn-xs" :to="{ name: 'UserProfile', params: { id:  userId} }">
+              Mi  Perfil
+            </router-link>
           </li> <!--
           <drop-down title="Dropdown">
             <a class="dropdown-item" href="#">Action</a>
@@ -56,10 +56,9 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </drop-down> -->
           <li class="nav-item">
-            <button type="button"  class="btn btn-warning" @click="callLogOut">Log out</button>
+            <button type="button"  class="btn btn-warning btn-xs" @click="callLogOut">Log Out</button>
           </li>
         </ul>
-      </div>
     </div>
   </nav>
 </template>
@@ -70,13 +69,14 @@ import { mapActions } from 'vuex';
   export default {
     computed: {
       routeName () {
-        const {name} = this.$route
+        const { name } = this.$route
         return this.capitalizeFirstLetter(name)
       }
     },
     data () {
       return {
-        activeNotifications: false
+        activeNotifications: false,
+        userId: null
       }
     },
     methods: {
@@ -103,7 +103,13 @@ import { mapActions } from 'vuex';
       },
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
+      },
+      getUserId() {
+        this.userId =  window.localStorage.getItem('_id')
       }
+    },
+    mounted() {
+      this.getUserId()
     }
   }
 

@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="form-group col-sm-12 col-md-6">
                     <label for="idTeam">Equipo</label>
-                    <select class="form-control" id="idTeam" name="idTeam" v-model="idTeam" required>
+                    <select class="form-control" id="idTeam" name="idTeam" v-model="idTeam" @change="onChangeTeam($event)" required>
                         <option selected disabled>Elije una opción</option>
                         <option v-for="option in teamOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                     </select>
@@ -29,10 +29,11 @@
 
                 <div class="form-group col-sm-12 col-md-6">
                     <label for="idPlayer">Jugador</label>
-                    <select class="form-control" id="idPlayer" name="idPlayer" v-model="idPlayer" required>
+                    <select v-if="idTeam != null" class="form-control" id="idPlayer" name="idPlayer" v-model="idPlayer" required>
                         <option selected disabled>Elije una opción</option>
                         <option v-for="option in athleteOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                     </select>
+                    <span v-else class="alert alert-warning span-verify">Selecciona un Equipo</span>
                 </div>
             </div>
 
@@ -41,7 +42,7 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'MatchDetails' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'ShowMatch', params: { id: idMatch } }">
                         Cerrar
                     </router-link>
                 </div>
@@ -60,16 +61,23 @@ import { mapActions } from 'vuex';
 export default {
     data() {
         return {
-            idMatch: 1,
+            idMatch: null,
             idEvent: null,
             Time: null,
             idTeam: null,
             idPlayer: null,
+            idLocal: null,
+            idGuest: null,
             eventOptions: [],
             teamOptions: [],
             athleteOptions: [],
             error: null
         }
+    },
+    created() {      
+      this.idLocal = this.$route.params.idLocal;
+      this.idGuest = this.$route.params.idGuest;
+      this.idMatch = this.$route.params.idMatch;
     }, 
     methods: {
         notifyVue (verticalAlign, horizontalAlign, msg, color) {
@@ -90,7 +98,7 @@ export default {
             createMatchDetail: matchDetailTypes.actions.createMatchDetail,
             getMatchEvents: matchEventTypes.actions.getMatchEvents,
             getTeams: teamTypes.actions.getTeams,
-            getAthletes: athleteTypes.actions.getAthletes
+            getPlayersByTeam: teamTypes.actions.getPlayersByTeam
         }),
         beforeCreateMatchDetail() {
             this.$validator.validateAll()
@@ -105,7 +113,7 @@ export default {
                 .then(
                     matchDetail => {
                         this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                        this.$router.push({ name: 'MatchDetails'});
+                        this.$router.push({ name: 'ShowMatch', params: { id: this.idMatch } });
                     },
                     error => {
                         console.log(error)
@@ -118,7 +126,7 @@ export default {
             this.getMatchEvents()
             .then(matchEvents => {
                 matchEvents.data.data.forEach(e => {
-                this.eventOptions.push({ text: e.Description, value: e.id })
+                    this.eventOptions.push({ text: e.Description, value: e.id })
                 });
             })
         },
@@ -126,15 +134,21 @@ export default {
             this.getTeams()
             .then(teams => {
                 teams.data.data.forEach(e => {
-                this.teamOptions.push({ text: e.TeamName, value: e.id })
+                    if(e.id == this.idLocal || e.id == this.idGuest) {
+                        this.teamOptions.push({ text: e.TeamName, value: e.id })
+                    }
                 });
             })
         },
-        populateAthletes() {
-            this.getAthletes()
+        onChangeTeam(event) {
+            this.populateAthletes(event.target.value)
+        },
+        populateAthletes(teamId) {
+            this.athleteOptions = []
+            this.getPlayersByTeam(teamId)
             .then(athletes => {
-                athletes.data.data.forEach(e => {
-                this.athleteOptions.push({ text: e["Id User"].FirstName + " " + e["Id User"].LastName, value: e.id })
+                athletes.data.data.players.forEach(e => {
+                    this.athleteOptions.push({ text: e["Id User"].FirstName + " " + e["Id User"].LastName, value: e.id })
                 });
             })
         }
@@ -142,7 +156,6 @@ export default {
     mounted() {
         this.populateMatchEvents()
         this.populateTeams()
-        this.populateAthletes()
     },
 }
 </script>
@@ -166,6 +179,10 @@ export default {
             width: 100%;
             display: block;
             border-radius: 4px;
+        }
+        .span-verify {
+            display: block; 
+            text-align: center;
         }
     }
 </style>

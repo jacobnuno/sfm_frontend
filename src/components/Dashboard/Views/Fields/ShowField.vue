@@ -54,10 +54,9 @@
       getData() {
         this.getField(this.id)
           .then(field => {
-            console.log('field: ', field.data.data)
             let newField = field.data.data;
             this.FieldName = newField.FieldName
-            this.Complex = newField["Complex Detail"].id
+            this.Complex = newField["Complex Detail"].ComplexName
           })
           .catch(err => console.log('err: ', err))
       }

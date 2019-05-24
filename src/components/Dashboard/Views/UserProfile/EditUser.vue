@@ -58,7 +58,7 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Users' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Overview' }">
                         Cerrar
                     </router-link>
                 </div>

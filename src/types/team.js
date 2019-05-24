@@ -9,7 +9,8 @@ export default namespace('team', {
         'getTeams',
         'getTeam',
         'updateTeam',
-        'deleteTeam'
+        'deleteTeam',
+        'getPlayersByTeam'
     ],
     mutations: [
 

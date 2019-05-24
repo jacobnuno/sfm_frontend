@@ -1,12 +1,9 @@
 import types from '@/types/league';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp , authHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
-    user: null,
-    logged: !!window.localStorage.getItem('_token'),
-    leagues: []
 };
 
 const actions = {
@@ -99,7 +96,25 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
-    }
+    },
+
+    // get all teams by league
+    [types.actions.getTeamsByLeague]: ({ commit}, idLeague) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            authHttp.get(`/league/${idLeague}/teams`)
+                .then(teams => {
+                    resolve(teams);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
+    },
 
 };
 

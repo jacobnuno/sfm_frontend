@@ -1,7 +1,7 @@
 import types from '@/types/matchDetail';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createMatchDetail]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/matchdetail/', data)
+            authHttp.post('/matchdetail/', data)
                 .then(matchDetail => {
                     resolve(matchDetail);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getMatchDetails]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/matchdetail/findall')
+            authHttp.get('/matchdetail/findall')
                 .then(matchDetails => {
                     resolve(matchDetails);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getMatchDetail]: ({ commit }, idMatchDetail) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/matchdetail/findOneById/${idMatchDetail}`)
+            authHttp.get(`/matchdetail/findOneById/${idMatchDetail}`)
                 .then(matchDetail => {
                     resolve(matchDetail);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.getMatchDetailByMatch]: ({ commit }, idMatch) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/matchdetail/${idMatch}`)
+            authHttp.get(`/matchdetail/${idMatch}`)
                 .then(matchDetails => {
                     resolve(matchDetails);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.updateMatchDetail]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/matchdetail/${data.id}`, data)
+            authHttp.put(`/matchdetail/${data.id}`, data)
                 .then(matchDetail => {
                     resolve(matchDetail);
                 })
@@ -103,7 +103,7 @@ const actions = {
     [types.actions.deleteMatchDetail]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/matchdetail/delete/${data.id}`)
+            authHttp.put(`/matchdetail/delete/${data.id}`)
                 .then(matchDetail => {
                     resolve(matchDetail);
                 })

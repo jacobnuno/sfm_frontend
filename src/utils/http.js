@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-//const BASE_URL = 'https://soccermanagerfield.herokuapp.com'
-const BASE_URL = 'http://localhost:8081'
+const BASE_URL = 'https://scf-back.herokuapp.com'
+//const BASE_URL = 'http://localhost:8081'
 
 var openHttp = axios.create({
   baseURL: BASE_URL,

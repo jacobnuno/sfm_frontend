@@ -1,7 +1,7 @@
 import types from '@/types/day';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createDay]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/day/', data)
+            authHttp.post('/day/', data)
                 .then(day => {
                     resolve(day);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getDays]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/day/findall')
+            authHttp.get('/day/')
                 .then(days => {
                     resolve(days);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getDay]: ({ commit}, idDay) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/day/${idDay}`)
+            authHttp.get(`/day/${idDay}`)
                 .then(day => {
                     resolve(day);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.updateDay]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/day/${data.id}`, data)
+            authHttp.put(`/day/${data.id}`, data)
                 .then(day => {
                     resolve(day);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.deleteDay]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/day/delete/${data.id}`)
+            authHttp.put(`/day/delete/${data.id}`)
                 .then(day => {
                     resolve(day);
                 })

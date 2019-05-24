@@ -9,7 +9,7 @@
               <router-link class="btn btn-primary btn-close float-right" :to="{ name: 'CreateTournament' }">
                 Nuevo
               </router-link>
-              <h4 class="card-title">Tipos de Usuarios</h4>
+              <h4 class="card-title">Torneos</h4>
             </template>
             <div class="table-responsive">
               <l-table class="table-hover"
@@ -30,9 +30,9 @@
 <script>
   import tournamentTypes from '@/types/tournament';
   import { mapActions, mapState } from 'vuex';
-  import LTable from 'src/components/UIComponents/Table.vue'
+  import LTable from 'src/components/UIComponents/TableTournamnets.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  const tableColumns = ['ID', 'Descripción']
+  const tableColumns = ['Nombre', 'Liga']
 
   export default {
     components: {
@@ -54,11 +54,14 @@
       }),
       gridData() {
         this.getTournaments()
-          .then(userTypes => {
-            userTypes.data.data.forEach(e => {
+          .then(tournaments => {
+            tournaments.data.data.forEach(e => {
               let element = {
                 'id': e.id,
-                'descripción': e.Description
+                'nombre': e.Name,
+                'liga': e.idLeague.LeagueName,
+                'jornada': e.Season,
+                'fase': e.Phase
               }
               this.table1.data.push(element)
             });

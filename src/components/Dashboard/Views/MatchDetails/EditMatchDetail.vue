@@ -41,7 +41,7 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Matches' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'ShowMatch', params: { id: idMatch } }">
                         Cerrar
                     </router-link>
                 </div>
@@ -61,7 +61,7 @@ export default {
     data() {
         return {
             id: null,
-            idMatch: 1,
+            idMatch: null,
             idEvent: null,
             Time: null,
             idTeam: null,
@@ -104,9 +104,10 @@ export default {
         getData() {
             this.getMatchDetail(this.id)
             .then(matchDetail => {
+                console.log(matchDetail)
                 this.Time = matchDetail.data.data[0].Time,
                 this.idEvent = matchDetail.data.data[0]["MatchEvent"].id,
-                
+                this.idMatch = matchDetail.data.data[0].IdMatch
                 this.idTeam = matchDetail.data.data[0]["IdTeam"].id,
                 this.idPlayer = matchDetail.data.data[0]["User"].id
             })
@@ -126,7 +127,7 @@ export default {
                 .then(
                     matchDetail => {
                         this.notifyVue('top', 'right', '¡Actualizado exitosamente!', 'success')
-                        this.$router.push({ name: 'Matches'});
+                        this.$router.push({ name: 'ShowMatch', params: { id: this.idMatch } });
                     },
                     error => {
                         console.log(error)

@@ -2,7 +2,9 @@
   <table class="table">
     <thead>
       <slot name="columns">
-        <th v-for="column in columns" :key="column">{{column}}</th>
+        <th v-for="column in columns" :key="column">{{ column }}</th>
+        <th>Jornadas</th>
+        <th>Liguilla</th>
         <th>Opciones</th>
       </slot>
     </thead>
@@ -11,13 +13,23 @@
       <slot :row="item">
         <td v-for="column in columns" :key="column" v-if="hasValue(item, column)">{{ itemValue(item, column) }}</td>
         <td>
+          <router-link v-if="item.jornada != 0" class="btn btn-primary" :to="{ name: 'CreateTournament' }">
+            Ver
+          </router-link>
+          <span v-else class="no-column">Sin Iniciar</span>
+        </td>
+        <td>
+          <span v-if="item.fase                                                                                                                                                                                                                                                                  != 0">{{ season[item.fase] }}</span>
+          <span v-else class="no-column">Sin Iniciar</span>
+        </td>
+        <td>
           <button class="btn btn-primary btn-simple" v-on:click="send(redirectShow, item.id)">
             <fai :icon="['far', 'eye']" class="icons" />
           </button>
-          <button class="btn btn-warning btn-simple" v-on:click="send(redirectEdit, item.id)">
+          <button v-if="item.jornada == 0" class="btn btn-warning btn-simple" v-on:click="send(redirectEdit, item.id)">
             <fai :icon="['fas', 'pencil-alt']" class="icons" />
           </button>
-          <button class="btn btn-danger btn-simple" v-on:click="areYouSureAlert(item.id)">
+          <button v-if="item.jornada == 0" class="btn btn-danger btn-simple" v-on:click="areYouSureAlert(item.id)">
             <fai :icon="['fas', 'trash-alt']" class="icons" />
           </button>
         </td>
@@ -42,6 +54,7 @@ import athletes from '@/types/athlete';
 import matches from '@/types/match';
 import matchDetailTypes from '@/types/matchDetail';
 import complexTypes from '@/types/complex';
+import tournamentTypes from '@/types/tournament';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEye } from '@fortawesome/fontawesome-free-regular'
@@ -60,6 +73,17 @@ library.add(faTrashAlt)
       redirectShow: String,
       redirectEdit: String,
       deleteAction: String
+    },
+    data() {
+      return {
+        season: {
+          0: 'Round Robin',
+          1: 'Final',
+          2: 'Semifinal',
+          3: 'Cuartos',
+          4: 'Octavos'
+        }
+      }
     },
     methods: {
       hasValue (item, column) {
@@ -82,6 +106,7 @@ library.add(faTrashAlt)
         deleteMatch: matches.actions.deleteMatch,
         deleteMatchDetail: matchDetailTypes.actions.deleteMatchDetail,
         deleteComplex: complexTypes.actions.deleteComplex,
+        deleteTournament: tournamentTypes.actions.deleteTournament
       }),
       notifyVue (verticalAlign, horizontalAlign, msg, color) {
             const notification = {
@@ -103,7 +128,7 @@ library.add(faTrashAlt)
           text: 'No podrás revertir esta acción',
           type: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Eliminar',
+          confirmButtonText: 'Elimimar',
           cancelButtonText: 'Cancelar',
           showCloseButton: true,
           showLoaderOnConfirm: true
@@ -132,5 +157,11 @@ library.add(faTrashAlt)
   .no-data {
       background-color: #ffbc67;
       text-align: center;
+  }
+  .no-column {
+      background-color: #ffbc67;
+      text-align: center;
+      padding: 0 .3em;
+      border-radius: 4px;
   }
 </style>

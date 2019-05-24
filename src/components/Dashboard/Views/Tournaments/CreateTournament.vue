@@ -1,6 +1,6 @@
 <template>
     <section id="smf-create-tournament">
-        <form @submit.prevent="beforeCreateUserType" class="col-sm-12 col-md-8 offset-md-2">
+        <form @submit.prevent="beforeCreateTournament" class="col-sm-12 col-md-8 offset-md-2">
             <h2 class="create-title">Crear un Torneo</h2>
 
             <div class="row">
@@ -12,7 +12,7 @@
 
                 <div class="form-group col-sm-12 col-md-6">
                     <label for="idLeague">Liga</label>
-                    <select class="form-control" id="idLeague" name="idLeague" v-model="idLeague" required>
+                    <select class="form-control" id="idLeague" name="idLeague" v-model="idLeague" @change="onChangeLeague($event)" required>
                         <option selected disabled>Elije una opción</option>
                         <option v-for="option in leagueOptions" :key="option.value" :value="option.value">{{ option.text }}</option>
                     </select>
@@ -21,9 +21,16 @@
             </div>
 
             <div class="row">
-                <div class="form-group col-sm-12">
+                <div class="form-group col-sm-11 col-md-10">
                     <label for="teams">Equipos</label>
-                    <multiselect v-model="teams" placeholder="Selecciona algunos equipos" label="name" track-by="code" :selectedLabel="'Seleccionado'" :selectLabel="'Presiona enter para seleccionar'" :deselectLabel="'Presiona enter para eliminar'" :options="teamOptions" :multiple="true" ></multiselect>
+                    <multiselect v-if="idLeague != null" v-model="teams" placeholder="Selecciona algunos equipos" label="name" track-by="code" :selectedLabel="'Seleccionado'" :selectLabel="'Presiona enter para seleccionar'" :deselectLabel="'Presiona enter para eliminar'" :options="teamOptions" :multiple="true" ></multiselect>
+                    <span v-else class="alert alert-warning" style="display: block; text-align: center;">Seleccione una Liga</span>
+                </div>
+
+                <div class=" col-sm-1 col-md-2">
+                    <label for="teams">Añadir Todos</label>
+                    <button v-if="idLeague != null" type="button" class="btn btn-primary" @click="addAllTeams">Añadir</button>
+                    <span v-else class="alert alert-warning" style="display: block; text-align: center;">Seleccione una Liga</span>
                 </div>
             </div>
 
@@ -34,7 +41,7 @@
             <div class="text-center buttons">
                 <div class="form-group">
                     <button type="submit" tabindex=8 class="btn btn-primary">Guardar</button>
-                    <router-link class="btn btn-danger btn-close" :to="{ name: 'UserTypes' }">
+                    <router-link class="btn btn-danger btn-close" :to="{ name: 'Tournaments' }">
                         Cerrar
                     </router-link>
                 </div>
@@ -57,6 +64,7 @@ export default {
             tournamentName: null,
             error: null,
             teams: [],
+            allTeams: [],
             teamOptions: [],
             leagueOptions: [],
             idLeague: null
@@ -86,22 +94,25 @@ export default {
         this.value.push(tag)
         },
          ...mapActions({
-            createTournaments: tournamentTypes.actions.createTournaments,
-            getTeams: teamTypes.actions.getTeams,
+            createTournament: tournamentTypes.actions.createTournament,
+            getTeamsByLeague: leagueTypes.actions.getTeamsByLeague,
             getLeagues: leagueTypes.actions.getLeagues
         }),
-        beforeCreateUserType() {
+        beforeCreateTournament() {
+            this.allTeams = []
+            this.teams.forEach(e => {
+                this.allTeams.push(e.code)
+            })
             this.$validator.validateAll()
             if (!this.errors.any()) {
-                this.createTournaments({
-                    tournamentName: this.tournamentName,
-                    Teams: this.teams,
-                    League: this.idLeague
+                this.createTournament({
+                    tournament: { Name: this.tournamentName, IdLeague: this.idLeague},
+                    teams: this.allTeams
                 })
                 .then(
                     field => {
                         this.notifyVue('top', 'right', '¡Registrado exitosamente!', 'success')
-                        this.$router.push({ name: 'UserTypes'});
+                        this.$router.push({ name: 'Tournaments'});
                     },
                     error => {
                         console.log(error)
@@ -110,10 +121,21 @@ export default {
                 )
             }
         },
-        populateTeams() {
-            this.getTeams()
+        addAllTeams() {
+            this.teams = []
+            this.teamOptions.forEach(e => {
+                this.teams.push({ name: e.name, code: e.code })
+            });
+        },
+        onChangeLeague(event) {
+            this.populateTeams(event.target.value)
+        },
+        populateTeams(leagueId) {
+            this.teams = []
+            this.teamOptions = []
+            this.getTeamsByLeague(leagueId)
             .then(teams => {
-                teams.data.data.forEach(e => {
+                teams.data.data.teams.forEach(e => {
                     this.teamOptions.push({ name: e.TeamName, code: e.id })
                 });
             })
@@ -128,7 +150,6 @@ export default {
         }
     },
     mounted() {
-        this.populateTeams()
         this.populateLeagues()
     }
 }
@@ -148,6 +169,9 @@ export default {
             width: 100%;
             display: block;
             border-radius: 4px;
+        }
+        .span-verify {
+            display: block;
         }
     }
 </style>

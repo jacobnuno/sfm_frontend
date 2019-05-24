@@ -10,9 +10,9 @@
       </nav> -->
       <div class="copyright text-center">
         &copy; Coded by
-        <a href="https://github.com/Couldbealexis" target="_blank">Alexis Gutierrez</a>,
+        <a href="https://github.com/Couldbealexis" target="_blank">Alexis Gutiérrez</a>,
         <a href="https://github.com/jacobnuno" target="_blank">Jacob Nuño</a>,
-        <a href="https://github.com/daag2197" target="_blank">Diego Arevalo</a>.
+        <a href="https://github.com/daag2197" target="_blank">Diego Arévalo</a>.
       </div>
     </div>
   </footer>
@@ -23,7 +23,7 @@
 </script>
 <style>
   footer{
-    position: fixed;
+    position: relative;
     width: 100%;
     bottom: 0px;
     right: 0px;

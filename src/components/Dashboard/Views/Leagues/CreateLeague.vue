@@ -95,7 +95,7 @@ export default {
                     StartDate: this.time1.getUTCFullYear() + "-" + (this.time1.getUTCMonth() + 1) + "-" + this.time1.getUTCDate(),
                     EndDate: this.time2.getUTCFullYear() + "-" + (this.time2.getUTCMonth() + 1) + "-" + this.time2.getUTCDate(),
                     Complex: this.idComplex,
-                    GameDay: this.GameDay
+                    GameDay: this.idGameDay
                 })
                 .then(
                     league => {
@@ -120,7 +120,6 @@ export default {
         populateDays() {
             this.getDays()
             .then(days => {
-                console.log(days)
                 days.data.data.forEach(e => {
                     this.gameDayOptions.push({ text: e.Days, value: e.id })
                 });

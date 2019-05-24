@@ -1,7 +1,7 @@
 import types from '@/types/team';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { openHttp, authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createTeam]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/team/', data)
+            authHttp.post('/team/', data)
                 .then(team => {
                     resolve(team);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getTeams]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/team/findall')
+            authHttp.get('/team/findall')
                 .then(teams => {
                     resolve(teams);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getTeam]: ({ commit}, idTeam) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/team/${idTeam}`)
+            authHttp.get(`/team/${idTeam}`)
                 .then(team => {
                     resolve(team);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.updateTeam]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/team/${data.id}`, data)
+            authHttp.put(`/team/${data.id}`, data)
                 .then(team => {
                     resolve(team);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.deleteTeam]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/team/delete/${data.id}`)
+            authHttp.put(`/team/delete/${data.id}`)
                 .then(team => {
                     resolve(team);
                 })
@@ -97,7 +97,26 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
+    },
+
+    // get all players by team
+    [types.actions.getPlayersByTeam]: ({ commit}, idTeam) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            authHttp.get(`/team/${idTeam}/players`)
+                .then(players => {
+                    resolve(players);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
     }
+
 };
 
 const getters = {

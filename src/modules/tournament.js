@@ -1,7 +1,7 @@
 import types from '@/types/tournament';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/tournament/', data)
+            authHttp.post('/tournament/', data)
                 .then(tournament => {
                     resolve(tournament);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getTournaments]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/tournament/findall')
+            authHttp.get('/tournament/')
                 .then(tournaments => {
                     resolve(tournaments);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getTournament]: ({ commit}, idTournament) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/tournament/${idTournament}`)
+            authHttp.get(`/tournament/${idTournament}`)
                 .then(tournament => {
                     resolve(tournament);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.updateTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/tournament/${data.id}`, data)
+            authHttp.put(`/tournament/${data.id}`, data)
                 .then(tournament => {
                     resolve(tournament);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.deleteTournament]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/tournament/delete/${data.id}`)
+            authHttp.put(`/tournament/delete/${data.id}`)
                 .then(tournament => {
                     resolve(tournament);
                 })

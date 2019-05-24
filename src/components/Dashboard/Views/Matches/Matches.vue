@@ -33,7 +33,7 @@
   import { mapActions } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  const tableColumns = ['ID', 'Liga', 'Local', 'Visitante', 'Resultado']
+  const tableColumns = ['Liga', 'Local', 'Visitante', 'Resultado']
 
   export default {
     components: {

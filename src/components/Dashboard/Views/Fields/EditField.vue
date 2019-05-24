@@ -9,11 +9,10 @@
             </div>
             
             <div class="form-group col-sm-12">
-                <label for="Complex">Complejo</label>
-                <select class="form-control" id="Complex" name="Complex" v-model="Complex" required>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+                <label for="idComplex">Complejo</label>
+                <select class="form-control" id="idComplex" name="idComplex" v-model="idComplex" required>
+                    <option selected disabled>Elije una opción</option>
+                    <option v-for="option in complexOptions" :key="option.value" :value="option.value" :selected="option.value == idComplex">{{ option.text }}</option>
                 </select>
             </div>
             
@@ -32,17 +31,17 @@
 </template>
 
 <script>
-import DatePicker from 'vue2-datepicker';
 import fieldTypes from '@/types/field';
+import complexTypes from '@/types/complex';
 import { mapActions } from 'vuex';
 
 export default {
-    components: { DatePicker },
     data() {
         return {
             id: null,
-            FieldName: '',
-            Complex: '',
+            FieldName: null,
+            idComplex: null,
+            complexOptions: [],
             error: null
         }
     },
@@ -67,15 +66,15 @@ export default {
         },
          ...mapActions({
             update: fieldTypes.actions.updateField,
-            getField: fieldTypes.actions.getField
+            getField: fieldTypes.actions.getField,
+            getComplexes: complexTypes.actions.getComplexes
         }),
         getData() {
             this.getField(this.id)
             .then(field => {
-                console.log('field: ', field.data.data)
                 let newField = field.data.data;
                 this.FieldName = newField.FieldName
-                this.Complex = newField["Complex Detail"].id
+                this.idComplex = newField["Complex Detail"].id
             })
             .catch(err => console.log('err: ', err))
         },
@@ -85,7 +84,7 @@ export default {
                 this.update({
                     id: this.id,
                     FieldName: this.FieldName,
-                    Complex: this.Complex
+                    Complex: this.idComplex
                 })
                 .then(
                     field => {
@@ -98,7 +97,18 @@ export default {
                     }
                 )
             }
-        }
+        },
+        populateComplexes() {
+            this.getComplexes()
+            .then(complexes => {
+                complexes.data.data.forEach(e => {
+                    this.complexOptions.push({ text: e.ComplexName, value: e.id })
+                });
+            })
+        },
+    },
+    mounted() {
+        this.populateComplexes()
     }
 }
 </script>

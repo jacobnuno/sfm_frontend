@@ -1,7 +1,7 @@
 import types from '@/types/match';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -14,7 +14,7 @@ const actions = {
         console.log(data)
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/match/', data)
+            authHttp.post('/match/', data)
                 .then(match => {
                     resolve(match);
                 })
@@ -32,7 +32,7 @@ const actions = {
     [types.actions.getMatches]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/match/findall')
+            authHttp.get('/match/findall')
                 .then(matches => {
                     resolve(matches);
                 })
@@ -50,7 +50,7 @@ const actions = {
     [types.actions.getMatch]: ({ commit}, idMatch) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/match/${idMatch}`)
+            authHttp.get(`/match/${idMatch}`)
                 .then(match => {
                     resolve(match);
                 })
@@ -68,7 +68,7 @@ const actions = {
     [types.actions.updateMatch]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/match/${data.id}`, data)
+            authHttp.put(`/match/${data.id}`, data)
                 .then(match => {
                     resolve(match);
                 })
@@ -86,7 +86,7 @@ const actions = {
     [types.actions.deleteMatch]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/match/delete/${data.id}`)
+            authHttp.put(`/match/delete/${data.id}`)
                 .then(match => {
                     resolve(match);
                 })

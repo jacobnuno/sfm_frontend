@@ -1,7 +1,7 @@
 import types from '@/types/field';
 import globalTypes from '@/types/global';
 import Vue from 'vue';
-import { openHttp } from '@/utils/http';
+import { authHttp } from '@/utils/http';
 
 const state = {
 
@@ -13,7 +13,7 @@ const actions = {
     [types.actions.createField]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.post('/field/', data)
+            authHttp.post('/field/', data)
                 .then(field => {
                     resolve(field);
                 })
@@ -31,7 +31,7 @@ const actions = {
     [types.actions.getFields]: ({ commit }) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get('/field/findall')
+            authHttp.get('/field/findall')
                 .then(fields => {
                     resolve(fields);
                 })
@@ -49,7 +49,7 @@ const actions = {
     [types.actions.getField]: ({ commit}, idField) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.get(`/field/${idField}`)
+            authHttp.get(`/field/${idField}`)
                 .then(field => {
                     resolve(field);
                 })
@@ -67,7 +67,7 @@ const actions = {
     [types.actions.updateField]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/field/${data.id}`, data)
+            authHttp.put(`/field/${data.id}`, data)
                 .then(field => {
                     resolve(field);
                 })
@@ -85,7 +85,7 @@ const actions = {
     [types.actions.deleteField]: ({ commit}, data) => {
         commit(globalTypes.mutations.startProcessing);
         return new Promise((resolve, reject) =>  {
-            openHttp.put(`/field/delete/${data.id}`)
+            authHttp.put(`/field/delete/${data.id}`)
                 .then(field => {
                     resolve(field);
                 })

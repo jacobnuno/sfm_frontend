@@ -103,7 +103,7 @@ library.add(faTrashAlt)
           text: 'No podrás revertir esta acción',
           type: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Elimimar',
+          confirmButtonText: 'Eliminar',
           cancelButtonText: 'Cancelar',
           showCloseButton: true,
           showLoaderOnConfirm: true

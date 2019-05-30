@@ -9,7 +9,8 @@ export default namespace('match', {
         'getMatches',
         'getMatch',
         'updateMatch',
-        'deleteMatch'
+        'deleteMatch',
+        'getResultMatch'
     ],
     mutations: [
         

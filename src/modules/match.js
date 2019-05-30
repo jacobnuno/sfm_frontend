@@ -98,7 +98,25 @@ const actions = {
                     commit(globalTypes.mutations.stopProcessing);
                 })
         })
-    }
+    },
+
+    // get result match
+    [types.actions.getResultMatch]: ({ commit}, idMatch) => {
+        commit(globalTypes.mutations.startProcessing);
+        return new Promise((resolve, reject) =>  {
+            authHttp.get(`/match/result/${idMatch}`)
+                .then(result => {
+                    resolve(result);
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err);
+                })
+                .finally(() => {
+                    commit(globalTypes.mutations.stopProcessing);
+                })
+        })
+    },
 };
 
 const getters = {

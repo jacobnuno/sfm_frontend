@@ -33,7 +33,7 @@
   import { mapActions } from 'vuex';
   import LTable from 'src/components/UIComponents/Table.vue'
   import Card from 'src/components/UIComponents/Cards/Card.vue'
-  const tableColumns = ['Liga', 'Local', 'Visitante', 'Resultado']
+  const tableColumns = ['Local', 'Visitante', 'Ganador', 'Jornada', 'Unidad', 'Árbitro']
 
   export default {
     components: {
@@ -53,25 +53,29 @@
     methods: {
       ...mapActions({
         getMatches: matchTypes.actions.getMatches,
+        getResultMatch: matchTypes.actions.getResultMatch,
         //getMatchDetails: matchDetailTypes.actions.getMatchDetails
       }),
       gridData() {
         this.getMatches()
           .then(matches => {
-            console.log(matches)
+            //console.log(matches)
             matches.data.data.forEach(e => {
               
               let element = {
                 'id': e.id,
-                'liga': e.IdLeague.LeagueName,
                 'local': e.IdLocal.TeamName,
                 'visitante': e.IdGuest.TeamName,
-                'resultado': ''
+                'ganador': (e.Winner == e.IdLocal.id) ? e.IdLocal.TeamName : e.IdGuest.TeamName,
+                'jornada': e.Season,
+                'unidad': e.IdField["Complex Detail"].ComplexName,
+                'árbitro': e.IdReferee.FirstName + " " + e.IdReferee.LastName
               }
               this.table1.data.push(element)
             });
           })
-      },/*
+      },
+      /*
       populateMatchDetails() {
         this.getMatchDetails()
           .then(matchDetails => {
